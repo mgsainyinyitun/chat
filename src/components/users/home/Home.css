@@ -1,0 +1,16 @@
+
+.home-header{
+    background-color: rgb(51, 3, 73);
+    height: 5vh;
+}
+.home-footer{
+    background-color: rgb(51, 3, 73);
+    height: 5vh;
+}
+.home-side{
+    grid-area: menu;
+}
+.home-main{
+    background-color: lightblue;
+    grid-area: main;
+}
