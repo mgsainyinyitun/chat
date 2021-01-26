@@ -11,7 +11,7 @@ class LoginPage extends React.Component{
         return (
         <div className="d-flex justify-content-center align-items-center login-background">
           <Card>
-              <h2 className='header mb-5'>Hello,Friend Please Login</h2>
+              <h2 className='header mb-5 mr-5 ml-5'>Hello,Friend Please Login</h2>
               <LoginForm/>
           </Card>
         </div>

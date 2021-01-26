@@ -1,38 +1,57 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import {Switch} from 'antd';
 import LeftNavigation from '../../../components/leftNavigation/LeftNavigation';
 import './Home.css';
+import { PAGE } from '../../../routes/constant';
+import MainChat from '../../chats/MainChat';
+import Profile from '../Profile/Profile';
+import Main from './Main';
 
 class Home extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            darkmode:true,
+            theme:'light',
         }
     }
+    changeTheme = value => {
+        this.setState({
+          theme: value ? 'dark' : 'light',
+        });
+    };
+
+    renderBody = (page) => {
+        console.log(page)
+        switch (page) {
+            case PAGE.USERS.HOME:
+                return <Main theme = {this.state.theme}/>
+            case PAGE.FRIENDS.CHAT:
+                return <MainChat/>
+            case PAGE.USERS.PROFILE:
+                return <Profile/>
+            default:
+                return <div>Nothing</div>
+        }
+    }
+
     render(){
+        const mode = this.state.theme==='dark'?'home-dark':'home-light'
+        const mainMode = this.state.theme==='dark'?'main-dark w-100':'main-light w-100';
         return(
             <div className='h-100'>
-                <div className='home-header'></div>
+                <div className={mode}>
+                </div>
+                <hr style={{margin:0}}/>
+
                 <div className='d-flex'>
-                <LeftNavigation/>
-                <div className='home-main w-100'> 
-                    <nav>
-                        <ul>
-                            <li>
-                            <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                            <Link to="/login">login</Link>
-                            </li>
-                            <li>
-                            <Link to="/register">register</Link>
-                            </li>
-                        </ul>
-                    </nav>
+                <LeftNavigation theme={this.state.theme} changeTheme = {this.changeTheme} />
+
+                <div className={mainMode}> 
+                {this.renderBody(this.props.page)}
                 </div>
                 </div>
-                <div className='home-footer'></div>
+                <hr style={{margin:0}}/>
+                <div className={mode}></div> 
             </div>
         )
     }

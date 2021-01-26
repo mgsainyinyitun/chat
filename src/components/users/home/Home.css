@@ -1,16 +1,22 @@
+.home-dark{
+    background-color: rgb(51, 3, 73);
+    height: 5vh;
+}
+.home-light{
+    background-color: white;
+    height: 5vh;
+}
 
-.home-header{
-    background-color: rgb(51, 3, 73);
-    height: 5vh;
-}
-.home-footer{
-    background-color: rgb(51, 3, 73);
-    height: 5vh;
-}
-.home-side{
-    grid-area: menu;
-}
-.home-main{
-    background-color: lightblue;
+.main-dark{
+    background-color: rgb(13, 52, 65);
     grid-area: main;
+}
+.main-light{
+    background-color: white;
+}
+
+.ant-card-body {
+    border-width: 0px;
+    padding: 0px;
+    margin: 0px;
 }
