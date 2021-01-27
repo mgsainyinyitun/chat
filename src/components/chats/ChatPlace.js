@@ -8,7 +8,7 @@ class ChatPlace extends React.Component{
             <>
             <h3 style={{backgroundColor:"white",padding:10,border:"1px black",color:'blue'}}>Sai Nyi</h3>
             <Card 
-                style={{height:"67%",overflow:'scroll'}}
+                style={{height:"80%"}}
             >
                 <MessageList/>   
             </Card>

@@ -1,11 +1,13 @@
 import React from 'react';
-import {Switch} from 'antd';
+import {connect} from 'react-redux';
 import LeftNavigation from '../../../components/leftNavigation/LeftNavigation';
 import './Home.css';
 import { PAGE } from '../../../routes/constant';
 import MainChat from '../../chats/MainChat';
 import Profile from '../Profile/Profile';
 import Main from './Main';
+import Group from '../../Groups/Groups';
+import {changeDarkTheme,changeLightTheme} from '../../../redux/actions';
 
 class Home extends React.Component{
     constructor(props){
@@ -21,7 +23,7 @@ class Home extends React.Component{
     };
 
     renderBody = (page) => {
-        console.log(page)
+        console.log(this.props.match.params.id)
         switch (page) {
             case PAGE.USERS.HOME:
                 return <Main theme = {this.state.theme}/>
@@ -29,12 +31,18 @@ class Home extends React.Component{
                 return <MainChat/>
             case PAGE.USERS.PROFILE:
                 return <Profile/>
+            case PAGE.FRIENDS.GROUPS.MAIN:
+                return <Group theme = {this.state.theme}/>
+            case PAGE.FRIENDS.GROUPS.CHAT:
+                console.log('group friend chat')
+                return <MainChat />
             default:
                 return <div>Nothing</div>
         }
     }
 
     render(){
+        console.log("theme,'",this.props);
         const mode = this.state.theme==='dark'?'home-dark':'home-light'
         const mainMode = this.state.theme==='dark'?'main-dark w-100':'main-light w-100';
         return(
@@ -56,4 +64,7 @@ class Home extends React.Component{
         )
     }
 }
-export default Home;
+const mapStateToProps = (state) => {
+    return state;
+}
+export default connect(mapStateToProps,{changeDarkTheme,changeLightTheme})(Home);

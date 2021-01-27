@@ -1,16 +1,36 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
+import {connect} from 'react-redux';
+import {registerUser} from '../../../redux/actions';
 
 
 class RegisterForm extends React.Component{
+    constructor(props){
+      super(props);
+      this.state = {
+        username:'',
+        email:'',
+        phone:'',
+        password:'',
+      }
+    }
+
     onFinish = (values) => {
-        console.log('Success:', values);
+      this.setState({
+        username:values.username,
+        email:values.email,
+        phone:values.phone,
+        password:values.password,
+      })
+      console.log('Success:', this.state);
+      this.props.registerUser(this.state);
     };
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
     render(){
+      console.log("props",this.props);
         return (
             <Form
               name="basic"
@@ -90,4 +110,10 @@ class RegisterForm extends React.Component{
 
     }
 }
-export default RegisterForm;
+
+const mapStateToProps = state =>{
+  console.log("state is tar tar ::",state);
+  return state;
+}
+
+export default connect(mapStateToProps,{registerUser})(RegisterForm);

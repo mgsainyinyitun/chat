@@ -60,36 +60,4 @@ export const messages = [
         time:'5:32',
         person:'you',
     },
-    {
-        text:'And u , what are u doing',
-        time:'5:32',
-        person:'you',
-    },
-    ,
-    {
-        text:'Just chatting with u',
-        time:'5:32',
-        person:'friend',
-    },,
-    {
-        text:'what u are doing right now',
-        time:'5:32',
-        person:'friend',
-    },
-    {
-        text:'Nothing special',
-        time:'5:32',
-        person:'you',
-    },
-    {
-        text:'And u , what are u doing',
-        time:'5:32',
-        person:'you',
-    },
-    ,
-    {
-        text:'Just chatting with u',
-        time:'5:32',
-        person:'friend',
-    }
 ]

@@ -8,8 +8,7 @@ class MessageList extends React.Component{
         return(
             <div 
              className="d-flex flex-column align-items-end"
-             
-            >
+             >
                 <MessageItem messages = {messages} />
             </div>
         );
