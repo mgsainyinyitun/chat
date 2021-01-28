@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import Home from '../components/users/home/Home';
 import LoginPage from '../components/users/Login/LoginPage';
+import Logout from '../components/users/Logout/Logout';
 import RegisterPage from '../components/users/Register/RegisterPage';
 import {PAGE,ROUTE } from './constant';
 export default [
@@ -28,5 +29,11 @@ export default [
     path = {ROUTE.USERS.PROFILE}
     exact
     component = {(props) => <Home {...props} page = {PAGE.USERS.PROFILE} /> }
-  />
+  />,
+  <Route
+    key = "5"
+    path = {ROUTE.USERS.LOGOUT}
+    exact
+    component = {(props) => <Logout {...props} />} 
+  />,
 ]

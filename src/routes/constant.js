@@ -4,6 +4,7 @@ export const ROUTE = {
         LOGIN:'/login',
         REGISTER:'/register',
         PROFILE:'/profile',
+        LOGOUT:'/logout',
     },
     FRIENDS:{
         CHAT:'/friends/chat',
@@ -18,6 +19,7 @@ export const PAGE = {
     USERS:{
         HOME:'user.main.home',
         PROFILE:'user.profile',
+        LOGOUT:'user.logout',
     },
     FRIENDS:{
         CHAT:'friends.chat.page',

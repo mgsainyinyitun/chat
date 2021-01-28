@@ -1,17 +1,49 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
-
+import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+import {loginUser} from '../../../redux/actions';
+import history from '../../../history';
+import { USER } from '../../../redux/actions/Types';
+import { ROUTE } from '../../../routes/constant';
 
 class LoginForm extends React.Component{
+    constructor (props) {
+      super(props);
+      this.state = {
+        login:false,
+        authUser:{
+          username:'',
+          password:'',
+        }
+      }
+    }
+
     onFinish = (values) => {
         console.log('Success:', values);
+        this.setState({
+          authUser:{
+            username:values.username,
+            password:values.password,
+          }
+        })
+        this.props.loginUser(this.state.authUser);
+        this.setState({
+          login:true,
+        })
+        
     };
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    render(){
+    render = () =>  {
+      if(this.state.login){
+        return <Redirect to={ROUTE.USERS.HOME} />
+      }
+     
         return (
+            
             <Form
               name="basic"
               initialValues={{
@@ -60,4 +92,7 @@ class LoginForm extends React.Component{
 
     }
 }
-export default LoginForm;
+const mapStateToProps = state => {
+  return state;
+}
+export default connect(mapStateToProps,{loginUser})(LoginForm);

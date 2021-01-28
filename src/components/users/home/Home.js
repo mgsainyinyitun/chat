@@ -8,6 +8,8 @@ import Profile from '../Profile/Profile';
 import Main from './Main';
 import Group from '../../Groups/Groups';
 import {changeDarkTheme,changeLightTheme} from '../../../redux/actions';
+import Account from '../Account/Account';
+import 'animate.css';
 
 class Home extends React.Component{
     constructor(props){
@@ -47,7 +49,8 @@ class Home extends React.Component{
         const mainMode = this.state.theme==='dark'?'main-dark w-100':'main-light w-100';
         return(
             <div className='h-100'>
-                <div className={mode}>
+                <div className={`${mode} d-flex flex-row-reverse`}>
+                    <Account/>
                 </div>
                 <hr style={{margin:0}}/>
 
@@ -55,7 +58,7 @@ class Home extends React.Component{
                 <LeftNavigation theme={this.state.theme} changeTheme = {this.changeTheme} />
 
                 <div className={mainMode}> 
-                {this.renderBody(this.props.page)}
+                    {this.renderBody(this.props.page)}
                 </div>
                 </div>
                 <hr style={{margin:0}}/>
