@@ -3,8 +3,6 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import {loginUser} from '../../../redux/actions';
-import history from '../../../history';
-import { USER } from '../../../redux/actions/Types';
 import { ROUTE } from '../../../routes/constant';
 
 class LoginForm extends React.Component{

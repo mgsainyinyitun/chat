@@ -2,8 +2,8 @@ import React from 'react';
 import {
     Switch,
   } from "react-router-dom";
-import userRoute from '../routes/UserRoute';
-import friendRoute from '../routes/FriendsRoute';
+import {UserRoute} from '../routes/UserRoute';
+import {FriendsRoute} from '../routes/FriendsRoute';
 
 class App extends React.Component{
     
@@ -12,8 +12,8 @@ class App extends React.Component{
         return(
             <div className='h-100'>
                 <Switch>
-                    {userRoute}
-                    {friendRoute}
+                    {UserRoute}
+                    {FriendsRoute}
                 </Switch>
             </div>
             

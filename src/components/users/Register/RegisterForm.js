@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import {connect} from 'react-redux';
 import {registerUser} from '../../../redux/actions';
 

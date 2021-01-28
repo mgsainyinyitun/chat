@@ -2,7 +2,7 @@ import React from 'react';
 import App from "./components/App";
 import ReactDom from 'react-dom';
 import 'antd/dist/antd.css'; 
-import {BrowserRouter as Router} from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import history from "./history";
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';

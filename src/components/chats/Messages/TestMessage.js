@@ -44,7 +44,6 @@ export const messages = [
         time:'5:32',
         person:'you',
     },
-    ,
     {
         text:'Just chatting with u',
         time:'5:32',

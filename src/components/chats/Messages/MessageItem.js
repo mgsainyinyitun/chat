@@ -4,6 +4,9 @@ import './Message.css';
 class MessageItem extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            
+        }
     }
 
     renderMessage(messages){

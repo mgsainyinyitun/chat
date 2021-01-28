@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import {ROUTE,PAGE} from './constant';
 import Home from '../components/users/home/Home';
 
-export default [
+export const FriendsRoute =   [
     <Route
         key = '1'
         path = {ROUTE.FRIENDS.CHAT}
