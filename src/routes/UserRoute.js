@@ -5,7 +5,7 @@ import LoginPage from '../components/users/Login/LoginPage';
 import Logout from '../components/users/Logout/Logout';
 import RegisterPage from '../components/users/Register/RegisterPage';
 import {PAGE,ROUTE } from './constant';
-export default [
+export const UserRoute = [
   <Route
     key="1"
     path={ROUTE.USERS.HOME}

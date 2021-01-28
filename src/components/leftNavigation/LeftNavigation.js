@@ -3,7 +3,7 @@ import { Menu, Switch } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser,faUserFriends,faCog,faUsers,faHome } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
-import { ROUTE,PAGE } from '../../routes/constant';
+import { ROUTE } from '../../routes/constant';
 
 const { SubMenu } = Menu;
 
