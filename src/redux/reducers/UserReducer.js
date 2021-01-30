@@ -10,10 +10,10 @@ export const registerUserReducer =  (state = [], action ) => {
     }
 }
 
-export const loginUserReducer = (state = [] , action ) => {
+export const loginUserReducer = (state = null , action ) => {
     switch (action.type) {
         case USER.LOGIN:
-            return [...state,action.payload]
+            return action.payload;
         default: return state;
     }
 }

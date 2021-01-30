@@ -1,34 +1,27 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
 import {loginUser} from '../../../redux/actions';
-import { ROUTE } from '../../../routes/constant';
 
 class LoginForm extends React.Component{
     constructor (props) {
       super(props);
       this.state = {
-        login:false,
         authUser:{
-          username:'',
+          email:'',
           password:'',
         }
       }
     }
 
     onFinish = (values) => {
-        console.log('Success:', values);
         this.setState({
           authUser:{
-            username:values.username,
+            email:values.email,
             password:values.password,
           }
         })
         this.props.loginUser(this.state.authUser);
-        this.setState({
-          login:true,
-        })
         
     };
     onFinishFailed = (errorInfo) => {
@@ -36,14 +29,13 @@ class LoginForm extends React.Component{
     };
 
     render = () =>  {
-      if(this.state.login){
-        return <Redirect to={ROUTE.USERS.HOME} />
-      }
-     
+      console.log(this.props);
+ 
         return (
             
             <Form
               name="basic"
+              layout="vertical"
               initialValues={{
                 remember: true,
               }}
@@ -51,12 +43,12 @@ class LoginForm extends React.Component{
               onFinishFailed={this.onFinishFailed}
             >
               <Form.Item
-                label="Username"
-                name="username"
+                label="E-mail"
+                name="email"
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your username!',
+                    message: 'Please input your E-mail!',
                   },
                 ]}
               >
@@ -94,3 +86,7 @@ const mapStateToProps = state => {
   return state;
 }
 export default connect(mapStateToProps,{loginUser})(LoginForm);
+
+
+/// uid - cPDp9qQn59Wb5J3rvER8Symq22D3
+/// uid - cPDp9qQn59Wb5J3rvER8Symq22D3

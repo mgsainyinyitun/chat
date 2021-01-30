@@ -9,7 +9,7 @@ const devMode = MODES.DEV;
 let config = {};
 
 if (devMode === MODES.DEV) {
-	const config = {
+	 config = {
         apiKey: "AIzaSyC8J8n8xCsHVQ9sjuRz4vhN4uwDHqtcHrs",
         authDomain: "web-messenger-sainyi-068390.firebaseapp.com",
         databaseURL: "https://web-messenger-sainyi-068390.firebaseio.com",

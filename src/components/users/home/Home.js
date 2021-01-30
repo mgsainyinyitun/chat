@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import LeftNavigation from '../../../components/leftNavigation/LeftNavigation';
 import './Home.css';
-import { PAGE } from '../../../routes/constant';
+import { PAGE, ROUTE } from '../../../routes/constant';
 import MainChat from '../../chats/MainChat';
 import Profile from '../Profile/Profile';
 import Main from './Main';
@@ -10,6 +10,8 @@ import Group from '../../Groups/Groups';
 import {changeDarkTheme,changeLightTheme} from '../../../redux/actions';
 import Account from '../Account/Account';
 import 'animate.css';
+import { Redirect } from 'react-router-dom';
+import { auth } from '../../../firebase';
 
 class Home extends React.Component{
     constructor(props){
@@ -44,9 +46,14 @@ class Home extends React.Component{
     }
 
     render(){
-        console.log("theme,'",this.props);
+        console.log("theme",this.props);
         const mode = this.state.theme==='dark'?'home-dark':'home-light'
         const mainMode = this.state.theme==='dark'?'main-dark w-100':'main-light w-100';
+
+        if(auth.currentUser === null){
+            return <Redirect to={ROUTE.USERS.LOGIN} />
+        }
+
         return(
             <div className='h-100'>
                 <div className={`${mode} d-flex flex-row-reverse`}>

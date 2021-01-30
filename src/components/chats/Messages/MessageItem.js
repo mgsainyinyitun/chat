@@ -14,7 +14,7 @@ class MessageItem extends React.Component{
         return messages.map( message => {
             const align = message.person ==='friend'?'align-self-start':'align-self-end';
             return(
-                <div className={align}>
+                <div className={align} key= {messages.text}>
                     <span className="message">
                         {message.text}
                     </span>
