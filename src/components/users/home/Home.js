@@ -11,7 +11,8 @@ import {changeDarkTheme,changeLightTheme,OnAuthStateChanged} from '../../../redu
 import Account from '../Account/Account';
 import 'animate.css';
 import { Redirect } from 'react-router-dom';
-import {Spin} from 'antd';
+import { Spin } from 'antd';
+import AddFriendModal from './Friends/AddFriendModal';
 
 class Home extends React.Component{
     constructor(props){
@@ -19,6 +20,8 @@ class Home extends React.Component{
         this.state={
             theme:'light',
             fetching:true,
+
+            addFriendModalVisible:false,
         }
     }
     componentDidMount = () => {
@@ -68,13 +71,22 @@ class Home extends React.Component{
                     <hr style={{margin:0}}/>
     
                     <div className='d-flex'>
-                        <LeftNavigation theme={this.state.theme} changeTheme = {this.changeTheme} />
+                        <LeftNavigation 
+                            theme={this.state.theme} 
+                            changeTheme = {this.changeTheme} 
+                            onAddFriend = {()=>this.setState({addFriendModalVisible:true})}
+                        />
                     <div className={mainMode}> 
                         {this.renderBody(this.props.page)}
                     </div>
                     </div>
                     <hr style={{margin:0}}/>
                     <div className={mode}></div> 
+
+                    <AddFriendModal
+                        visible={this.state.addFriendModalVisible}
+                        onCancel={()=>this.setState({addFriendModalVisible:false})}
+                    />
                 </div>
             )
         }else if(this.props.fetching){

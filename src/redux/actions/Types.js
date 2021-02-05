@@ -10,3 +10,11 @@ export const THEME = {
     LIGHT:'light.theme',
     DARK:'dark.theme',
 }
+
+export const FRIENDS = {
+    SEARCH:{
+        LIST:'friend.search.list',
+    },
+    ADD:'add.friend',
+
+}

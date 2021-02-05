@@ -1,7 +1,7 @@
 import React from "react";
-import { Menu, Switch } from 'antd';
+import { Menu, Switch,Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser,faUserFriends,faCog,faUsers,faHome } from '@fortawesome/free-solid-svg-icons'
+import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
 import { ROUTE } from '../../routes/constant';
 
@@ -39,6 +39,11 @@ class LeftNavigation extends React.Component{
           <Link to="/profile">PROFILE</Link>
           </Menu.Item>
           <SubMenu key="sub2" icon={<FontAwesomeIcon icon = {faUserFriends} style={{marginRight:'10px'}}/>} title="FRIENDS">
+            <Menu.Item key="add-friend">
+              <Button 
+                onClick={this.props.onAddFriend}
+              ><FontAwesomeIcon icon={faPlus} style={{marginRight:10}}/> ADD FRIENDS</Button>
+            </Menu.Item>
             <Menu.Item key="5"><Link to="/friends/chat">ExampleFrient</Link></Menu.Item>
             <Menu.Item key="6">ExampleFrient</Menu.Item>   
           </SubMenu>
