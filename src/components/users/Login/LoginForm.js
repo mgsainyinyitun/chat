@@ -22,7 +22,6 @@ class LoginForm extends React.Component{
           }
         })
         this.props.loginUser(this.state.authUser);
-        
     };
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);

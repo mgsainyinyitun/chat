@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
-import {registerUserReducer,loginUserReducer} from './UserReducer';
+import {UserAuthReducer} from './UserReducer';
 import {themeReducer} from './GeneralReducer';
+import { USER } from '../actions/Types';
 
 const appReducer = combineReducers({
-    authUser:loginUserReducer,
-    users:registerUserReducer,
+    authUser:UserAuthReducer,
     theme:themeReducer,
 });
 

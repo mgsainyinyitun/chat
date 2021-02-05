@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import {connect} from 'react-redux';
-import {registerUser} from '../../../redux/actions';
+import {SignUp} from '../../../redux/actions';
 
 
 class RegisterForm extends React.Component{
@@ -12,19 +12,42 @@ class RegisterForm extends React.Component{
         email:'',
         phone:'',
         password:'',
+        error:null,
       }
+    }
+    checkPassword({password,confirmpassword}){
+      if(password !== confirmpassword){
+        this.setState({
+          error:'Password does not match',
+        })
+        console.log(this.state.error);
+        return false;
+      }
+      return true;
     }
 
     onFinish = (values) => {
-      this.setState({
-        username:values.username,
-        email:values.email,
-        phone:values.phone,
-        password:values.password,
-      })
-      console.log('Success:', this.state);
-      this.props.registerUser(this.state);
+      if(this.checkPassword(values)){
+        console.log('success');
+        this.setState({
+          username:values.username,
+          email:values.email,
+          phone:values.phone,
+          password:values.password,
+        })
+        this.props.SignUp(this.state);
+      }
+      // this.setState({
+      //   username:values.username,
+      //   email:values.email,
+      //   phone:values.phone,
+      //   password:values.password,
+      // })
+      // console.log('Success:', this.state);
+      // this.props.registerUser(this.state);
     };
+
+
     onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
@@ -89,7 +112,7 @@ class RegisterForm extends React.Component{
 
               <Form.Item
                 label="Confirm Password"
-                name="comfirm-password"
+                name="confirmpassword"
                 rules={[
                   {
                     required: true,
@@ -116,4 +139,4 @@ const mapStateToProps = state =>{
   return state;
 }
 
-export default connect(mapStateToProps,{registerUser})(RegisterForm);
+export default connect(mapStateToProps,{SignUp})(RegisterForm);

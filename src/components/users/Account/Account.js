@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt,faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../../routes/constant';
-
+import {connect} from 'react-redux';
+import {SignOut} from '../../../redux/actions';
 
 const menu = (
     <Menu>
@@ -14,7 +15,8 @@ const menu = (
             Edit Profile
         </Menu.Item>
         <Menu.Item>
-            <Link to = {ROUTE.USERS.LOGOUT}>
+            <Link to = {ROUTE.USERS.LOGOUT} onClick={SignOut}>
+                
                 <FontAwesomeIcon icon={faSignOutAlt} style={{marginRight:5}} />
                 Logout
             </Link>
@@ -34,5 +36,8 @@ class Account extends React.Component {
         )
     }
 }
+const mapStateToProps = (state)=>{
+    return state;
 
-export default Account;
+}
+export default connect(mapStateToProps,SignOut)(Account);

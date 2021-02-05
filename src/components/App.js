@@ -6,7 +6,6 @@ import {UserRoute} from '../routes/UserRoute';
 import {FriendsRoute} from '../routes/FriendsRoute';
 
 class App extends React.Component{
-    
 
     render(){
         return(
