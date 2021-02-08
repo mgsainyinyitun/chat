@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Switch,Button } from 'antd';
+import { Menu, Switch,Button,Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
@@ -13,6 +13,10 @@ class LeftNavigation extends React.Component{
      current: '1',
  }
 
+  componentDidUpdate = () =>{
+    console.log("Friends Left",this.props.friends);
+  }
+
 
   handleClick = e => {
     console.log('click ', e);
@@ -20,6 +24,35 @@ class LeftNavigation extends React.Component{
       current: e.key,
     });
   };
+
+
+  renderFriends = (friends) =>{
+    return friends.map(friend =>{
+      return (
+        
+        <Menu.Item 
+          key={friend.uid}
+          icon={<FontAwesomeIcon icon = {faUser} style={{marginRight:'10px'}}/>}
+          title={friend.username}
+        >
+          <Link to="/friends/chat">
+            <span>{friend.username}</span>
+          </Link>
+          {
+            friend.status === 'pending'?
+            <span style={{marginLeft:10}}>
+            <Badge count={"pending"} className="site-badge-count-4" />
+          </span>:null
+          }
+          
+          
+        </Menu.Item>
+        
+        
+      )
+    })
+
+  }
 
  render(){
      return(
@@ -44,8 +77,8 @@ class LeftNavigation extends React.Component{
                 onClick={this.props.onAddFriend}
               ><FontAwesomeIcon icon={faPlus} style={{marginRight:10}}/> ADD FRIENDS</Button>
             </Menu.Item>
-            <Menu.Item key="5"><Link to="/friends/chat">ExampleFrient</Link></Menu.Item>
-            <Menu.Item key="6">ExampleFrient</Menu.Item>   
+            {this.renderFriends(this.props.friends)}
+
           </SubMenu>
           <SubMenu key="sub3" icon={<FontAwesomeIcon icon = {faUsers} style={{marginRight:'10px'}}/>} title="GROUPS">
             <Menu.Item key="9">

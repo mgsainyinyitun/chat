@@ -1,6 +1,7 @@
 import { USER } from "./Types"
 import {auth,db, fb} from '../../firebase';
 import history from "../../history";
+import {getFriendsList} from "../actions";
 
 //  export const  OnAuthStateChanged = () => {
 //      console.log("Call for onAuthSateChanged")
@@ -43,8 +44,8 @@ import history from "../../history";
 // 	return Promise.resolve();
 // };
 
-export const onAuthStateChanged = ()  => dispatch => {
-    return  fb.auth().onAuthStateChanged(async (user) => {
+export const onAuthStateChanged = ()  =>  dispatch => {
+    return  fb.auth().onAuthStateChanged((user) => {
         if(user){
             console.log("onAuthStateChanged: ",user);
             console.log("onAuthStateChanged: uid",user.uid);
@@ -52,13 +53,13 @@ export const onAuthStateChanged = ()  => dispatch => {
                 type:USER.LOGIN,
                 payload:{user}
             })
-            await getUserProfile(user.uid,dispatch);
-        
+            getUserProfile(user.uid,dispatch)
         }else{
             console.log("no user");
             dispatch({type:USER.SIGNOUT})
         }
     });
+    
 }
 
 
@@ -87,18 +88,6 @@ export const loginUser = (info) => {
     }
 }
 
-
-
-
-const SendEmailVerification = (auth) => {
-    let user = auth.currentUser;
-    user.sendEmailVerification().then(function() {
-        console.log('email verification sent');
-    }).catch(err => {
-        console.log(err);
-    })
-}
-
 const SignUpSetUserProfile = (data)  => {
     const ref = db.collection("users").doc();
     data.docId = ref.id;
@@ -112,10 +101,11 @@ const SignUpSetUserProfile = (data)  => {
 
 export const getUserProfile = (uid,dispatch) =>{
     console.log("UID to get::",uid);
+    let docId;
     const ref = db.collection("users").where("uid","==",uid)
     return ref.get().then( docs =>{
         docs.forEach(doc=>{
-            console.log(doc.data());
+            console.log("doc data is",doc.data());
             dispatch({
                 type:USER.SETPROFILEDATA,
                 payload:doc.data()

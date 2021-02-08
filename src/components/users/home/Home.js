@@ -11,8 +11,9 @@ import {changeDarkTheme,changeLightTheme} from '../../../redux/actions';
 import Account from '../Account/Account';
 import 'animate.css';
 import { Redirect } from 'react-router-dom';
-import { Spin } from 'antd';
+import { Spin,Drawer } from 'antd';
 import AddFriendModal from './Friends/AddFriendModal';
+import NotificationDrawer from './NotificationDrawer/NotificationDrawer';
 
 class Home extends React.Component{
     constructor(props){
@@ -23,6 +24,7 @@ class Home extends React.Component{
 
             addFriendModalVisible:false,
             authUserName:'',
+            notiDrawerVisible:false,
         }
     }
     changeTheme = value => {
@@ -30,11 +32,21 @@ class Home extends React.Component{
           theme: value ? 'dark' : 'light',
         });
     };
+
     componentDidUpdate = () =>{
        console.log("Final State:",this.props);
     }
-   
 
+    openNotiDrawer = ()=>{
+        this.setState({
+            notiDrawerVisible:true,
+        })
+    }
+    onNotiDrawerClose = () =>{
+        this.setState({
+            notiDrawerVisible:false,
+        })
+    }
     renderBody = (page) => {
         switch (page) {
             case PAGE.USERS.HOME:
@@ -65,9 +77,9 @@ class Home extends React.Component{
             return(
                 <div className='h-100'>
                     <div className={`${mode} d-flex flex-row-reverse justify-content-between`}>
-                        
-                        <Account
+                        <Account 
                             userinfo = {this.props.authUser.user}
+                            openNotiDrawer={this.openNotiDrawer}
                         />
                     </div>
                     <hr style={{margin:0}}/>
@@ -77,6 +89,7 @@ class Home extends React.Component{
                             theme={this.state.theme} 
                             changeTheme = {this.changeTheme} 
                             onAddFriend = {()=>this.setState({addFriendModalVisible:true})}
+                            friends = {this.props.friend.friends_list}
                         />
                     <div className={mainMode}> 
                         {this.renderBody(this.props.page)}
@@ -84,7 +97,10 @@ class Home extends React.Component{
                     </div>
                     <hr style={{margin:0}}/>
                     <div className={mode}></div> 
-
+                    <NotificationDrawer
+                        visible={this.state.notiDrawerVisible}
+                        onClose={this.onNotiDrawerClose}
+                    />
                     <AddFriendModal
                         visible={this.state.addFriendModalVisible}
                         onCancel={()=>this.setState({addFriendModalVisible:false})}
@@ -99,7 +115,8 @@ class Home extends React.Component{
 const mapStateToProps = (state) => {
     return state;
 }
-export default connect(mapStateToProps,{changeDarkTheme,changeLightTheme})(Home);
+export default connect(mapStateToProps,
+    {changeDarkTheme,changeLightTheme})(Home);
 
 
 

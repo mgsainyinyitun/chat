@@ -17,5 +17,8 @@ export const FRIENDS = {
     },
     ADD:'add.friend',
     SUCCESS_ADD_FRIEND:'add.friend.success',
+    SUCCESS_ADD_FRIEND_REQUEST:'add.friend.request.to.list',
+    REMOVE_FRIEND_REQUEST:'remove.friend.request',
+    EDIT_FRIEND_DATA:'edit.friend.data',
 
 }

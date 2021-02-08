@@ -14,15 +14,29 @@ class AddFriendModal extends React.Component {
         console.log("docId",find_friend[0].docId);
         console.log("Friend",find_friend[0]);
         find_friend[0].status = "pending";
-        this.props.addFriend(find_friend[0],find_friend[0].docId);
+        this.props.addFriend(find_friend[0],this.props.user);
 
     }
     componentDidUpdate = () =>{
         console.log("STATE IS::",this.props);
     }
+    checkInFriendsList = (friend) =>{
+        return this.props.friends_list.find((fri)=>{
+            return friend.uid = fri.uid;
+        })
+    }
 
     render(){
-        const friend = this.props.find_friend;
+        let friend = this.props.find_friend?this.props.find_friend:[];
+        if(friend.length !== 0){
+            let ansCheck = this.checkInFriendsList(friend);
+            console.log("Answer Check :",ansCheck);
+            if(ansCheck){
+                friend = [...friend,ansCheck]
+            }
+        }
+
+        console.log("Checked Friend:",friend,"Length:is",friend.length);
         return(
             <Modal
                 title={<h3 className="text-primary">ADD FRIEND</h3>}
@@ -52,7 +66,12 @@ class AddFriendModal extends React.Component {
                     renderItem={item => (
                         <List.Item>
                           <span className="text-primary">Username | {item.username}</span>
-                          <Button onClick={this.onAddFriend}>ADD</Button>
+                          {
+                            item.status?
+                            <Button onClick={this.onAddFriend}>{item.status}</Button>:
+                            <Button onClick={this.onAddFriend}>ADD</Button>
+                          }
+                          
                         </List.Item>
                       )}
                 />
@@ -64,7 +83,8 @@ class AddFriendModal extends React.Component {
 const mapStateToProps = state => {
     return {
         find_friend:state.friend.friend_search,
-        userId:state.authUser.uid,
+        friends_list:state.friend.friends_list,
+        user:state.authUser.user.data,
         allstate:state,
     };
 }

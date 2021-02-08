@@ -2,7 +2,7 @@ import { USER } from "../actions/Types";
 
 const INITIAL_STATE = {
     user:{
-        data:null,
+        data:{},
     }
 }
 

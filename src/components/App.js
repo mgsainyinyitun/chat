@@ -5,15 +5,29 @@ import {
   } from "react-router-dom";
 import {UserRoute} from '../routes/UserRoute';
 import {FriendsRoute} from '../routes/FriendsRoute';
-import { onAuthStateChanged,getUserProfile } from '../redux/actions';
+import { onAuthStateChanged,getFriendsList,getFriendsRequestList } from '../redux/actions';
 import {fb} from '../firebase';
+
+
+
 
 class App extends React.Component{
     constructor(props){
         super(props);
     }
-    componentDidMount = () =>{   
+    
+    componentDidMount = () =>{  
         this.props.onAuthStateChanged();
+    }
+    componentDidUpdate = () =>{
+        console.log("Props app:",this.props);
+        if(this.props.user){
+            this.props.getFriendsList(this.props.user.docId);
+            this.props.getFriendsRequestList(this.props.user.docId);
+        }else{
+            console.log("not ready")
+        }
+
     }
     render(){
         return(
@@ -27,7 +41,15 @@ class App extends React.Component{
         )
     }
 }
+
 const mapStateToProps = state =>{
-    return state;
+    let user = {};
+    if(state.authUser.user){
+        user = state.authUser.user.data
+    }
+    return {
+        user:user
+    };
 }
-export default connect(mapStateToProps,{onAuthStateChanged})(App);
+export default connect(mapStateToProps,
+    {onAuthStateChanged,getFriendsList,getFriendsRequestList})(App);
