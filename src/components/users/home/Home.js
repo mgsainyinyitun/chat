@@ -7,7 +7,7 @@ import MainChat from '../../chats/MainChat';
 import Profile from '../Profile/Profile';
 import Main from './Main';
 import Group from '../../Groups/Groups';
-import {changeDarkTheme,changeLightTheme,OnAuthStateChanged} from '../../../redux/actions';
+import {changeDarkTheme,changeLightTheme} from '../../../redux/actions';
 import Account from '../Account/Account';
 import 'animate.css';
 import { Redirect } from 'react-router-dom';
@@ -22,22 +22,18 @@ class Home extends React.Component{
             fetching:true,
 
             addFriendModalVisible:false,
+            authUserName:'',
         }
-    }
-    componentDidMount = () => {
-        console.log("promise is",this.props.OnAuthStateChanged());
-        this.props.OnAuthStateChanged()
-        .then(()=>{
-            this.setState({
-                fetching:false,
-            })
-        })
     }
     changeTheme = value => {
         this.setState({
           theme: value ? 'dark' : 'light',
         });
     };
+    componentDidUpdate = () =>{
+       console.log("Final State:",this.props);
+    }
+   
 
     renderBody = (page) => {
         switch (page) {
@@ -58,15 +54,21 @@ class Home extends React.Component{
     }
 
     render(){
-        console.log("theme",this.props);
         const mode = this.state.theme==='dark'?'home-dark':'home-light'
         const mainMode = this.state.theme==='dark'?'main-dark w-100':'main-light w-100';
-
+        if(this.props.authUser === null){ // user not login
+            return <Redirect to={ROUTE.USERS.LOGIN} />
+        }
+        
+    
         if(!this.props.fetching){ // not fetching
             return(
                 <div className='h-100'>
-                    <div className={`${mode} d-flex flex-row-reverse`}>
-                        <Account/>
+                    <div className={`${mode} d-flex flex-row-reverse justify-content-between`}>
+                        
+                        <Account
+                            userinfo = {this.props.authUser.user}
+                        />
                     </div>
                     <hr style={{margin:0}}/>
     
@@ -92,16 +94,12 @@ class Home extends React.Component{
         }else if(this.props.fetching){
             return <Spin/>
         }
-        
-        if(this.props.authUser === null){ // user not login
-            return <Redirect to={ROUTE.USERS.LOGIN} />
-        }
     }
 }
 const mapStateToProps = (state) => {
     return state;
 }
-export default connect(mapStateToProps,{changeDarkTheme,changeLightTheme,OnAuthStateChanged})(Home);
+export default connect(mapStateToProps,{changeDarkTheme,changeLightTheme})(Home);
 
 
 

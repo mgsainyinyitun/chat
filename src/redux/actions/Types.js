@@ -16,5 +16,6 @@ export const FRIENDS = {
         LIST:'friend.search.list',
     },
     ADD:'add.friend',
+    SUCCESS_ADD_FRIEND:'add.friend.success',
 
 }

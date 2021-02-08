@@ -1,24 +1,28 @@
 import { USER } from "./Types"
-import {auth,db} from '../../firebase';
+import {auth,db, fb} from '../../firebase';
 import history from "../../history";
 
- export const  OnAuthStateChanged = () => {
-     console.log("Call for onAuthSateChanged")
-     return async (dispatch) => {
-            auth.onAuthStateChanged((user) => {
-            if(user){
-                 console.log("User is ::",user);
-                 dispatch({
-                     type:USER.LOGIN,
-                     payload:{user}
-                 })
-             }else{
-                console.log("else else else ...")
-             }
-         } )
-     }
-     return Promise.resolve();
- };
+//  export const  OnAuthStateChanged = () => {
+//      console.log("Call for onAuthSateChanged")
+//      let authUser;
+//      return async (dispatch) => {
+//             auth.onAuthStateChanged((user) => {
+//             if(user){
+//                  console.log("User is ::",user);
+//                  authUser = user;
+//                  dispatch({
+//                      type:USER.LOGIN,
+//                      payload:{user}
+//                  })
+//                  getUserProfile(user.uid,dispatch);
+//              }else{
+//                 console.log("else else else ...")
+//              }
+//          } )
+         
+//      }
+//      return Promise.resolve();
+//  };
 
 // export const onAuthStateChanged = () => (dispatch) => {
 // 	auth.onAuthStateChanged(async (user) => {
@@ -39,6 +43,23 @@ import history from "../../history";
 // 	return Promise.resolve();
 // };
 
+export const onAuthStateChanged = ()  => dispatch => {
+    return  fb.auth().onAuthStateChanged(async (user) => {
+        if(user){
+            console.log("onAuthStateChanged: ",user);
+            console.log("onAuthStateChanged: uid",user.uid);
+            dispatch({
+                type:USER.LOGIN,
+                payload:{user}
+            })
+            await getUserProfile(user.uid,dispatch);
+        
+        }else{
+            console.log("no user");
+            dispatch({type:USER.SIGNOUT})
+        }
+    });
+}
 
 
 
@@ -80,6 +101,7 @@ const SendEmailVerification = (auth) => {
 
 const SignUpSetUserProfile = (data)  => {
     const ref = db.collection("users").doc();
+    data.docId = ref.id;
     return ref.set(data).then(()=>{
         console.log("successfully write user profile");
     })
@@ -88,7 +110,7 @@ const SignUpSetUserProfile = (data)  => {
     })
 }
 
-const getUserProfile = (uid,dispatch) =>{
+export const getUserProfile = (uid,dispatch) =>{
     console.log("UID to get::",uid);
     const ref = db.collection("users").where("uid","==",uid)
     return ref.get().then( docs =>{
@@ -111,6 +133,7 @@ export const SignUp = (info) => {
         email:info.email,
         username:info.username,
         created:new Date(),
+        phone:info.phone,
     }
     let createdUser;
     return (dispatch) => {
@@ -138,17 +161,17 @@ export const SignUp = (info) => {
 
 
 export const SignOut = () => {
-    return (dispatch) => {
+     return (dispatch) => {
         auth.signOut().then(()=>{
-            console.log("SignOut successfully");
-            dispatch({
+           console.log("SignOut successfully");
+           dispatch({
                 type:USER.SIGNOUT,
             })
         })
-        .catch(err =>{
-            console.log("SignOut Error",err);
-        })
-    }
-}
+         .catch(err =>{
+             console.log("SignOut Error",err);
+         })
+     }
+ }
 
 

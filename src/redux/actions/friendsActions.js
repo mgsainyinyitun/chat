@@ -21,3 +21,26 @@ export const fetchUserByEmail = (email) =>{
         
     } 
 }
+
+
+export const addFriend = (friend,docId) => dispatch => {
+    db.collection("users")
+        .doc(docId)
+        .collection("friends")
+        .add(friend)
+        .then(()=>{
+            console.log("successfull add friend");
+            dispatch(addFriendSuccess(friend));
+        })
+        .catch(err =>{
+            console.log("error add friend",err);
+        })
+}
+
+export const addFriendSuccess = (friend) => {
+    return {
+        type:FRIENDS.SUCCESS_ADD_FRIEND,
+        payload:friend,
+    }
+}
+

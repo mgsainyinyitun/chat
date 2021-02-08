@@ -36,3 +36,9 @@ export const analytics = firebase.analytics();
 // 	// realtimeDB.useEmulator("http://localhost:9000/");
 // }
 
+//if (window.location.hostname === "localhost" && devMode === MODES.DEV) {
+	//db.useEmulator("localhost", 5002);
+	//fn.useEmulator("localhost", 5001);
+//	auth.useEmulator("http://localhost:9099/");
+	// realtimeDB.useEmulator("http://localhost:9000/");
+//}
