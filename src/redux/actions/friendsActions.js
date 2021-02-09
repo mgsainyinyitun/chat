@@ -23,7 +23,7 @@ export const fetchUserByEmail = (email) =>{
 }
 
 
-export const addFriend = (friend,user) => dispatch => {
+export const addFriend = (friend,user,mode) => dispatch => {
     const ref = db.collection("users").doc(user.docId).collection("friends").doc();
     friend.friDoc = ref.id;
     return ref
@@ -31,18 +31,35 @@ export const addFriend = (friend,user) => dispatch => {
         .then(()=>{
             console.log("successfull add friend");
             dispatch(addFriendSuccess(friend));
-            dispatch(addFriendRequest(friend,user));
+            if(mode ==='NOT_ACCEPT'){
+                dispatch(addFriendRequest(friend,user));
+            }else{
+                console.log('Accept Friends Mode');
+            }
+            
         })
         .catch(err =>{
             console.log("error add friend",err);
         })
 }
 
-export const editFriendsData = (user) => dispatch =>{
-    const ref = db.collection("users").doc(user.docId).collection("friends").doc(user.friDoc);
-    return ref.update(user).then(()=>{
-        console.log("Successfully update");
-        dispatch(editFriendsDataSuccess(user));
+export const editFriendsData = (user,friend) => dispatch =>{
+    const ref = db.collection("users").doc(user.docId)
+        .collection("friends");
+    return ref.get().then((docs) =>{
+        docs.forEach((doc)=>{
+            let user = doc.data();
+            user.status = "friend";
+            console.log(user);
+            if(user.uid === friend.uid){
+                console.log('same person update data');
+                doc.ref.update({
+                    status:"friend",
+                })
+                dispatch(editFriendsDataSuccess(user));
+                console.log('same person update data');
+            }
+        })
     })
     .catch(err =>{
         console.log("Error Update",err);
@@ -69,7 +86,7 @@ export const removeFriendRequest = (friend,user) => dispatch =>{
     return db.collection("users")
         .doc(user.docId)
         .collection("friendsReq")
-        .doc(user.friReqDoc)
+        .doc(friend.friReqDoc)
         .delete().then(()=>{
             console.log("Successfully delete");
             dispatch(removeFriendRequestSuccess(friend));

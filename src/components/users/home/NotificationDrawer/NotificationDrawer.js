@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {Drawer,Button} from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
-import {addFriend} from '../../../../redux/actions';
+import {addFriend,removeFriendRequest,editFriendsData} from '../../../../redux/actions';
 
 class NotificationDrawer extends React.Component{
 
@@ -14,7 +14,9 @@ class NotificationDrawer extends React.Component{
     onFriendAccept = (friend) =>{
         friend.status = "friend";
         console.log("Accept Friend",friend);
-        //this.props.addFriend(friend,this.props.authUser.user.data);
+        this.props.addFriend(friend,this.props.authUser,'ACCEPT');
+        this.props.removeFriendRequest(friend,this.props.authUser);
+        this.props.editFriendsData(friend,this.props.authUser);
     }
 
     renderFriendsReqNoti = (requests) =>{
@@ -57,6 +59,10 @@ class NotificationDrawer extends React.Component{
     }
 }
 const mapStateToProps = state =>{
-    return state;
+    return {
+        ...state,
+        authUser:state.authUser.user.data
+    };
 }
-export default connect(mapStateToProps,{addFriend})(NotificationDrawer);
+export default connect(mapStateToProps,
+    {addFriend,removeFriendRequest,editFriendsData})(NotificationDrawer);

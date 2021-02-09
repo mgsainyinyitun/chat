@@ -14,7 +14,7 @@ class AddFriendModal extends React.Component {
         console.log("docId",find_friend[0].docId);
         console.log("Friend",find_friend[0]);
         find_friend[0].status = "pending";
-        this.props.addFriend(find_friend[0],this.props.user);
+        this.props.addFriend(find_friend[0],this.props.user,'NOT_ACCEPT');
 
     }
     componentDidUpdate = () =>{
