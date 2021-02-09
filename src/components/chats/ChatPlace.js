@@ -1,8 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Card} from 'react-bootstrap';
 import MessageList from './Messages/MessageList';
+import {getSentMessage} from '../../redux/actions';
 
 class ChatPlace extends React.Component{
+
     render(){
         return(
             <>
@@ -11,17 +14,24 @@ class ChatPlace extends React.Component{
                 style={{height:"90%"}}
             >
                 <Card.Title>
-                   <p style={{color:"teal"}}>Sai Nyi</p> 
+                   <p style={{color:"teal"}}>
+                       {this.props.friend?this.props.friend.username:null}
+                    </p> 
                    <hr/>
                 </Card.Title>
                 <Card.Body>
-                    <MessageList/> 
+                    <MessageList messages={this.props.state.message}/> 
                 </Card.Body>
-                  
             </Card>
             </>
             
         );
     }
 }
-export default ChatPlace;
+const mapStateToProps = (state) => {
+    return {
+        state,
+        authUser:state.authUser.user.data
+    };
+}
+export default connect(mapStateToProps,{getSentMessage})(ChatPlace);

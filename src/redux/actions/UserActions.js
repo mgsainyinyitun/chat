@@ -99,6 +99,19 @@ const SignUpSetUserProfile = (data)  => {
     })
 }
 
+
+export const getUserDataWithDocId = (docId) => dispatch =>{
+    const ref = db.collection("users").doc(docId);
+    return ref.get().then(data =>{
+        console.log("Got data")
+        console.log(data);
+    })
+    .catch(err =>{
+        console.log("err in get data:",err);
+    })
+}
+
+
 export const getUserProfile = (uid,dispatch) =>{
     console.log("UID to get::",uid);
     let docId;

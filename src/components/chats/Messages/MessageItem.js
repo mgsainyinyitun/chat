@@ -1,33 +1,40 @@
 import React from 'react';
 import './Message.css';
+import _ from 'lodash';
 
 class MessageItem extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            
-        }
-    }
-
     renderMessage(messages){
-        
         return messages.map( message => {
-            const align = message.person ==='friend'?'align-self-start':'align-self-end';
+            let align;
+            if(message.to){
+                 align = 'align-self-end';
+            }else{
+                 align = 'align-self-start';
+            }
+            //let time = new Date(message.time.seconds).toString() ;
+           
             return(
                 <div className={align} key= {messages.text}>
-                    <span className="message">
-                        {message.text}
-                    </span>
-                    <hr style={{margin:6,color:"white"}} />
+                    <p className="message">
+                      {message.text}
+                    </p>
                 </div>
             )
         })
     }
 
     render(){
+        const {sent,receive} = this.props.messages;
+        let messages = [...sent,...receive];
+        messages = _.sortBy(messages,mes=>{
+            return mes.time
+        })
+        messages = messages.reverse()
+        messages = messages.slice(0,10);
+        messages = messages.reverse();
         return(
             <>
-            {this.renderMessage(this.props.messages)}
+            {this.renderMessage(messages)}
             </>
         );
     }

@@ -1,9 +1,11 @@
 import React from "react";
+import {connect} from 'react-redux';
 import { Menu, Switch,Button,Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
 import { ROUTE } from '../../routes/constant';
+import {getSentMessage,getReceiveMessage} from '../../redux/actions';
 
 const { SubMenu } = Menu;
 
@@ -14,9 +16,8 @@ class LeftNavigation extends React.Component{
  }
 
   componentDidUpdate = () =>{
-    console.log("Friends Left",this.props.friends);
+    console.log("Friends Left",this.props);
   }
-
 
   handleClick = e => {
     console.log('click ', e);
@@ -24,18 +25,20 @@ class LeftNavigation extends React.Component{
       current: e.key,
     });
   };
-
-
   renderFriends = (friends) =>{
     return friends.map(friend =>{
-      return (
-        
+      return ( 
         <Menu.Item 
+          onClick={()=>{
+            console.log("Click Friend is:",friend);
+            this.props.getSentMessage(this.props.authUser,friend);
+            this.props.getReceiveMessage(this.props.authUser,friend);
+          }}
           key={friend.uid}
           icon={<FontAwesomeIcon icon = {faUser} style={{marginRight:'10px'}}/>}
           title={friend.username}
         >
-          <Link to="/friends/chat">
+          <Link to={`/friends/chat/${friend.uid}`}>
             <span>{friend.username}</span>
           </Link>
           {
@@ -44,8 +47,6 @@ class LeftNavigation extends React.Component{
             <Badge count={"pending"} className="site-badge-count-4" />
           </span>:null
           }
-          
-          
         </Menu.Item>
         
         
@@ -103,4 +104,10 @@ class LeftNavigation extends React.Component{
      )
  }
 }
-export default LeftNavigation;
+const mapStateToProps = (state) => {
+  return {
+      state,
+      authUser:state.authUser.user.data
+  };
+}
+export default connect(mapStateToProps,{getSentMessage,getReceiveMessage})(LeftNavigation);

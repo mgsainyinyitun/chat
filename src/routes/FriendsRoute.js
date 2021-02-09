@@ -6,7 +6,7 @@ import Home from '../components/users/home/Home';
 export const FriendsRoute =   [
     <Route
         key = '1'
-        path = {ROUTE.FRIENDS.CHAT}
+        path = {`${ROUTE.FRIENDS.CHAT}/:id`}
         exact
         component = {(props) => <Home {...props} page = { PAGE.FRIENDS.CHAT }/> }
     />,

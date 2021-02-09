@@ -21,7 +21,6 @@ class Home extends React.Component{
         this.state={
             theme:'light',
             fetching:true,
-
             addFriendModalVisible:false,
             authUserName:'',
             notiDrawerVisible:false,
@@ -32,9 +31,14 @@ class Home extends React.Component{
           theme: value ? 'dark' : 'light',
         });
     };
+    componentDidMount = () =>{
+        console.log("prameter:",this.props.match.params.id)
+
+    }
 
     componentDidUpdate = () =>{
        console.log("Final State:",this.props);
+       console.log("FriendList:::",this.props.friend.friends_list);
     }
 
     openNotiDrawer = ()=>{
@@ -52,13 +56,17 @@ class Home extends React.Component{
             case PAGE.USERS.HOME:
                 return <Main theme = {this.state.theme}/>
             case PAGE.FRIENDS.CHAT:
-                return <MainChat/>
+                return(
+                <MainChat 
+                    friendId = {this.props.match.params?this.props.match.params.id:null}
+                    friendList = {this.props.friend.friends_list}
+                />
+                )
             case PAGE.USERS.PROFILE:
                 return <Profile/>
             case PAGE.FRIENDS.GROUPS.MAIN:
                 return <Group theme = {this.state.theme}/>
             case PAGE.FRIENDS.GROUPS.CHAT:
-                console.log('group friend chat')
                 return <MainChat />
             default:
                 return <div>Nothing</div>
