@@ -14,9 +14,6 @@ class MessagePlace extends React.Component{
             message:'',
         }
     }
-    componentDidUpdate = () =>{
-        console.log("update",this.props);
-    }
     onMessageChange = e =>{
         this.setState({
             message:e.target.value

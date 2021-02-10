@@ -24,6 +24,7 @@ export const FRIENDS = {
 
 export const MESSAGE = {
     SEND_SET_TO_USER:'send.message.set.to.user',
+    FETCH_MESSAGE_LIST:'fetch.message.list',
     SEND_SET_TO_FRIENT:'send.message.set.to.friend',
     RECEIVE_MESSAGE:'message.received',
     NO_MESSAGE_SENT:'no.empty.message.sent',

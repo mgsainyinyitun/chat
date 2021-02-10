@@ -1,3 +1,4 @@
+import { act } from 'react-dom/test-utils';
 import {MESSAGE} from '../actions/Types';
 
 const INITIAL_STATE = {
@@ -9,6 +10,11 @@ export const messageReducers = (state = INITIAL_STATE,action) => {
     switch (action.type) {
         case MESSAGE.SEND_SET_TO_USER:
             return{
+                ...state,
+                sent:[...state.sent]
+            }
+        case MESSAGE.FETCH_MESSAGE_LIST:
+            return {
                 ...state,
                 sent:[...state.sent,action.payload]
             }

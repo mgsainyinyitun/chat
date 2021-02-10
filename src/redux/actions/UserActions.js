@@ -47,15 +47,12 @@ import {getFriendsList} from "../actions";
 export const onAuthStateChanged = ()  =>  dispatch => {
     return  fb.auth().onAuthStateChanged((user) => {
         if(user){
-            console.log("onAuthStateChanged: ",user);
-            console.log("onAuthStateChanged: uid",user.uid);
             dispatch({
                 type:USER.LOGIN,
                 payload:{user}
             })
             getUserProfile(user.uid,dispatch)
         }else{
-            console.log("no user");
             dispatch({type:USER.SIGNOUT})
         }
     });
@@ -65,10 +62,7 @@ export const onAuthStateChanged = ()  =>  dispatch => {
 
 
 export const loginUser = (info) => {
-    console.log("Info is ::",info);
-    console.log("Current User",auth.currentUser);
     let authUser;
-
     return function (dispatch){
         auth.signInWithEmailAndPassword(info.email,info.password)
         .then(async (userCredential) => {
@@ -118,7 +112,6 @@ export const getUserProfile = (uid,dispatch) =>{
     const ref = db.collection("users").where("uid","==",uid)
     return ref.get().then( docs =>{
         docs.forEach(doc=>{
-            console.log("doc data is",doc.data());
             dispatch({
                 type:USER.SETPROFILEDATA,
                 payload:doc.data()

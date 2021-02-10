@@ -5,7 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
 import { ROUTE } from '../../routes/constant';
-import {getSentMessage,getReceiveMessage} from '../../redux/actions';
+import {
+    getSentMessage,
+    getReceiveMessage,
+    getRealTimeSentMessage,
+    emptySentMessageState,
+    emptyReceivedMessageState,
+    getRealTimeReceivedMessage,
+  } from '../../redux/actions';
 
 const { SubMenu } = Menu;
 
@@ -31,8 +38,11 @@ class LeftNavigation extends React.Component{
         <Menu.Item 
           onClick={()=>{
             console.log("Click Friend is:",friend);
-            this.props.getSentMessage(this.props.authUser,friend);
-            this.props.getReceiveMessage(this.props.authUser,friend);
+            this.props.emptyReceivedMessageState();
+            this.props.emptySentMessageState();
+            //this.props.getReceiveMessage(this.props.authUser,friend);
+            this.props.getRealTimeSentMessage(this.props.authUser,friend);
+            this.props.getRealTimeReceivedMessage(this.props.authUser,friend);
           }}
           key={friend.uid}
           icon={<FontAwesomeIcon icon = {faUser} style={{marginRight:'10px'}}/>}
@@ -110,4 +120,11 @@ const mapStateToProps = (state) => {
       authUser:state.authUser.user.data
   };
 }
-export default connect(mapStateToProps,{getSentMessage,getReceiveMessage})(LeftNavigation);
+export default connect(mapStateToProps,{
+  getSentMessage,
+  getReceiveMessage,
+  getRealTimeSentMessage,
+  getRealTimeReceivedMessage,
+  emptyReceivedMessageState,
+  emptySentMessageState,
+})(LeftNavigation);

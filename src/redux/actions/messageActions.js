@@ -21,38 +21,6 @@ export const insertMessageToUser = (user,friend,message) => dispatch =>{
     });
 }
 
-export const getSentMessage = (user,friend) => dispatch => {
-    const ref = db.collection("users").doc(user.docId).collection("messages")
-    .where("to","==",friend.uid)
-    return ref.get().then(docs =>{
-        if(!docs.empty){
-            docs.forEach(doc=>{
-                dispatch(insertMessageToUserSuccess(doc.data()))
-            })
-        }else{
-            console.log("Message is empty?",docs.empty)
-            dispatch(emptySentMessageState());
-        }
-    })
-    .catch(err =>{
-        console.log("error getting message",err);
-    })
-}
-
-export const getReceiveMessage = (user,friend) => dispatch => {
-    const ref = db.collection("users").doc(user.docId).collection("messages")
-    .where("from","==",friend.uid);
-    return ref.get().then(docs =>{
-        if(!docs.empty){
-            docs.forEach(doc=>{
-                dispatch(insertReceiveMessageToUserSuccess(doc.data()));
-            })
-        }else{
-            console.log("No Receive Message:",docs.empty)
-            dispatch(emptyReceivedMessageState());
-        }
-    })
-}
 
 export const insertMessageToFriend = (user,friend,message) => dispatch => {
     const ref = db.collection("users").doc(friend.docId).collection("messages").doc();
@@ -66,9 +34,84 @@ export const insertMessageToFriend = (user,friend,message) => dispatch => {
     })
 }
 
+
+export const getSentMessage = (user,friend) => dispatch => {
+    const ref = db.collection("users").doc(user.docId).collection("messages")
+    .where("to","==",friend.uid)
+    return ref.get().then(docs =>{
+        if(!docs.empty){
+            docs.forEach(doc=>{
+                dispatch(fetchSentMessageSuccess(doc.data()))
+            })
+        }else{
+            console.log("Message is empty?",docs.empty)
+            dispatch(emptySentMessageState());
+        }
+    })
+    .catch(err =>{
+        console.log("error getting message",err);
+    })
+}
+
+export const getRealTimeSentMessage = (user,friend) => dispatch =>{
+    const ref = db.collection("users").doc(user.docId).collection("messages")
+        .where("to","==",friend.uid);
+        return ref.onSnapshot(snapshot =>{
+            if(!snapshot.empty){
+                snapshot.docChanges().forEach(change =>{
+                    dispatch(fetchSentMessageSuccess(change.doc.data()));
+                })
+            }else{
+                console.log("Message is empty");
+                dispatch(emptySentMessageState());
+            }
+            
+        })
+}
+
+export const getRealTimeReceivedMessage = (user,friend) => dispatch => {
+    const ref = db.collection("users").doc(user.docId).collection("messages")
+        .where("from","==",friend.uid);
+        return ref.onSnapshot(snapshot => {
+            if(!snapshot.empty){
+                snapshot.docChanges().forEach(change => {
+                    dispatch(insertReceiveMessageToUserSuccess(change.doc.data()));
+                })
+            }else{
+                console.log("No Receive message:");
+                dispatch(emptyReceivedMessageState());
+            }
+        })
+}
+
+
+
+export const getReceiveMessage = (user,friend) => dispatch => {
+    const ref = db.collection("users").doc(user.docId).collection("messages")
+    .where("from","==",friend.uid); 
+    return ref.get().then(docs =>{
+        if(!docs.empty){
+            docs.forEach(doc=>{
+                dispatch(insertReceiveMessageToUserSuccess(doc.data()));
+            })
+        }else{
+            console.log("No Receive Message:",docs.empty)
+            dispatch(emptyReceivedMessageState());
+        }
+    })
+}
+
+
 export const insertMessageToUserSuccess = (message) => {
     return {
         type:MESSAGE.SEND_SET_TO_USER,
+        payload:message,
+    }
+}
+
+export const fetchSentMessageSuccess = (message) =>{
+    return {
+        type:MESSAGE.FETCH_MESSAGE_LIST,
         payload:message,
     }
 }

@@ -8,17 +8,7 @@ import { ROUTE } from '../../../routes/constant';
 import {connect} from 'react-redux';
 import {SignOut} from '../../../redux/actions';
 
-
-
 class Account extends React.Component {
-
-    componentDidUpdate = () =>{
-        console.log("this user info",this.props)
-    }
-
-    
-
-
     renderMenu = (SignOut) =>{
         return (
             <Menu>

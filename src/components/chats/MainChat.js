@@ -15,7 +15,6 @@ class MainChat extends React.Component {
     }
    
     render () {
-        console.log("Friends List",this.props);
         return (
             <div className="p-2 bg-light h-100">
                 <ChatPlace friend={this.findFriendToChat(this.props)}/>

@@ -2,9 +2,6 @@ import React from 'react';
 import MessageItem from './MessageItem';
 
 class MessageList extends React.Component{
-    componentDidUpdate(){
-        console.log("Message List",this.props.messages)
-    }
     render(){
         return(
             <div 

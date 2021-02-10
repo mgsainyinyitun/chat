@@ -6,21 +6,14 @@ import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import {addFriend,removeFriendRequest,editFriendsData} from '../../../../redux/actions';
 
 class NotificationDrawer extends React.Component{
-
-    componentDidUpdate = () =>{
-        console.log("Drawer",this.props);
-
-    }
     onFriendAccept = (friend) =>{
         friend.status = "friend";
-        console.log("Accept Friend",friend);
         this.props.addFriend(friend,this.props.authUser,'ACCEPT');
         this.props.removeFriendRequest(friend,this.props.authUser);
         this.props.editFriendsData(friend,this.props.authUser);
     }
 
     renderFriendsReqNoti = (requests) =>{
-        console.log("request List",requests);
         return requests.map((req) =>{
             return (
                 <p>

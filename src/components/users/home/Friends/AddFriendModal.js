@@ -5,7 +5,6 @@ import {fetchUserByEmail,addFriend} from '../../../../redux/actions';
 class AddFriendModal extends React.Component {
 
     onFinishSearch = (values) =>{
-        console.log(values.searchEmail);
         this.props.fetchUserByEmail(values.searchEmail);
     }
 
@@ -16,9 +15,6 @@ class AddFriendModal extends React.Component {
         find_friend[0].status = "pending";
         this.props.addFriend(find_friend[0],this.props.user,'NOT_ACCEPT');
 
-    }
-    componentDidUpdate = () =>{
-        console.log("STATE IS::",this.props);
     }
     checkInFriendsList = (friend) =>{
         return this.props.friends_list.find((fri)=>{
@@ -35,8 +31,6 @@ class AddFriendModal extends React.Component {
                 friend = [...friend,ansCheck]
             }
         }
-
-        console.log("Checked Friend:",friend,"Length:is",friend.length);
         return(
             <Modal
                 title={<h3 className="text-primary">ADD FRIEND</h3>}

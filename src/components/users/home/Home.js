@@ -31,15 +31,6 @@ class Home extends React.Component{
           theme: value ? 'dark' : 'light',
         });
     };
-    componentDidMount = () =>{
-        console.log("prameter:",this.props.match.params.id)
-
-    }
-
-    componentDidUpdate = () =>{
-       console.log("Final State:",this.props);
-       console.log("FriendList:::",this.props.friend.friends_list);
-    }
 
     openNotiDrawer = ()=>{
         this.setState({
