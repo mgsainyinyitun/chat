@@ -22,28 +22,40 @@ class LeftNavigation extends React.Component{
      current: '1',
  }
 
-  componentDidUpdate = () =>{
-    console.log("Friends Left",this.props);
+  findFriend = (friends,fid) =>{
+    return friends.find(friend =>{
+      return fid === friend.uid;
+    })
   }
 
   handleClick = e => {
-    console.log('click ', e);
-    this.setState({
-      current: e.key,
-    });
+    console.log("Key Path::",e.keyPath[1]);
+    switch (e.keyPath[1]) {
+      case 'FRIEND':
+        let friend = this.findFriend(this.props.friends,e.key);
+        this.props.emptyReceivedMessageState();
+        this.props.getRealTimeReceivedMessage(this.props.authUser,friend);
+        this.props.emptySentMessageState();
+        this.props.getRealTimeSentMessage(this.props.authUser,friend); 
+        break;
+    
+      default:
+        break;
+    }
+    
   };
   renderFriends = (friends) =>{
     return friends.map(friend =>{
       return ( 
-        <Menu.Item 
-          onClick={()=>{
-            console.log("Click Friend is:",friend);
-            this.props.emptyReceivedMessageState();
-            this.props.emptySentMessageState();
-            //this.props.getReceiveMessage(this.props.authUser,friend);
-            this.props.getRealTimeSentMessage(this.props.authUser,friend);
-            this.props.getRealTimeReceivedMessage(this.props.authUser,friend);
-          }}
+        <Menu.Item
+          //onClick={()=>{
+            //console.log("Click Friend is from the left menu ite ............:",friend);
+           // this.props.emptyReceivedMessageState();
+           // this.props.getRealTimeReceivedMessage(this.props.authUser,friend);
+
+          //  this.props.emptySentMessageState();
+          //  this.props.getRealTimeSentMessage(this.props.authUser,friend); 
+          //}}
           key={friend.uid}
           icon={<FontAwesomeIcon icon = {faUser} style={{marginRight:'10px'}}/>}
           title={friend.username}
@@ -82,7 +94,7 @@ class LeftNavigation extends React.Component{
           <Menu.Item key="sub1" icon={<FontAwesomeIcon icon = {faUser} style={{marginRight:'10px'}}/>} title="PROFILE">
           <Link to="/profile">PROFILE</Link>
           </Menu.Item>
-          <SubMenu key="sub2" icon={<FontAwesomeIcon icon = {faUserFriends} style={{marginRight:'10px'}}/>} title="FRIENDS">
+          <SubMenu key="FRIEND" icon={<FontAwesomeIcon icon = {faUserFriends} style={{marginRight:'10px'}}/>} title="FRIENDS">
             <Menu.Item key="add-friend">
               <Button 
                 onClick={this.props.onAddFriend}

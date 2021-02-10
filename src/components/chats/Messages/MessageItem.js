@@ -1,10 +1,18 @@
 import React from 'react';
+import {Empty} from 'antd';
 import './Message.css';
 import _ from 'lodash';
 
 class MessageItem extends React.Component{
     renderMessage(messages){
-        return messages.map( message => {
+        console.log("Message List Is :::",messages);
+        if(messages.length === 0){
+            console.log("Empty Array");
+            return(
+                <Empty className="w-100 align-self-center" description="No Messages or Reload"/>
+            )
+        }
+        return messages.map( (message,index) => {
             let align;
             if(message.to){
                  align = 'align-self-end';
@@ -12,9 +20,8 @@ class MessageItem extends React.Component{
                  align = 'align-self-start';
             }
             //let time = new Date(message.time.seconds).toString() ;
-           
             return(
-                <div className={align} key= {messages.text}>
+                <div className={align} key= {index}>
                     <p className="message">
                       {message.text}
                     </p>

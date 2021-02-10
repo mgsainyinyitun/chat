@@ -36,7 +36,13 @@ class Account extends React.Component {
         return(
             <div className="align-self-center m-3 d-flex justify-content-between w-100">
                 <h3 className="text-primary mt-3">{this.props.userinfo.data?this.props.userinfo.data.username:"no user"}</h3>
-                <Dropdown overlay={this.renderMenu(this.props.SignOut)} placement = "bottomCenter" arrow className="align-self-center">
+                <Dropdown 
+                    overlay={this.renderMenu(this.props.SignOut)} 
+                    placement = "bottomCenter" 
+                    arrow 
+                    className="align-self-center"
+                    trigger= {["click"]}
+                >
                     <Avatar size={40} icon={<UserOutlined />} />
                 </Dropdown>
             </div>

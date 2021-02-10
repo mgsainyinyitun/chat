@@ -13,7 +13,7 @@ export const insertMessageToUser = (user,friend,message) => dispatch =>{
     temp.mesId = ref_user.id;
     temp.to = friend.uid;
     return ref_user.set(temp).then(()=>{
-        dispatch(insertMessageToUserSuccess(message));
+       // dispatch(insertMessageToUserSuccess(message));
         console.log("Success sent message");
     })
     .catch(err =>{
@@ -59,6 +59,8 @@ export const getRealTimeSentMessage = (user,friend) => dispatch =>{
         return ref.onSnapshot(snapshot =>{
             if(!snapshot.empty){
                 snapshot.docChanges().forEach(change =>{
+                    console.log("Getting Real Cange Data Type:::::",change.type)
+                    console.log("Getting Real Cange Data :::::",change.doc.data())
                     dispatch(fetchSentMessageSuccess(change.doc.data()));
                 })
             }else{
