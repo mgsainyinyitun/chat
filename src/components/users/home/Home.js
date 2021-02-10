@@ -26,6 +26,10 @@ class Home extends React.Component{
             notiDrawerVisible:false,
         }
     }
+    componentDidUpdate = () =>{
+        console.log("Final Home DATA::",this.props);
+    }
+
     changeTheme = value => {
         this.setState({
           theme: value ? 'dark' : 'light',

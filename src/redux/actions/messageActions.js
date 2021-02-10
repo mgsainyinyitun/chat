@@ -55,7 +55,7 @@ export const getSentMessage = (user,friend) => dispatch => {
 
 export const getRealTimeSentMessage = (user,friend) => dispatch =>{
     const ref = db.collection("users").doc(user.docId).collection("messages")
-        .where("to","==",friend.uid);
+        .where("to","==",!undefined);
         return ref.onSnapshot(snapshot =>{
             if(!snapshot.empty){
                 snapshot.docChanges().forEach(change =>{
@@ -70,10 +70,26 @@ export const getRealTimeSentMessage = (user,friend) => dispatch =>{
             
         })
 }
+export const getRealTimeMessages = (user) => dispatch => {
+    const ref = db.collection("users").doc(user.docId).collection("messages");
+    return ref.onSnapshot(snapshot =>{
+        if(!snapshot.empty){
+            snapshot.docChanges().forEach(message =>{
+                console.log("MESSAGE:",message.doc.data());
+                if(message.doc.data().to){
+                    dispatch(fetchSentMessageSuccess(message.doc.data()))
+                }
+                else if(message.doc.data().from){
+                    dispatch(insertReceiveMessageToUserSuccess(message.doc.data()))
+                }
+            })
+        }
+    })
+}
 
 export const getRealTimeReceivedMessage = (user,friend) => dispatch => {
     const ref = db.collection("users").doc(user.docId).collection("messages")
-        .where("from","==",friend.uid);
+        .where("from","==",!undefined);
         return ref.onSnapshot(snapshot => {
             if(!snapshot.empty){
                 snapshot.docChanges().forEach(change => {
@@ -134,5 +150,12 @@ export const emptySentMessageState = () => {
 export const emptyReceivedMessageState = () => {
     return {
         type:MESSAGE.NO_MESSAGE_RECEIVE,
+    }
+}
+
+export const setCurrentChatFriend = (friend) =>{
+    return {
+        type:MESSAGE.SET_CURRENT_CHAT_FRIENT,
+        payload:friend,
     }
 }

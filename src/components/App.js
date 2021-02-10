@@ -5,10 +5,14 @@ import {
   } from "react-router-dom";
 import {UserRoute} from '../routes/UserRoute';
 import {FriendsRoute} from '../routes/FriendsRoute';
-import { onAuthStateChanged,getFriendsList,getFriendsRequestList } from '../redux/actions';
-import {fb} from '../firebase';
-
-
+import { 
+    onAuthStateChanged,
+    getFriendsList,
+    getFriendsRequestList,
+    getRealTimeReceivedMessage,
+    getRealTimeSentMessage,
+    getRealTimeMessages,
+ } from '../redux/actions';
 
 
 class App extends React.Component{
@@ -24,6 +28,7 @@ class App extends React.Component{
         if(this.props.user){
             this.props.getFriendsList(this.props.user.docId);
             this.props.getFriendsRequestList(this.props.user.docId);
+            this.props.getRealTimeMessages(this.props.user)
         }else{
             console.log("not ready")
         }
@@ -51,5 +56,11 @@ const mapStateToProps = state =>{
         user:user
     };
 }
-export default connect(mapStateToProps,
-    {onAuthStateChanged,getFriendsList,getFriendsRequestList})(App);
+export default connect(mapStateToProps,{
+    onAuthStateChanged,
+    getFriendsList,
+    getFriendsRequestList,
+    getRealTimeReceivedMessage,
+    getRealTimeSentMessage,
+    getRealTimeMessages,
+})(App);

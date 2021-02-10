@@ -4,10 +4,9 @@ import './Message.css';
 import _ from 'lodash';
 
 class MessageItem extends React.Component{
+
     renderMessage(messages){
-        console.log("Message List Is :::",messages);
         if(messages.length === 0){
-            console.log("Empty Array");
             return(
                 <Empty className="w-100 align-self-center" description="No Messages or Reload"/>
             )
@@ -31,17 +30,17 @@ class MessageItem extends React.Component{
     }
 
     render(){
-        const {sent,receive} = this.props.messages;
-        let messages = [...sent,...receive];
-        messages = _.sortBy(messages,mes=>{
-            return mes.time
-        })
-        messages = messages.reverse()
-        messages = messages.slice(0,10);
-        messages = messages.reverse();
+       // const {sent,receive} = this.props.messages;
+       // let messages = [...sent,...receive];
+      //  messages = _.sortBy(messages,mes=>{
+      //      return mes.time
+      //  })
+       // messages = messages.reverse()
+       // messages = messages.slice(0,10);
+       // messages = messages.reverse();
         return(
             <>
-            {this.renderMessage(messages)}
+            {this.renderMessage(this.props.messages)}
             </>
         );
     }

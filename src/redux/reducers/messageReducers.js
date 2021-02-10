@@ -4,6 +4,7 @@ import {MESSAGE} from '../actions/Types';
 const INITIAL_STATE = {
     sent:[],
     receive:[],
+    chat_friend:null,
 }
 
 export const messageReducers = (state = INITIAL_STATE,action) => {
@@ -32,6 +33,11 @@ export const messageReducers = (state = INITIAL_STATE,action) => {
             return{
                 ...state,
                 receive:[],
+            }
+        case MESSAGE.SET_CURRENT_CHAT_FRIENT:
+            return{
+                ...state,
+                chat_friend:action.payload,
             }
         default:return state;
     }

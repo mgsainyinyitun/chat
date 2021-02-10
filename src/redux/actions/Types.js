@@ -31,4 +31,5 @@ export const MESSAGE = {
     NO_MESSAGE_RECEIVE:'no.receive.messages',
     EDIT:'edit.message',
     DELETE:'delete.message',
+    SET_CURRENT_CHAT_FRIENT:'set.current.chat.friend',
 }

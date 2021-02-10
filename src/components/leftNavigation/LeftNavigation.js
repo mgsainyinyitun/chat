@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from 'react-redux';
 import { Menu, Switch,Button,Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus, faAddressBook, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
 import { ROUTE } from '../../routes/constant';
 import {
@@ -12,6 +12,7 @@ import {
     emptySentMessageState,
     emptyReceivedMessageState,
     getRealTimeReceivedMessage,
+    setCurrentChatFriend,
   } from '../../redux/actions';
 
 const { SubMenu } = Menu;
@@ -33,10 +34,11 @@ class LeftNavigation extends React.Component{
     switch (e.keyPath[1]) {
       case 'FRIEND':
         let friend = this.findFriend(this.props.friends,e.key);
-        this.props.emptyReceivedMessageState();
-        this.props.getRealTimeReceivedMessage(this.props.authUser,friend);
-        this.props.emptySentMessageState();
-        this.props.getRealTimeSentMessage(this.props.authUser,friend); 
+        this.props.setCurrentChatFriend(friend);
+        //this.props.emptyReceivedMessageState();
+       // this.props.getRealTimeReceivedMessage(this.props.authUser,friend);
+       // this.props.emptySentMessageState();
+       // this.props.getRealTimeSentMessage(this.props.authUser,friend); 
         break;
     
       default:
@@ -111,7 +113,7 @@ class LeftNavigation extends React.Component{
           </SubMenu>
           <SubMenu key="sub4" icon={<FontAwesomeIcon icon = {faCog} style={{marginRight:'10px'}}/>} title="SETTING">
             <Menu.Item key="settings">
-              <span style={{marginRight:10}}>DARK MODE</span>
+              <span style={{marginRight:10}}>DARK THEME</span>
               <Switch
                     checked={this.props.theme === 'dark'}
                     onChange={this.props.changeTheme}
@@ -119,8 +121,13 @@ class LeftNavigation extends React.Component{
                     unCheckedChildren="Off"
                 />
             </Menu.Item>
-            
+            <Menu.Item key="language" icon={<FontAwesomeIcon icon = {faLanguage} style={{marginRight:'10px'}}/>} title="language">
+              <span>LANGUAGE</span>
+            </Menu.Item>
           </SubMenu>
+          <Menu.Item key="aboutus" icon={<FontAwesomeIcon icon = {faAddressBook} style={{marginRight:'10px'}}/>} title="ABOUT US">
+            <Link to="/">ABOUT US</Link>
+          </Menu.Item>
         </Menu>
          </>
      )
@@ -133,6 +140,7 @@ const mapStateToProps = (state) => {
   };
 }
 export default connect(mapStateToProps,{
+  setCurrentChatFriend,
   getSentMessage,
   getReceiveMessage,
   getRealTimeSentMessage,
