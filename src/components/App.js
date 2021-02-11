@@ -12,6 +12,7 @@ import {
     getRealTimeReceivedMessage,
     getRealTimeSentMessage,
     getRealTimeMessages,
+    getUserSaveTheme,
  } from '../redux/actions';
 
 
@@ -28,7 +29,8 @@ class App extends React.Component{
         if(this.props.user){
             this.props.getFriendsList(this.props.user.docId);
             this.props.getFriendsRequestList(this.props.user.docId);
-            this.props.getRealTimeMessages(this.props.user)
+            this.props.getRealTimeMessages(this.props.user);
+            this.props.getUserSaveTheme(this.props.user);
         }else{
             console.log("not ready")
         }
@@ -63,4 +65,5 @@ export default connect(mapStateToProps,{
     getRealTimeReceivedMessage,
     getRealTimeSentMessage,
     getRealTimeMessages,
+    getUserSaveTheme,
 })(App);

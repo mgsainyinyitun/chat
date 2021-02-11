@@ -35,17 +35,27 @@ class NotificationDrawer extends React.Component{
 
     }
     render(){
+        const Dstyle = this.props.theme === 'dark'?
+        {
+            background:'teal',color:'white',
+        }:
+        {
+            background:'white',color:'black',
+        }
+        const Htstyle = this.props.theme === 'dark'?'white':'';
+        const Hstyle = this.props.theme === 'dark'?'blue':'white';
         return(
             <Drawer
-                    title="Notifications"
+                    title={<p style={{color:`${Htstyle}`}}>Notification</p>}
                     placement= "right"
                     closable={true}
                     onClose={this.props.onClose}
                     visible={this.props.visible}
                     key="noti"
+                    drawerStyle={Dstyle}
+                    headerStyle={{background:Hstyle}}
             >
                 {this.renderFriendsReqNoti(this.props.friend.friends_request)}
-    
             </Drawer>
           )
 

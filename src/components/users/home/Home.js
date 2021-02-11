@@ -7,7 +7,6 @@ import MainChat from '../../chats/MainChat';
 import Profile from '../Profile/Profile';
 import Main from './Main';
 import Group from '../../Groups/Groups';
-import {changeDarkTheme,changeLightTheme} from '../../../redux/actions';
 import Account from '../Account/Account';
 import 'animate.css';
 import { Redirect } from 'react-router-dom';
@@ -19,7 +18,6 @@ class Home extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            theme:'light',
             fetching:true,
             addFriendModalVisible:false,
             authUserName:'',
@@ -29,13 +27,6 @@ class Home extends React.Component{
     componentDidUpdate = () =>{
         console.log("Final Home DATA::",this.props);
     }
-
-    changeTheme = value => {
-        this.setState({
-          theme: value ? 'dark' : 'light',
-        });
-    };
-
     openNotiDrawer = ()=>{
         this.setState({
             notiDrawerVisible:true,
@@ -49,7 +40,7 @@ class Home extends React.Component{
     renderBody = (page) => {
         switch (page) {
             case PAGE.USERS.HOME:
-                return <Main theme = {this.state.theme}/>
+                return <Main theme = {this.props.theme}/>
             case PAGE.FRIENDS.CHAT:
                 return(
                 <MainChat 
@@ -58,24 +49,23 @@ class Home extends React.Component{
                 />
                 )
             case PAGE.USERS.PROFILE:
-                return <Profile/>
+                return <Profile theme={this.props.theme}/>
             case PAGE.FRIENDS.GROUPS.MAIN:
-                return <Group theme = {this.state.theme}/>
+                return <Group theme = {this.props.theme}/>
             case PAGE.FRIENDS.GROUPS.CHAT:
-                return <MainChat />
+                return <MainChat theme={this.props.theme}/>
             default:
                 return <div>Nothing</div>
         }
     }
 
     render(){
-        const mode = this.state.theme==='dark'?'home-dark':'home-light'
-        const mainMode = this.state.theme==='dark'?'main-dark w-100':'main-light w-100';
+        const mode = this.props.theme==='dark'?'home-dark':'home-light'
+        const mainMode = this.props.theme==='dark'?'main-dark w-100':'main-light w-100';
         if(this.props.authUser === null){ // user not login
             return <Redirect to={ROUTE.USERS.LOGIN} />
         }
-        
-    
+
         if(!this.props.fetching){ // not fetching
             return(
                 <div className='h-100'>
@@ -83,14 +73,13 @@ class Home extends React.Component{
                         <Account 
                             userinfo = {this.props.authUser.user}
                             openNotiDrawer={this.openNotiDrawer}
+                            theme = {this.props.theme}
                         />
                     </div>
                     <hr style={{margin:0}}/>
     
                     <div className='d-flex'>
                         <LeftNavigation 
-                            theme={this.state.theme} 
-                            changeTheme = {this.changeTheme} 
                             onAddFriend = {()=>this.setState({addFriendModalVisible:true})}
                             friends = {this.props.friend.friends_list}
                         />
@@ -103,6 +92,7 @@ class Home extends React.Component{
                     <NotificationDrawer
                         visible={this.state.notiDrawerVisible}
                         onClose={this.onNotiDrawerClose}
+                        theme = {this.props.theme}
                     />
                     <AddFriendModal
                         visible={this.state.addFriendModalVisible}
@@ -119,7 +109,7 @@ const mapStateToProps = (state) => {
     return state;
 }
 export default connect(mapStateToProps,
-    {changeDarkTheme,changeLightTheme})(Home);
+    {})(Home);
 
 
 

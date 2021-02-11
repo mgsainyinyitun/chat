@@ -67,9 +67,9 @@ export const getRealTimeSentMessage = (user,friend) => dispatch =>{
                 console.log("Message is empty");
                 dispatch(emptySentMessageState());
             }
-            
         })
 }
+
 export const getRealTimeMessages = (user) => dispatch => {
     const ref = db.collection("users").doc(user.docId).collection("messages");
     return ref.onSnapshot(snapshot =>{

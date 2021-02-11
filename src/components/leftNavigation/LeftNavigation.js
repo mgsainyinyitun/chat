@@ -6,21 +6,19 @@ import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus, faAddressBook, faLan
 import {Link} from 'react-router-dom';
 import { ROUTE } from '../../routes/constant';
 import {
-    getSentMessage,
-    getReceiveMessage,
-    getRealTimeSentMessage,
-    emptySentMessageState,
-    emptyReceivedMessageState,
-    getRealTimeReceivedMessage,
+    changeTheme,
     setCurrentChatFriend,
   } from '../../redux/actions';
 
 const { SubMenu } = Menu;
 
 class LeftNavigation extends React.Component{
- state = {
-     theme: 'dark',
-     current: '1',
+
+ constructor (props){
+   super(props);
+   this.state = {
+     theme:this.props.theme,
+   }
  }
 
   findFriend = (friends,fid) =>{
@@ -29,16 +27,26 @@ class LeftNavigation extends React.Component{
     })
   }
 
+  onThemeChangeTheme = (value) =>{
+    console.log(value);
+    if(value){
+      this.props.changeTheme(this.props.authUser,'dark');
+      this.setState({
+        theme:'dark',
+      })
+    }else{
+      this.props.changeTheme(this.props.authUser,'light');
+      this.setState({
+        theme:'light',
+      })
+    }
+  }
   handleClick = e => {
     console.log("Key Path::",e.keyPath[1]);
     switch (e.keyPath[1]) {
       case 'FRIEND':
         let friend = this.findFriend(this.props.friends,e.key);
         this.props.setCurrentChatFriend(friend);
-        //this.props.emptyReceivedMessageState();
-       // this.props.getRealTimeReceivedMessage(this.props.authUser,friend);
-       // this.props.emptySentMessageState();
-       // this.props.getRealTimeSentMessage(this.props.authUser,friend); 
         break;
     
       default:
@@ -50,14 +58,6 @@ class LeftNavigation extends React.Component{
     return friends.map(friend =>{
       return ( 
         <Menu.Item
-          //onClick={()=>{
-            //console.log("Click Friend is from the left menu ite ............:",friend);
-           // this.props.emptyReceivedMessageState();
-           // this.props.getRealTimeReceivedMessage(this.props.authUser,friend);
-
-          //  this.props.emptySentMessageState();
-          //  this.props.getRealTimeSentMessage(this.props.authUser,friend); 
-          //}}
           key={friend.uid}
           icon={<FontAwesomeIcon icon = {faUser} style={{marginRight:'10px'}}/>}
           title={friend.username}
@@ -83,7 +83,7 @@ class LeftNavigation extends React.Component{
      return(
          <>
         <Menu
-          theme={this.props.theme}
+          theme={this.props.theme?this.props.theme:this.state.theme}
           onClick={this.handleClick}
           style={{ width: 256 ,height: "90vh"}}
           defaultOpenKeys={['sub1']}
@@ -116,7 +116,7 @@ class LeftNavigation extends React.Component{
               <span style={{marginRight:10}}>DARK THEME</span>
               <Switch
                     checked={this.props.theme === 'dark'}
-                    onChange={this.props.changeTheme}
+                    onChange={this.onThemeChangeTheme}
                     checkedChildren="On"
                     unCheckedChildren="Off"
                 />
@@ -136,15 +136,11 @@ class LeftNavigation extends React.Component{
 const mapStateToProps = (state) => {
   return {
       state,
-      authUser:state.authUser.user.data
+      authUser:state.authUser.user.data,
+      theme:state.theme,
   };
 }
 export default connect(mapStateToProps,{
   setCurrentChatFriend,
-  getSentMessage,
-  getReceiveMessage,
-  getRealTimeSentMessage,
-  getRealTimeReceivedMessage,
-  emptyReceivedMessageState,
-  emptySentMessageState,
+  changeTheme,
 })(LeftNavigation);

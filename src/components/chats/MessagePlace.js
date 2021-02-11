@@ -33,8 +33,9 @@ class MessagePlace extends React.Component{
     }
 
     render(){
+        const style = this.props.theme === 'dark'?'bg-dark':'bg-light';
         return(
-            <Card className="mt-2 p-3">
+            <Card className={`mt-2 p-3 ${style}`}>
                 <div className="d-flex">
                     <Input
                         value={this.state.message}

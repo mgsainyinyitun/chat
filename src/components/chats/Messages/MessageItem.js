@@ -6,6 +6,7 @@ import _ from 'lodash';
 class MessageItem extends React.Component{
 
     renderMessage(messages){
+        const style = this.props.theme === 'dark'?'message-dark':'message';
         if(messages.length === 0){
             return(
                 <Empty className="w-100 align-self-center" description="No Messages or Reload"/>
@@ -21,7 +22,7 @@ class MessageItem extends React.Component{
             //let time = new Date(message.time.seconds).toString() ;
             return(
                 <div className={align} key= {index}>
-                    <p className="message">
+                    <p className={`${style}`}>
                       {message.text}
                     </p>
                 </div>
@@ -30,14 +31,6 @@ class MessageItem extends React.Component{
     }
 
     render(){
-       // const {sent,receive} = this.props.messages;
-       // let messages = [...sent,...receive];
-      //  messages = _.sortBy(messages,mes=>{
-      //      return mes.time
-      //  })
-       // messages = messages.reverse()
-       // messages = messages.slice(0,10);
-       // messages = messages.reverse();
         return(
             <>
             {this.renderMessage(this.props.messages)}

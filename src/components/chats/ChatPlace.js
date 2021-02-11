@@ -7,24 +7,26 @@ import {getSentMessage} from '../../redux/actions';
 class ChatPlace extends React.Component{
 
     render(){
+        const style = this.props.theme === 'dark'?'bg-dark':'bg-light';
+        const txtColor = this.props.theme === 'dark'?'white':'teal';
         return(
-            <>
             <Card 
-                className="p-3"
+                className={`p-3 ${style}`}
                 style={{height:"90%"}}
             >
                 <Card.Title>
-                   <p style={{color:"teal"}}>
+                   <p style={{color:`${txtColor}`}}>
                        {this.props.friend?this.props.friend.username:null}
                     </p> 
                    <hr/>
                 </Card.Title>
                 <Card.Body>
-                    <MessageList messages={this.props.state.message}/> 
+                    <MessageList 
+                        theme = {this.props.theme}
+                        messages={this.props.state.message}
+                    /> 
                 </Card.Body>
-            </Card>
-            </>
-            
+            </Card> 
         );
     }
 }

@@ -7,6 +7,7 @@ export const USER = {
 }
 
 export const THEME = {
+    CHANGE:'change.theme',
     LIGHT:'light.theme',
     DARK:'dark.theme',
 }

@@ -42,6 +42,7 @@ class MessageList extends React.Component{
              className="d-flex flex-column align-items-end"
              >
                 <MessageItem 
+                    theme = {this.props.theme}
                     messages = {this.renderMessages(this.props.messages, this.props.chat)} 
                 />
             </div>
