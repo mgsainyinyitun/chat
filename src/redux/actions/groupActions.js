@@ -33,6 +33,7 @@ export const addMemberToGroups = (group,member) => dispatch =>{
 
 
 export const getUserRelatedGroupsNotRealTime = (user) => dispatch =>{
+    console.log("User to get group is:::",user);
     const ref = db.collection('groups').where("members","array-contains",user);
     return ref.get().then(groups =>{
         if(!groups.empty){

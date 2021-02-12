@@ -9,12 +9,17 @@ import {createNewGroup} from '../../../../redux/actions';
 class NewGroupModal extends React.Component {
     onFinishAddGroup = values => {
         if(values.groupName){
+            let uD = {
+                uid:this.props.authUser.uid,
+                username:this.props.authUser.username,
+                email:this.props.authUser.email,
+            }
             let newG = {
                 name:values.groupName,
                 created:new Date(),
                 createdBy:this.props.authUser,
                 active:true,
-                members:[this.props.authUser],
+                members:[uD],
             }
             console.log("New group info:",newG)
             this.props.createNewGroup(newG);

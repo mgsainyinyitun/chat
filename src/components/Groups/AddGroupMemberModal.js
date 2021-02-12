@@ -19,12 +19,18 @@ class AddGroupMemberModal extends React.Component {
      }
     
     onAddFriend = (friend,group ) =>{
-        this.props.addMemberToGroups(group,friend);
+        
+        let fri = {
+            uid:friend.uid,
+            username:friend.username,
+            email:friend.email,
+        }
+        this.props.addMemberToGroups(group,fri);
         this.props.onCancel();
     }
 
     renderFriends = (friends,group) =>{
-        let Ffriends;
+        let Ffriends=[];
         if(group){
             Ffriends =  this.removeAlredyMembers(friends,group.members);
         }

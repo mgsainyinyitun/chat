@@ -36,7 +36,12 @@ class App extends React.Component{
             this.props.getRealTimeMessages(this.props.user);
             this.props.getUserSaveTheme(this.props.user);
            // this.props.getUserRelatedGroups(this.props.user);
-            this.props.getUserRelatedGroupsNotRealTime(this.props.user);
+           let sD = {
+               uid:this.props.user.uid,
+               username:this.props.user.username,
+               email:this.props.user.email,
+           }
+            this.props.getUserRelatedGroupsNotRealTime(sD);
         }else{
             console.log("not ready")
         }
