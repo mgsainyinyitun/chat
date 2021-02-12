@@ -28,6 +28,7 @@ export const db = firebase.firestore();
 // export const realtimeDB = firebase.database();
 export const auth = firebase.auth();
 export const analytics = firebase.analytics();
+export const fv = firebase.firestore.FieldValue;
 
 // if (window.location.hostname === "localhost" && devMode === MODES.LOCAL) {
 // 	db.useEmulator("localhost", 5002);

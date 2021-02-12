@@ -44,7 +44,13 @@ class MessagePlace extends React.Component{
                         prefix={<MessageFilled/>}
                         onChange={this.onMessageChange}
                     />
-                    <Button className="h-100" style={{marginLeft:5}} onClick={this.onSendMessage}>
+                    <Button 
+                    className="h-100" 
+                    style={{marginLeft:5}} 
+                    onClick={this.onSendMessage}
+                    onKeyDown={e => console.log(e)}
+                    >
+
                         <FontAwesomeIcon icon={faPaperPlane} style={{fontSize:"2em"}}/>
                     </Button>
                 </div>

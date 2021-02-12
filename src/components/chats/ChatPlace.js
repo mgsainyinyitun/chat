@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Card} from 'react-bootstrap';
 import MessageList from './Messages/MessageList';
-import {getSentMessage} from '../../redux/actions';
 
 class ChatPlace extends React.Component{
 
@@ -36,4 +35,4 @@ const mapStateToProps = (state) => {
         authUser:state.authUser.user.data
     };
 }
-export default connect(mapStateToProps,{getSentMessage})(ChatPlace);
+export default connect(mapStateToProps)(ChatPlace);

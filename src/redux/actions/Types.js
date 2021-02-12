@@ -34,3 +34,16 @@ export const MESSAGE = {
     DELETE:'delete.message',
     SET_CURRENT_CHAT_FRIENT:'set.current.chat.friend',
 }
+
+
+export const GROUP = {
+    UPDATE_MEMBER:'update.group.member',
+    EMPTY:'empty.group',
+    CURRENT_GROUP:'set.current.group',
+    GET:'get.user.groups',
+    CREATE:'create.group',
+    DELETE:'delete.group',
+    EDIT:'edit.group',
+    ADD_MEMBER:'add.memmber.to.group',
+    REMOVE_MEMBER:'remove.member.from.group',
+}

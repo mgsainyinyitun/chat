@@ -13,6 +13,8 @@ import { Redirect } from 'react-router-dom';
 import { Spin,Drawer } from 'antd';
 import AddFriendModal from './Friends/AddFriendModal';
 import NotificationDrawer from './NotificationDrawer/NotificationDrawer';
+import NewGroupModal from '../home/Groups/NewGroupModal';
+import GroupChat from '../../Groups/GroupChat';
 
 class Home extends React.Component{
     constructor(props){
@@ -20,6 +22,7 @@ class Home extends React.Component{
         this.state={
             fetching:true,
             addFriendModalVisible:false,
+            newGroupModalVisible:false,
             authUserName:'',
             notiDrawerVisible:false,
         }
@@ -81,6 +84,7 @@ class Home extends React.Component{
                     <div className='d-flex'>
                         <LeftNavigation 
                             onAddFriend = {()=>this.setState({addFriendModalVisible:true})}
+                            onCreateNewGroup = {()=>this.setState({newGroupModalVisible:true})}
                             friends = {this.props.friend.friends_list}
                         />
                     <div className={mainMode}> 
@@ -98,6 +102,11 @@ class Home extends React.Component{
                         visible={this.state.addFriendModalVisible}
                         onCancel={()=>this.setState({addFriendModalVisible:false})}
                     />
+                    <NewGroupModal
+                        visible={this.state.newGroupModalVisible}
+                        onCancel = {()=>this.setState({newGroupModalVisible:false})}
+                    />
+
                 </div>
             )
         }else if(this.props.fetching){

@@ -1,8 +1,8 @@
 import React from 'react';
-import {Avatar,Dropdown,Menu,Drawer} from 'antd';
+import {Avatar,Dropdown,Menu} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faSignOutAlt,faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faBook, faSignOutAlt,faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../../routes/constant';
 import {connect} from 'react-redux';
@@ -19,6 +19,10 @@ class Account extends React.Component {
                 <Menu.Item onClick={this.props.openNotiDrawer}>
                     <FontAwesomeIcon icon={faBell} style={{marginRight:5}}/>
                     Notification
+                </Menu.Item>
+                <Menu.Item>
+                    <FontAwesomeIcon icon={faBook} style={{marginRight:5}}/>
+                    Change Password
                 </Menu.Item>
                 <Menu.Item>
                     <span onClick={SignOut}>
@@ -47,6 +51,7 @@ class Account extends React.Component {
                 >
                     <Avatar size={40} icon={<UserOutlined />} />
                 </Dropdown>
+                
             </div>
         )
     }

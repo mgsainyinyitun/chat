@@ -23,11 +23,11 @@ class MainChat extends React.Component {
         return (
             <div className={`p-2 h-100 ${style}`}>
                 <ChatPlace 
-                    friend={this.findFriendToChat(this.props)}
+                    friend={this.findFriendToChat(this.props) }
                     theme = {this.props.theme}
                 />
                 <MessagePlace 
-                    friend={this.findFriendToChat(this.props)}
+                    friend={this.findFriendToChat(this.props) }
                     theme = {this.props.theme}
                 />
             </div>

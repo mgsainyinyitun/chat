@@ -1,4 +1,3 @@
-import { message } from 'antd';
 import {db} from '../../firebase';
 import {MESSAGE} from './Types';
 

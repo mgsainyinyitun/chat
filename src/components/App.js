@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import _ from 'lodash';
 import {
     Switch,
   } from "react-router-dom";
@@ -13,6 +14,8 @@ import {
     getRealTimeSentMessage,
     getRealTimeMessages,
     getUserSaveTheme,
+    getUserRelatedGroups,
+    getUserRelatedGroupsNotRealTime,
  } from '../redux/actions';
 
 
@@ -26,11 +29,14 @@ class App extends React.Component{
     }
     componentDidUpdate = () =>{
         console.log("Props app:",this.props);
-        if(this.props.user){
+        console.log("Props USSER is empty dlfjdfjldkfj:",_.isEmpty(this.props.user));
+        if(!_.isEmpty(this.props.user)){
             this.props.getFriendsList(this.props.user.docId);
             this.props.getFriendsRequestList(this.props.user.docId);
             this.props.getRealTimeMessages(this.props.user);
             this.props.getUserSaveTheme(this.props.user);
+           // this.props.getUserRelatedGroups(this.props.user);
+            this.props.getUserRelatedGroupsNotRealTime(this.props.user);
         }else{
             console.log("not ready")
         }
@@ -66,4 +72,6 @@ export default connect(mapStateToProps,{
     getRealTimeSentMessage,
     getRealTimeMessages,
     getUserSaveTheme,
+    getUserRelatedGroups,
+    getUserRelatedGroupsNotRealTime
 })(App);

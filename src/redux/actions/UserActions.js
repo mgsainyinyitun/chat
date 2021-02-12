@@ -106,6 +106,8 @@ export const getUserDataWithDocId = (docId) => dispatch =>{
 }
 
 
+
+
 export const getUserProfile = (uid,dispatch) =>{
     console.log("UID to get::",uid);
     let docId;

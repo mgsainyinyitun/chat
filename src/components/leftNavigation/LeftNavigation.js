@@ -8,6 +8,7 @@ import { ROUTE } from '../../routes/constant';
 import {
     changeTheme,
     setCurrentChatFriend,
+    setCurrentGroup,
   } from '../../redux/actions';
 
 const { SubMenu } = Menu;
@@ -26,9 +27,13 @@ class LeftNavigation extends React.Component{
       return fid === friend.uid;
     })
   }
+  findGroup = (groups,gid) => {
+    return groups.find(group =>{
+      return group.groupId === gid;
+    })
+  }
 
   onThemeChangeTheme = (value) =>{
-    console.log(value);
     if(value){
       this.props.changeTheme(this.props.authUser,'dark');
       this.setState({
@@ -48,12 +53,16 @@ class LeftNavigation extends React.Component{
         let friend = this.findFriend(this.props.friends,e.key);
         this.props.setCurrentChatFriend(friend);
         break;
-    
+      case 'GROUP':
+        let group = this.findGroup(this.props.groups,e.key);
+        this.props.setCurrentGroup(group);
+        break;
       default:
         break;
     }
     
   };
+
   renderFriends = (friends) =>{
     return friends.map(friend =>{
       return ( 
@@ -72,12 +81,26 @@ class LeftNavigation extends React.Component{
           </span>:null
           }
         </Menu.Item>
-        
-        
       )
     })
-
   }
+
+
+  renderGroups = (groups) => {
+    return groups.map(group => {
+      return (
+        <Menu.Item 
+          key = {group.groupId}
+          icon = {<FontAwesomeIcon icon={faUserFriends} style={{marginRight:10}} />}
+          title={group.name}
+        >
+          <Link to= {ROUTE.FRIENDS.GROUPS.MAIN} >{group.name}</Link>
+
+        </Menu.Item>
+      )
+    })
+  }
+
 
  render(){
      return(
@@ -105,11 +128,14 @@ class LeftNavigation extends React.Component{
             {this.renderFriends(this.props.friends)}
 
           </SubMenu>
-          <SubMenu key="sub3" icon={<FontAwesomeIcon icon = {faUsers} style={{marginRight:'10px'}}/>} title="GROUPS">
-            <Menu.Item key="9">
-            <Link to= {ROUTE.FRIENDS.GROUPS.MAIN} >Example Group</Link>
+          <SubMenu key="GROUP" icon={<FontAwesomeIcon icon = {faUsers} style={{marginRight:'10px'}}/>} title="GROUPS">
+            <Menu.Item key="add-friend">
+              <Button 
+                onClick={this.props.onCreateNewGroup}
+              ><FontAwesomeIcon icon={faPlus} style={{marginRight:10}}/>Create Group</Button>
             </Menu.Item>
-            <Menu.Item key="10">Example Group</Menu.Item>
+            {this.renderGroups(this.props.groups)}
+            
           </SubMenu>
           <SubMenu key="sub4" icon={<FontAwesomeIcon icon = {faCog} style={{marginRight:'10px'}}/>} title="SETTING">
             <Menu.Item key="settings">
@@ -138,9 +164,11 @@ const mapStateToProps = (state) => {
       state,
       authUser:state.authUser.user.data,
       theme:state.theme,
+      groups:state.groups.groupList,
   };
 }
 export default connect(mapStateToProps,{
   setCurrentChatFriend,
   changeTheme,
+  setCurrentGroup,
 })(LeftNavigation);
