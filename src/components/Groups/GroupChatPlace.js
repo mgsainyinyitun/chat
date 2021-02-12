@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MenuOutlined } from '@ant-design/icons';
 import { faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import AddGroupMemberModal from './AddGroupMemberModal';
+import GroupMessagesList from './GroupMessagesList';
 
 
 class GroupChatPlace extends React.Component {
@@ -16,12 +17,13 @@ class GroupChatPlace extends React.Component {
             addFriendModalVisible:false,
         }
     }
+
     componentDidUpdate(){
         console.log("GRREEFDF:",this.props);
     }
 
 
-     renderMembersList = (group) =>{
+    renderMembersList = (group) =>{
          if(group){
             console.log("memeberlist",group.members);
             return group.members.map(member =>{
@@ -90,7 +92,7 @@ class GroupChatPlace extends React.Component {
                    {this.renderHeader(this.props.group,txtColor)}
                 </Card.Title>
                 <Card.Body>
- 
+                    <GroupMessagesList/>
                 </Card.Body>
             </Card>
             <AddGroupMemberModal 

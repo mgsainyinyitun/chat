@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import GroupChatPlace from './GroupChatPlace';
+import GroupMessagesPlace from './GroupMessagesPlace';
 
 class GroupChat extends React.Component {
 
@@ -11,6 +12,10 @@ class GroupChat extends React.Component {
                 <GroupChatPlace
                     group = {this.props.groups.currentGroup}
                 />
+                <GroupMessagesPlace
+                    group = {this.props.groups.currentGroup}
+                />
+
             </div>
         )
     }

@@ -4,8 +4,6 @@ import {Modal,Form,Input,Button} from 'antd';
 
 import {createNewGroup} from '../../../../redux/actions';
 
-
-
 class NewGroupModal extends React.Component {
     onFinishAddGroup = values => {
         if(values.groupName){
@@ -21,7 +19,6 @@ class NewGroupModal extends React.Component {
                 active:true,
                 members:[uD],
             }
-            console.log("New group info:",newG)
             this.props.createNewGroup(newG);
             this.props.onCancel();
         }

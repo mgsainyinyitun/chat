@@ -47,4 +47,5 @@ export const GROUP = {
     EDIT:'edit.group',
     ADD_MEMBER:'add.memmber.to.group',
     REMOVE_MEMBER:'remove.member.from.group',
+    GROUP_MESSAGES_GET:'get.group.messages',
 }

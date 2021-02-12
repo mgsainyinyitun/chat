@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     groupList: [],
     currentGroup:null,
     currentGmember:[],
+    groupMessages:[],
 }
 
 export const groupReducers = (state = INITIAL_STATE,action) => {
@@ -42,6 +43,12 @@ export const groupReducers = (state = INITIAL_STATE,action) => {
             return{
                 ...state,
                 currentGmember:[...state.currentGmember,action.payload]
+            }
+
+        case GROUP.GROUP_MESSAGES_GET:
+            return{
+                ...state,
+                groupMessages:[...state.groupMessages,action.payload]
             }
         default:return state;
     }

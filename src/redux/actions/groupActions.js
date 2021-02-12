@@ -40,9 +40,22 @@ export const getUserRelatedGroupsNotRealTime = (user) => dispatch =>{
             groups.forEach(group => {
                 console.log("Receive Groups:",group.data());
                 dispatch(getUserRelatedGroupsSuccess(group.data()))
+                dispatch(getRealTimeGroupMessage(group.data()))
             })
         }else{
             console.log("Group is empty");
+        }
+    })
+}
+
+export const getRealTimeGroupMessage = (group) => dispatch =>{
+    const ref = db.collection('groups').doc(group.groupId).collection('messages');
+    return ref.onSnapshot(messages => {
+        if(!messages.empty){
+            messages.docChanges().forEach(message => {
+                console.log('gp messagesss::',message.doc.data());
+                dispatch(getRealTimeGroupMessageSuccess(message.doc.data()));
+            })
         }
     })
 }
@@ -84,6 +97,20 @@ export const getUserInfoByUid = (uid) => dispatch =>  {
 }
 
 
+export const sendGroupMessage = (id,message) => dispatch => {
+    const ref = db.collection("groups").doc(id).collection("messages").doc();
+    message.mesId = ref.id;
+    return ref.set(message).then(()=>{
+        console.log("successfully sent group message:");
+    })
+    .catch(err =>{
+        console.log("err in sent group message:",err);
+    })
+}
+
+
+
+
 export const getUserInfoByUidSuccess = (member) => {
     return {
         type:GROUP.GET_MEMBER_INFO,
@@ -116,4 +143,12 @@ export const updateGroupMember = (group) => {
         type:GROUP.UPDATE_MEMBER,
         payload:group,
     }
+}
+
+export const getRealTimeGroupMessageSuccess = (message) => {
+    return {
+        type:GROUP.GROUP_MESSAGES_GET,
+        payload:message,
+    }
+
 }
