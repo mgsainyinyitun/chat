@@ -4,6 +4,7 @@ import {GROUP} from '../actions/Types';
 const INITIAL_STATE = {
     groupList: [],
     currentGroup:null,
+    currentGmember:[],
 }
 
 export const groupReducers = (state = INITIAL_STATE,action) => {
@@ -36,6 +37,11 @@ export const groupReducers = (state = INITIAL_STATE,action) => {
                 groupList:[...state.groupList.filter(gp=>{
                     return gp.groupId !== action.payload.groupId;
                 }),action.payload]
+            }
+        case GROUP.GET_MEMBER_INFO:
+            return{
+                ...state,
+                currentGmember:[...state.currentGmember,action.payload]
             }
         default:return state;
     }

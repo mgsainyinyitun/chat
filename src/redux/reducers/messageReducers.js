@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils';
 import {MESSAGE} from '../actions/Types';
 
 const INITIAL_STATE = {

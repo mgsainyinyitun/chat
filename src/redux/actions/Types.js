@@ -37,6 +37,7 @@ export const MESSAGE = {
 
 
 export const GROUP = {
+    GET_MEMBER_INFO:'get.member.info',
     UPDATE_MEMBER:'update.group.member',
     EMPTY:'empty.group',
     CURRENT_GROUP:'set.current.group',

@@ -2,23 +2,33 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Modal,Button} from 'antd';
 import {addMemberToGroups} from '../../redux/actions';
+import _ from 'lodash';
 
 class AddGroupMemberModal extends React.Component {
 
-    removeAlredyMembers = (friends,group) => {
-        console.log("Friends",friends);
-        console.log("Group",group);
-    }
+    removeAlredyMembers = (friends,members) => {
+    let tmp = [...friends];
+         for(let i = 0;i<friends.length;i++){
+             members.map(mem =>{
+                 if(mem.uid === friends[i].uid){
+                    tmp.splice(i,1);
+                 }
+             })
+        }
+        return tmp;
+     }
     
     onAddFriend = (friend,group ) =>{
-        console.log("Friend",friend);
-        console.log("Group",group);
-        this.props.addMemberToGroups(group,friend.uid);
+        this.props.addMemberToGroups(group,friend);
+        this.props.onCancel();
     }
 
     renderFriends = (friends,group) =>{
-        this.removeAlredyMembers(friends,group);
-        return friends.map(friend =>{
+        let Ffriends;
+        if(group){
+            Ffriends =  this.removeAlredyMembers(friends,group.members);
+        }
+        return Ffriends.map(friend =>{
             return(
                 <p key={friend.uid}>
                     <span>{friend.username}</span>
@@ -48,6 +58,13 @@ class AddGroupMemberModal extends React.Component {
         )
     }
 }
-export default connect(null,{
+
+
+const mapStateToProps = state =>{
+    return {
+        authUser:state.authUser.user.data,
+    }
+}
+export default connect(mapStateToProps,{
     addMemberToGroups
 })(AddGroupMemberModal);

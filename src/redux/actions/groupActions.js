@@ -7,18 +7,22 @@ export const createNewGroup = (data) => dispatch => {
     data.groupId = ref.id;
     return ref.set(data).then(()=>{
         console.log("successfully create group");
+        dispatch({
+            type:GROUP.CREATE,
+            payload:data,
+        })
     })
     .catch (err => {
         console.log("error in c-group:",err);
     })
 }
 
-export const addMemberToGroups = (group,memberId) => dispatch =>{
+export const addMemberToGroups = (group,member) => dispatch =>{
     const ref = db.collection("groups").doc(group.groupId);
     return ref.update({
-        members:fv.arrayUnion(memberId),
+        members:fv.arrayUnion(member),
     }).then(()=>{
-        group.members.push(memberId);
+        group.members.push(member);
         console.log("New Group Memeber :::....",group);
         dispatch(updateGroupMember(group));
         console.log("update successsssss....");
@@ -29,7 +33,7 @@ export const addMemberToGroups = (group,memberId) => dispatch =>{
 
 
 export const getUserRelatedGroupsNotRealTime = (user) => dispatch =>{
-    const ref = db.collection('groups').where("members","array-contains",user.uid);
+    const ref = db.collection('groups').where("members","array-contains",user);
     return ref.get().then(groups =>{
         if(!groups.empty){
             groups.forEach(group => {
@@ -66,14 +70,25 @@ export const getUserRelatedGroups = (user) => dispatch => {
 
 export const getUserInfoByUid = (uid) => dispatch =>  {
     const ref = db.collection("users").where("uid","==",uid);
-    return ref.get().then( (doc) => {
-        console.log("USER INFO::",doc.data());
+    return ref.get().then((docs) => {
+        if(!docs.empty){
+            docs.forEach(doc =>{
+                console.log("USER INFO::",doc.data());
+                dispatch(getUserInfoByUidSuccess(doc.data()));
+            })
+        }
     }).catch(err =>{
         console.log("ERR:In:",err);
     })
 }
 
 
+export const getUserInfoByUidSuccess = (member) => {
+    return {
+        type:GROUP.GET_MEMBER_INFO,
+        payload:member,
+    }
+}
 
 export const getUserRelatedGroupsSuccess = (group) => {
     return {

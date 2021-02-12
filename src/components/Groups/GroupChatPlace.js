@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Card} from 'react-bootstrap';
+import {getUserInfoByUid} from '../../redux/actions';
 import { Dropdown,Menu,Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MenuOutlined } from '@ant-design/icons';
@@ -15,7 +16,6 @@ class GroupChatPlace extends React.Component {
             addFriendModalVisible:false,
         }
     }
-
     componentDidUpdate(){
         console.log("GRREEFDF:",this.props);
     }
@@ -26,9 +26,9 @@ class GroupChatPlace extends React.Component {
             console.log("memeberlist",group.members);
             return group.members.map(member =>{
                 return(
-                    <Menu.Item key={member}>
+                    <Menu.Item key={member.uid}>
                         <FontAwesomeIcon icon={faUser} style={{marginRight:5}} />
-                        {member}
+                        {member.username}
                     </Menu.Item>
                 )
             })
@@ -111,4 +111,6 @@ const mapStateToProps = (state) => {
         friends:state.friend.friends_list,
     };
 }
-export default connect(mapStateToProps)(GroupChatPlace);
+export default connect(mapStateToProps,{
+    getUserInfoByUid
+})(GroupChatPlace);

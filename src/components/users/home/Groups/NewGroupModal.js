@@ -12,9 +12,9 @@ class NewGroupModal extends React.Component {
             let newG = {
                 name:values.groupName,
                 created:new Date(),
-                createdBy:this.props.authUser.uid,
+                createdBy:this.props.authUser,
                 active:true,
-                members:[this.props.authUser.uid],
+                members:[this.props.authUser],
             }
             console.log("New group info:",newG)
             this.props.createNewGroup(newG);
