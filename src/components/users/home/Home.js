@@ -20,14 +20,12 @@ class Home extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            fetching:true,
             addFriendModalVisible:false,
             newGroupModalVisible:false,
             authUserName:'',
             notiDrawerVisible:false,
         }
     }
-
     openNotiDrawer = ()=>{
         this.setState({
             notiDrawerVisible:true,
@@ -63,14 +61,30 @@ class Home extends React.Component{
     render(){
         const mode = this.props.theme==='dark'?'home-dark':'home-light'
         const mainMode = this.props.theme==='dark'?'main-dark w-100':'main-light w-100';
-
-        const isLogin = this.props.authUser.user.data;
-
-        if(isLogin === null){ // user not login
+        let isLogin = false;
+        let fetching = true;
+        if(this.props.authUser.user){
+            isLogin = this.props.authUser.user.data?true:false;
+            fetching = this.props.authUser.fetching;
+        }
+        
+        if(!isLogin && !fetching){ // not login , not fetching
             return <Redirect to={ROUTE.USERS.LOGIN} />
         }
-
-        if(!this.props.fetching){ // not fetching
+        else if(isLogin && fetching) {
+            return (
+                <div 
+                    className="d-flex justify-content-center w-100 align-items-center"
+                    style={{minHeight:"100vh"}}
+                 >
+                    <Spin
+                        size="large"
+                        tip="Loading ..."
+                    />
+                </div>
+            )
+        }
+        else if(isLogin && !fetching){ // not fetching
             return(
                 <div className='h-100'>
                     <div className={`${mode} d-flex flex-row-reverse justify-content-between`}>
@@ -110,8 +124,8 @@ class Home extends React.Component{
 
                 </div>
             )
-        }else if(this.props.fetching){
-            return <Spin/>
+        }else{
+            return null;
         }
     }
 }

@@ -25,33 +25,12 @@ class App extends React.Component{
     }
     
     componentDidMount = () =>{  
-        //this.props.onAuthStateChanged();
         this.props.onAuthStateChangedSecond()
         .then(()=>{
             console.log("on auth state change finish!",this.props.user);
         })
     }
-    componentDidUpdate = () =>{
-        if(!_.isEmpty(this.props.user)){
-            this.props.getFriendsList(this.props.user.docId);
-            this.props.getFriendsRequestList(this.props.user.docId);
-            this.props.getRealTimeMessages(this.props.user);
-            this.props.getUserSaveTheme(this.props.user);
-            let sD = {
-                uid:this.props.user.uid,
-                username:this.props.user.username,
-                email:this.props.user.email,
-            }
-            this.props.getUserRelatedGroupsNotRealTime(sD);
-            if(this.state.reload){
-                this.setState({reload:false});
-                
-            }
-        }else{
-            console.log("not ready")
-        }
 
-    }
     render(){
         return(
             <div className='h-100'>

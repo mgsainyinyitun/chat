@@ -5,6 +5,7 @@ const INITIAL_STATE = {
         data:null,
     },
     errors:null,
+    fetching:true,
 }
 
 export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
@@ -26,6 +27,11 @@ export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
             return {
                 ...state,
                 errors:action.payload,
+            }
+        case USER.DATA_FETCHING_CHANGE:
+            return {
+                ...state,
+                fetching:action.payload,
             }
         default: return state;
     }

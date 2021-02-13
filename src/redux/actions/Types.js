@@ -5,6 +5,7 @@ export const USER = {
     LOGIN_ERROR:'login.error',
     SIGNOUT:'signout.user',
     SETPROFILEDATA:'data.of.user',
+    DATA_FETCHING_CHANGE:'change.fetching.user.data'
 }
 
 export const THEME = {

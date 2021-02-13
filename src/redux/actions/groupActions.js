@@ -1,5 +1,6 @@
 import {db,fv} from '../../firebase';
 import {GROUP} from './Types';
+import {changeFetchingState} from '../actions';
 
 
 export const createNewGroup = (data) => dispatch => {
@@ -44,6 +45,9 @@ export const getUserRelatedGroupsNotRealTime = (user) => dispatch =>{
         }else{
             console.log("Group is empty");
         }
+    })
+    .then(()=>{
+        dispatch(changeFetchingState(false));
     })
 }
 
@@ -146,5 +150,4 @@ export const getRealTimeGroupMessageSuccess = (message) => {
         type:GROUP.GROUP_MESSAGES_GET,
         payload:message,
     }
-
 }

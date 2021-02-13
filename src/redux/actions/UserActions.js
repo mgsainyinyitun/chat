@@ -1,7 +1,13 @@
 import { USER } from "./Types"
 import {auth,db, fb} from '../../firebase';
 import history from "../../history";
-import {getFriendsList} from "../actions";
+import {
+    getFriendsList,
+    getFriendsRequestList,
+    getRealTimeMessages,
+    getUserSaveTheme,
+    getUserRelatedGroupsNotRealTime,
+} from "../actions";
 
 //  export const  OnAuthStateChanged = () => {
 //      console.log("Call for onAuthSateChanged")
@@ -51,7 +57,7 @@ export const onAuthStateChanged = ()  =>  dispatch => {
                 type:USER.LOGIN,
                 payload:{user}
             })
-            getUserProfile(user.uid,dispatch)
+            getUserProfile(user.uid)
         }else{
             dispatch({type:USER.SIGNOUT})
         }
@@ -67,12 +73,26 @@ export const onAuthStateChangedSecond = () => (dispatch) => {
                 type:USER.LOGIN,
                 payload:{user}
             })
-            getUserProfile(user.uid,dispatch);
+            console.log("user ID is:::",user.uid);
+            dispatch(getUserProfile(user.uid));
         }else{
             dispatch({type:USER.SIGNOUT})
         }
     });
     return Promise.resolve();
+}
+
+export const getUserMetaData = (user)  => dispatch => {
+    let sD = {
+        uid:user.uid,
+        username:user.username,
+        email:user.email,
+    }
+    dispatch(getUserSaveTheme(user));
+    dispatch(getFriendsRequestList(user.docId));
+    dispatch(getFriendsList(user.docId));
+    dispatch(getRealTimeMessages(user));
+    dispatch(getUserRelatedGroupsNotRealTime(sD));
 }
 
 export const loginUser = (info) => {
@@ -86,7 +106,7 @@ export const loginUser = (info) => {
                 payload:authUser,
             }) 
         })
-        .then(()=> getUserProfile(authUser.uid,dispatch))
+        .then(()=> getUserProfile(authUser.uid))
         .then(() => {
             history.push('/');
         })
@@ -131,27 +151,33 @@ export const getUserDataWithDocId = (docId) => dispatch =>{
 
 
 
-export const getUserProfile = (uid,dispatch) =>{
+export const getUserProfile = (uid) => dispatch => {
     console.log("UID to get::",uid);
-    let docId;
+    let user = null;
     const ref = db.collection("users").where("uid","==",uid)
     return ref.get().then( docs =>{
         docs.forEach(doc=>{
+            console.log("user data is:::",doc.data());
+            user = doc.data();
             dispatch({
                 type:USER.SETPROFILEDATA,
                 payload:doc.data()
             })
-        })
-        
+        })    
+    })
+    .then(()=>{
+        dispatch(changeFetchingState(true));
     })
     .then(()=>{
         history.push('/');
+    })
+    .then(() => {
+         dispatch(getUserMetaData(user));
     })
     .catch(err=>{
         console.log("Get user data error",err);
     })
 }
-
 export const SignUp = (info) => {
     let data = {
         email:info.email,
@@ -198,4 +224,9 @@ export const SignOut = () => {
      }
  }
 
-
+export const changeFetchingState = (state) => {
+    return {
+        type:USER.DATA_FETCHING_CHANGE,
+        payload:state,
+    }
+}
