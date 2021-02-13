@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import { ROUTE } from '../../../routes/constant';
 import {auth} from '../../../firebase';
 
-
 class LoginPage extends React.Component{
     componentDidUpdate () {
       console.log("Login Page::",this.props);

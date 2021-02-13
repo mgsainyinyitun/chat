@@ -13,7 +13,7 @@ class GroupMessagesList extends React.Component {
     }
 
     sliceLastMessages = (messages) => {
-        let temp = messages.reverse().slice(0,10);
+        let temp = messages.reverse().slice(0,7);
         return temp.reverse();
     }
 

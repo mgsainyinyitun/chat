@@ -39,7 +39,7 @@ class Account extends React.Component {
         //const txtColor = this.props.theme === 'dark'?'white':'teal';
         return(
             <div className="align-self-center m-3 d-flex justify-content-between w-100">
-                <h3 className="text-primary mt-3">{this.props.userinfo.data?this.props.userinfo.data.username:"no user"}</h3>
+                <h3 className="text-primary mt-3">{this.props.userinfo.data?this.props.userinfo.data.username:"no user"} &#128578;</h3>
                 <Dropdown 
                     overlay={this.renderMenu(this.props.SignOut,style)} 
                     placement = "bottomCenter" 
@@ -47,7 +47,7 @@ class Account extends React.Component {
                     className={`align-self-center ${style}`}
                     trigger= {["click"]}
                 >
-                    <Avatar size={40} icon={<UserOutlined />} />
+                    <Avatar size={"1em"} icon={<UserOutlined />} />
                 </Dropdown>
                 
             </div>

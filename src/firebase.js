@@ -3,11 +3,12 @@ import 'firebase/analytics';
 
 const MODES = {
 	DEV: "Dev",
+  PRODUCTION:'production',
 };
+
 const devMode = MODES.DEV;
 
 let config = {};
-
 if (devMode === MODES.DEV) {
 	 config = {
         apiKey: "AIzaSyC8J8n8xCsHVQ9sjuRz4vhN4uwDHqtcHrs",
@@ -19,7 +20,7 @@ if (devMode === MODES.DEV) {
         appId: "1:1009602292230:web:594313587f605bdf147187",
         measurementId: "G-43PWLJJNB1"
       };
-} else {
+} else if(devMode === MODES.PRODUCTION) {
 	
 }
 export const fb = firebase.initializeApp(config);

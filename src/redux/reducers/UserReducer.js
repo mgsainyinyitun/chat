@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import { USER } from "../actions/Types";
 
 const INITIAL_STATE = {
@@ -6,6 +7,7 @@ const INITIAL_STATE = {
     },
     errors:null,
     fetching:true,
+    btnLoading:false,
 }
 
 export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
@@ -32,6 +34,11 @@ export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
             return {
                 ...state,
                 fetching:action.payload,
+            }
+        case USER.LOGIN_BTN_LOADING:
+            return{
+                ...state,
+                btnLoading:action.payload,
             }
         default: return state;
     }

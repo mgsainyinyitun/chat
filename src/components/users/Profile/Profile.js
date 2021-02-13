@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Avatar,Card} from 'antd';
+import {Avatar} from 'antd';
+import {Card} from 'react-bootstrap';
 import { UserOutlined } from '@ant-design/icons';
 
 class Profile extends React.Component {
@@ -16,23 +17,28 @@ class Profile extends React.Component {
                 <h2 className="text-primary mt-2">{user?user.username:null}</h2>
 
                 <Card 
-                    title={<h3 className="text-info">Personal Information</h3>} 
-                    className={`w-75 ${style}`}
+                    className={`w-75 ${style} p-3`}
                 >
-                    <span style={{fontSize:"1.5em",color:`${txtColor}`}}>
-                        <p>
-                            <span>E-mail</span>
-                            <span style={{float:"right"}}>{user?user.email:null}</span>
-                        </p>
-                        <p>
-                            <span>Phone</span>
-                            <span style={{float:"right"}}>{user?user.phone:null}</span>
-                        </p>
-                        <p>
-                            <span>Address</span>
-                            <span style={{float:"right"}}>{user?user.address:null}</span>
-                        </p>
-                    </span>
+                    <Card.Title>
+                        <h3 className="text-info">Personal Information</h3>
+                    </Card.Title>
+                    <Card.Body>
+                        <span style={{fontSize:"1.5em",color:`${txtColor}`}}>
+                            <p>
+                                <span>E-mail</span>
+                                <span style={{float:"right"}}>{user?user.email:null}</span>
+                            </p>
+                            <p>
+                                <span>Phone</span>
+                                <span style={{float:"right"}}>{user?user.phone:null}</span>
+                            </p>
+                            <p>
+                                <span>Address</span>
+                                <span style={{float:"right"}}>{user?user.address:null}</span>
+                            </p>
+                        </span>
+                    </Card.Body>
+                    
                 </Card>
             </div>
         );

@@ -107,9 +107,6 @@ export const loginUser = (info) => {
             }) 
         })
         .then(()=> getUserProfile(authUser.uid))
-        .then(() => {
-            history.push('/');
-        })
         .catch((error) => {
             console.log("Login Error",error);
             return dispatch(onLoginError(error));
@@ -227,6 +224,14 @@ export const SignOut = () => {
 export const changeFetchingState = (state) => {
     return {
         type:USER.DATA_FETCHING_CHANGE,
+        payload:state,
+    }
+}
+
+export const loginButtonLoading = (state) =>{
+    console.log("SET BTN:LOading:",state);
+    return {
+        type:USER.LOGIN_BTN_LOADING,
         payload:state,
     }
 }

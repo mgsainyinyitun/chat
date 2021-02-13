@@ -62,7 +62,7 @@ class AddFriendModal extends React.Component {
                           <span className="text-primary">Username | {item.username}</span>
                           {
                             item.status?
-                            <Button onClick={this.onAddFriend}>{item.status}</Button>:
+                            <Button type="primary" onClick={this.onAddFriend}>{item.status.toUpperCase()}</Button>:
                             <Button onClick={this.onAddFriend}>ADD</Button>
                           }
                           

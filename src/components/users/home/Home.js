@@ -14,6 +14,7 @@ import { Spin,Drawer } from 'antd';
 import AddFriendModal from './Friends/AddFriendModal';
 import NotificationDrawer from './NotificationDrawer/NotificationDrawer';
 import NewGroupModal from '../home/Groups/NewGroupModal';
+import AboutUs from './AboutUs/AboutUs';
 
 
 class Home extends React.Component{
@@ -39,7 +40,11 @@ class Home extends React.Component{
     renderBody = (page) => {
         switch (page) {
             case PAGE.USERS.HOME:
-                return <Main theme = {this.props.theme}/>
+                return <Main 
+                            theme = {this.props.theme}
+                            onAddFriend = {()=>this.setState({addFriendModalVisible:true})}
+                            onCreateNewGroup = {()=>this.setState({newGroupModalVisible:true})}
+                        />
             case PAGE.FRIENDS.CHAT:
                 return(
                 <MainChat 
@@ -53,6 +58,8 @@ class Home extends React.Component{
                 return <Group theme = {this.props.theme}/>
             case PAGE.FRIENDS.GROUPS.CHAT:
                 return <MainChat theme={this.props.theme}/>
+            case PAGE.ABOUT_US:
+                return <AboutUs />
             default:
                 return <div>Nothing</div>
         }
@@ -68,10 +75,10 @@ class Home extends React.Component{
             fetching = this.props.authUser.fetching;
         }
         
-        if(!isLogin && !fetching){ // not login , not fetching
-            return <Redirect to={ROUTE.USERS.LOGIN} />
-        }
-        else if(isLogin && fetching) {
+        // if(!isLogin && !fetching){ // not login , not fetching
+        //     return <Redirect to={ROUTE.USERS.LOGIN} />
+        // }
+         if(isLogin && fetching) {
             return (
                 <div 
                     className="d-flex justify-content-center w-100 align-items-center"
@@ -107,7 +114,11 @@ class Home extends React.Component{
                     </div>
                     </div>
                     <hr style={{margin:0}}/>
-                    <div className={mode}></div> 
+                    <div className={`${mode} text-white d-flex justify-content-center`}>
+                      <p className="align-self-center mt-1"> Copyright <span>&#169;</span> 2021 
+                        <span className="text-info" style={{marginRight:5,marginLeft:5}}>ChatWithFriends</span>  
+                      All Rights Reserved.</p>  
+                    </div> 
                     <NotificationDrawer
                         visible={this.state.notiDrawerVisible}
                         onClose={this.onNotiDrawerClose}
@@ -125,7 +136,7 @@ class Home extends React.Component{
                 </div>
             )
         }else{
-            return null;
+            return <Redirect to={ROUTE.USERS.LOGIN} />;
         }
     }
 }

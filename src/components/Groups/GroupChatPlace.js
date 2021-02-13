@@ -23,38 +23,44 @@ class GroupChatPlace extends React.Component {
     }
 
 
-    renderMembersList = (group) =>{
+    renderMembersList = (group,Tstyle) =>{
          if(group){
             console.log("memeberlist",group.members);
             return group.members.map(member =>{
                 return(
                     <Menu.Item key={member.uid}>
-                        <FontAwesomeIcon icon={faUser} style={{marginRight:5}} />
-                        {member.username}
+                        <span style={{color:Tstyle}}>
+                            <FontAwesomeIcon icon={faUser} style={{marginRight:5}} />
+                            {member.username}
+                        </span>
                     </Menu.Item>
                 )
             })
          }
-         
      }
 
      renderMenuItems = (group) => {
+        const style = this.props.state.theme === 'dark'?'bg-dark text-white':'bg-light';
+        const Tstyle = this.props.state.theme === 'dark'?'white':'';
          return(
-             <Menu>
+             <Menu className={`${style}`}>
                  <Menu.Item style={{padding:0,margin:0}}>
                      <span style={{color:'white'}}>
                     ----------------------------------------------------
                     </span>
                  </Menu.Item>
                  <Menu.Item onClick={()=>this.setState({addFriendModalVisible:true})}>
+                    <span style={{color:Tstyle}}>
                     <FontAwesomeIcon icon={faPlus} style={{marginRight:5}} />
                         Add Friend
+                    </span>
                  </Menu.Item>
+                 
                  <hr/>
                  <Menu.Item>
                    <span className="text-primary">MEMBERS</span> 
                  </Menu.Item>
-                 {this.renderMembersList(group)}
+                 {this.renderMembersList(group,Tstyle)}
              </Menu>
         )
     }

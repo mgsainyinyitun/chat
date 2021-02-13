@@ -22,7 +22,7 @@ class GroupsList extends React.Component {
 
     render() {
         return(
-            <Card className="w-50 mt-2">
+            <Card className={this.props.style}>
                 <List
                     itemLayout = "horizontal"
                     dataSource = {data}

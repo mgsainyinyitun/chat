@@ -1,31 +1,49 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
-import {Dropdown,Menu} from 'antd';
+import {Button} from 'antd';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Home.css';
+import InfoList from './InfoList';
 
 
 class Main extends React.Component{
 
     render(){
         const mainMode = this.props.theme==='dark'?'bg-secondary w-100':'bg-light w-100';
-        const card = this.props.theme ==='dark'?'bg-secondary text-dark':'text-primary';
+        const card = this.props.theme ==='dark'?'bg-dark text-white':'text-primary';
 
         return (
-            <div className={`${mainMode} p-3 h-100`}>
-                <Card className={`${card} w-25 p-3`}>
-                    <span style={{fontSize:"2em"}}>
-                        <FontAwesomeIcon icon={faPlusCircle} className={card}/>
-                        <span className={`${card} ml-3`} style={{marginLeft:20}}>ADD FRIEND</span>
-                    </span>
+            <div className={`${mainMode} p-2 h-100`}>
+                <Card className={`${card}  p-3`}>
+                    <Card.Title>
+                        <h5 className={`${card}`}>ACTIONS</h5>
+                    </Card.Title>
+                    <Card.Body>
+                        <Button 
+                            type="primary" 
+                            size="large" 
+                            style={{marginRight:10,marginBottom:10}}
+                            onClick={this.props.onAddFriend}
+                        >
+                            <FontAwesomeIcon icon={faPlusCircle} style={{marginRight:10}} />
+                            ADD FRIEND
+                        </Button>
+
+                        <Button 
+                            type="primary" 
+                            size="large"
+                            onClick={this.props.onCreateNewGroup}
+                        >
+                            <FontAwesomeIcon icon={faPlusCircle} style={{marginRight:10}} />
+                            CREATE NEW GROUP
+                        </Button>
+                      
+
+                    </Card.Body>
+                    
                 </Card>
-                <Card className={`${card} w-25 mt-3 p-3`}>
-                    <span style={{fontSize:"2em"}}>
-                        <FontAwesomeIcon icon={faPlusCircle} className={card}/>
-                        <span className={`${card} ml-3`} style={{marginLeft:20}}>CREATE GROUP</span>
-                    </span>
-                </Card>
+                <InfoList />
             </div>
         )
     }

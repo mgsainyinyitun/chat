@@ -1,7 +1,9 @@
 import React from 'react';
-import {Empty} from 'antd';
+import {Empty,Avatar} from 'antd';
 import './GroupMessage.css';
 import _ from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 
 class GroupMessagesItem extends React.Component {
@@ -19,9 +21,17 @@ class GroupMessagesItem extends React.Component {
             }
             return (
                 <div className={align} key={index} >
-                    <p className={`${style}`}>
+                    <div className={`${style}`}>
+                        <p style={{fontSize:15}}>
+                            <Avatar 
+                                size={25} 
+                                style={{marginRight:10}}
+                                icon={<FontAwesomeIcon icon={faUser} />}
+                            />
+                        {message.fromName}
+                        </p>
                         {message.text}
-                    </p>
+                    </div>
                 </div>
             )
         })

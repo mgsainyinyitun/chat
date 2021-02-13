@@ -4,7 +4,7 @@ import { Menu, Switch,Button,Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus, faAddressBook, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
-import { ROUTE } from '../../routes/constant';
+import { PAGE,ROUTE } from '../../routes/constant';
 import {
     changeTheme,
     setCurrentChatFriend,
@@ -152,7 +152,7 @@ class LeftNavigation extends React.Component{
             </Menu.Item>
           </SubMenu>
           <Menu.Item key="aboutus" icon={<FontAwesomeIcon icon = {faAddressBook} style={{marginRight:'10px'}}/>} title="ABOUT US">
-            <Link to="/">ABOUT US</Link>
+            <Link to={ROUTE.ABOUT_US}>ABOUT US</Link>
           </Menu.Item>
         </Menu>
          </>

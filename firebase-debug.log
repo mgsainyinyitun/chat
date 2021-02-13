@@ -1,0 +1,45 @@
+[debug] [2021-02-13T11:39:41.680Z] ----------------------------------------------------------------------
+[debug] [2021-02-13T11:39:41.686Z] Command:       /home/sainyi/.nvm/versions/node/v10.18.0/bin/node /home/sainyi/.nvm/versions/node/v10.18.0/bin/firebase deploy
+[debug] [2021-02-13T11:39:41.687Z] CLI Version:   9.3.0
+[debug] [2021-02-13T11:39:41.688Z] Platform:      linux
+[debug] [2021-02-13T11:39:41.688Z] Node Version:  v10.18.0
+[debug] [2021-02-13T11:39:41.740Z] Time:          Sat Feb 13 2021 18:09:41 GMT+0630 (Myanmar Time)
+[debug] [2021-02-13T11:39:41.740Z] ----------------------------------------------------------------------
+[debug] [2021-02-13T11:39:41.741Z] 
+[debug] [2021-02-13T11:39:41.772Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-02-13T11:39:41.841Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-02-13T11:39:41.842Z] > authorizing via signed-in user
+[debug] [2021-02-13T11:39:41.842Z] [iam] checking project web-messenger-sainyi-068390 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2021-02-13T11:39:41.844Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-02-13T11:39:41.844Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-02-13T11:41:51.155Z] [iam] error while checking permissions, command may fail: FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2021-02-13T11:41:51.157Z] > refreshing access token with scopes: []
+[debug] [2021-02-13T11:41:51.158Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-02-13T11:44:02.217Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2021-02-13T11:44:02.659Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at Object.<anonymous> (/home/sainyi/.nvm/versions/node/v10.18.0/lib/node_modules/firebase-tools/lib/auth.js:23:32)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:692:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/home/sainyi/.nvm/versions/node/v10.18.0/lib/node_modules/firebase-tools/lib/init/features/hosting/github.js:11:16)
+    at Module._compile (internal/modules/cjs/loader.js:778:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:789:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+    at Module.require (internal/modules/cjs/loader.js:692:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+[error] 
+[error] Error: Failed to get Firebase project web-messenger-sainyi-068390. Please make sure the project exists and your account has permission to access it.

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import {connect} from 'react-redux';
-import {loginUser} from '../../../redux/actions';
+import {loginUser,loginButtonLoading} from '../../../redux/actions';
 
 class LoginForm extends React.Component{
     constructor (props) {
@@ -15,12 +15,14 @@ class LoginForm extends React.Component{
     }
 
     onFinish = (values) => {
+        this.props.loginButtonLoading(true);
         this.setState({
           authUser:{
             email:values.email,
             password:values.password,
           }
         })
+        
         this.props.loginUser(this.state.authUser);
     };
     onFinishFailed = (errorInfo) => {
@@ -29,9 +31,10 @@ class LoginForm extends React.Component{
 
     render = () =>  {
       console.log(this.props);
+      const loading = this.state.authUser.btnLoading?true:false;
+      console.log('btn loading:',loading);
  
         return (
-            
             <Form
               name="basic"
               layout="vertical"
@@ -72,7 +75,7 @@ class LoginForm extends React.Component{
               </Form.Item>
         
               <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={loading} >
                   Login
                 </Button>
               </Form.Item>
@@ -84,8 +87,4 @@ class LoginForm extends React.Component{
 const mapStateToProps = state => {
   return state;
 }
-export default connect(mapStateToProps,{loginUser})(LoginForm);
-
-
-/// uid - cPDp9qQn59Wb5J3rvER8Symq22D3
-/// uid - cPDp9qQn59Wb5J3rvER8Symq22D3
+export default connect(mapStateToProps,{loginUser,loginButtonLoading})(LoginForm);

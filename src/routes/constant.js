@@ -12,7 +12,8 @@ export const ROUTE = {
             MAIN:'/groups/chat/main',
             CHAT:'/groups/chat/',
         }
-    }
+    },
+    ABOUT_US:'/aboutus/',
 }
 
 export const PAGE = {
@@ -27,5 +28,6 @@ export const PAGE = {
             MAIN:'friends.group.main.page',
             CHAT:'friends.group.chat.page',
         },
-    }
+    },
+    ABOUT_US:'about.us.page'
 }

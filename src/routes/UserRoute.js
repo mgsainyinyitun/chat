@@ -36,4 +36,10 @@ export const UserRoute = [
     exact
     component = {(props) => <Logout {...props} />} 
   />,
+  <Route
+    key = "6"
+    path = {ROUTE.ABOUT_US}
+    exact
+    component = {(props ) => <Home {...props} page = {PAGE.ABOUT_US} /> }
+    />
 ]
