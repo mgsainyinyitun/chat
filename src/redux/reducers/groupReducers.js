@@ -19,7 +19,7 @@ export const groupReducers = (state = INITIAL_STATE,action) => {
         case GROUP.GET:
             return {
                 ...state,
-                groupList:[...state.groupList,action.payload]
+                groupList:action.payload,
             }
         case GROUP.CURRENT_GROUP:
             return {

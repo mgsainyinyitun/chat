@@ -59,7 +59,21 @@ export const onAuthStateChanged = ()  =>  dispatch => {
     
 }
 
-
+export const onAuthStateChangedSecond = () => (dispatch) => {
+    console.log("Call for on Auth state change:");
+    fb.auth().onAuthStateChanged(async (user) => {
+        if(user) {
+            dispatch({
+                type:USER.LOGIN,
+                payload:{user}
+            })
+            getUserProfile(user.uid,dispatch);
+        }else{
+            dispatch({type:USER.SIGNOUT})
+        }
+    });
+    return Promise.resolve();
+}
 
 export const loginUser = (info) => {
     let authUser;
@@ -78,8 +92,17 @@ export const loginUser = (info) => {
         })
         .catch((error) => {
             console.log("Login Error",error);
+            return dispatch(onLoginError(error));
         })
     }
+}
+
+
+export const onLoginError = (error) => {
+    return{
+        type:USER.LOGIN_ERROR,
+        payload:error,
+    }  
 }
 
 const SignUpSetUserProfile = (data)  => {
@@ -120,6 +143,9 @@ export const getUserProfile = (uid,dispatch) =>{
             })
         })
         
+    })
+    .then(()=>{
+        history.push('/');
     })
     .catch(err=>{
         console.log("Get user data error",err);

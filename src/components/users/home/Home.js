@@ -14,7 +14,7 @@ import { Spin,Drawer } from 'antd';
 import AddFriendModal from './Friends/AddFriendModal';
 import NotificationDrawer from './NotificationDrawer/NotificationDrawer';
 import NewGroupModal from '../home/Groups/NewGroupModal';
-import GroupChat from '../../Groups/GroupChat';
+
 
 class Home extends React.Component{
     constructor(props){
@@ -27,9 +27,7 @@ class Home extends React.Component{
             notiDrawerVisible:false,
         }
     }
-    componentDidUpdate = () =>{
-        console.log("Final Home DATA::",this.props);
-    }
+
     openNotiDrawer = ()=>{
         this.setState({
             notiDrawerVisible:true,
@@ -65,7 +63,10 @@ class Home extends React.Component{
     render(){
         const mode = this.props.theme==='dark'?'home-dark':'home-light'
         const mainMode = this.props.theme==='dark'?'main-dark w-100':'main-light w-100';
-        if(this.props.authUser === null){ // user not login
+
+        const isLogin = this.props.authUser.user.data;
+
+        if(isLogin === null){ // user not login
             return <Redirect to={ROUTE.USERS.LOGIN} />
         }
 

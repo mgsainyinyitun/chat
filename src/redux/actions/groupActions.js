@@ -23,9 +23,7 @@ export const addMemberToGroups = (group,member) => dispatch =>{
         members:fv.arrayUnion(member),
     }).then(()=>{
         group.members.push(member);
-        console.log("New Group Memeber :::....",group);
         dispatch(updateGroupMember(group));
-        console.log("update successsssss....");
     }).catch((err) => {
         console.log("ERRRRR:",err);
     })
@@ -37,11 +35,12 @@ export const getUserRelatedGroupsNotRealTime = (user) => dispatch =>{
     const ref = db.collection('groups').where("members","array-contains",user);
     return ref.get().then(groups =>{
         if(!groups.empty){
+            let gps = [];
             groups.forEach(group => {
-                console.log("Receive Groups:",group.data());
-                dispatch(getUserRelatedGroupsSuccess(group.data()))
+                gps.push(group.data());
                 dispatch(getRealTimeGroupMessage(group.data()))
-            })
+            });
+            dispatch(getUserRelatedGroupsSuccess(gps));
         }else{
             console.log("Group is empty");
         }
@@ -53,7 +52,6 @@ export const getRealTimeGroupMessage = (group) => dispatch =>{
     return ref.onSnapshot(messages => {
         if(!messages.empty){
             messages.docChanges().forEach(message => {
-                console.log('gp messagesss::',message.doc.data());
                 dispatch(getRealTimeGroupMessageSuccess(message.doc.data()));
             })
         }
@@ -70,10 +68,9 @@ export const getUserRelatedGroups = (user) => dispatch => {
             groups.docChanges().forEach(group => {
               //  dispatch(getUserRelatedGroupsSuccess(group.doc.data()))
                 Fgroups.push(group.doc.data());
-            }) // End forEach
-            console.log("Final Group is empty:");
+            }) 
+            
             dispatch(emptyRelatedGroupList());
-            console.log("Final Group is Added Again:");
             dispatch(getUserRelatedGroupsSuccess(Fgroups));
 
         }else{
@@ -87,7 +84,6 @@ export const getUserInfoByUid = (uid) => dispatch =>  {
     return ref.get().then((docs) => {
         if(!docs.empty){
             docs.forEach(doc =>{
-                console.log("USER INFO::",doc.data());
                 dispatch(getUserInfoByUidSuccess(doc.data()));
             })
         }

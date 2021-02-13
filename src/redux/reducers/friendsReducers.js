@@ -35,6 +35,11 @@ export const friendsReducers = (state = INITIAL_STATE,action) => {
                 ...state,
                 friends_list:[...state.friends_list.filter(obj=> obj.uid !== action.uid),action.payload]
             }
+        case FRIENDS.GET_FRIENDS_LIST:
+            return{
+                ...state,
+                friends_list:action.payload,
+            }
 
         default:return state;
     }

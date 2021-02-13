@@ -24,13 +24,11 @@ class Account extends React.Component {
                     <FontAwesomeIcon icon={faBook} style={{marginRight:5}}/>
                     Change Password
                 </Menu.Item>
-                <Menu.Item>
-                    <span onClick={SignOut}>
+                <Menu.Item  onClick={SignOut}>
                     <Link to = {ROUTE.USERS.LOGOUT}>
                         <FontAwesomeIcon icon={faSignOutAlt} style={{marginRight:5,color:'black'}} />
                        <span style={{color:'black'}}>Logout</span> 
                     </Link>
-                    </span>
                 </Menu.Item>
             </Menu>   
         )

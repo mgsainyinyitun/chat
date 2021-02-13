@@ -2,6 +2,7 @@
 export const USER = {
     REGISTER:'register.user',
     LOGIN:'login.user',
+    LOGIN_ERROR:'login.error',
     SIGNOUT:'signout.user',
     SETPROFILEDATA:'data.of.user',
 }
@@ -21,6 +22,7 @@ export const FRIENDS = {
     SUCCESS_ADD_FRIEND_REQUEST:'add.friend.request.to.list',
     REMOVE_FRIEND_REQUEST:'remove.friend.request',
     EDIT_FRIEND_DATA:'edit.friend.data',
+    GET_FRIENDS_LIST:'get.friends.list',
 }
 
 export const MESSAGE = {

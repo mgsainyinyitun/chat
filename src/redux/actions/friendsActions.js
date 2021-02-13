@@ -22,7 +22,6 @@ export const fetchUserByEmail = (email) =>{
     } 
 }
 
-
 export const addFriend = (friend,user,mode) => dispatch => {
     const ref = db.collection("users").doc(user.docId).collection("friends").doc();
     friend.friDoc = ref.id;
@@ -99,10 +98,12 @@ export const getFriendsList =  (docId) => dispatch =>{
         .doc(docId)
         .collection("friends")
         .get().then( docs => {
-            docs.forEach(doc =>{
-                console.log("Friends Data:",doc.data());
-                dispatch(addFriendSuccess(doc.data()));
+            let friends = [];
+            docs.forEach(doc =>{   
+                friends.push(doc.data()); 
+                //dispatch(addFriendSuccess(doc.data()));
             })
+            dispatch(getFriendsListSuccess(friends));
         })
         .catch(err=>{
             console.log("Error get friends",err);
@@ -129,6 +130,13 @@ export const addFriendSuccess = (friend) => {
     return {
         type:FRIENDS.SUCCESS_ADD_FRIEND,
         payload:friend,
+    }
+}
+
+export const getFriendsListSuccess = (friends) => {
+    return {
+        type:FRIENDS.GET_FRIENDS_LIST,
+        payload:friends,
     }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
-//import {Card} from 'antd';
+import {connect} from 'react-redux';
+import {notification} from 'antd';
 import {Card} from 'react-bootstrap'
 import "animate.css";
 
@@ -11,9 +12,24 @@ import {auth} from '../../../firebase';
 
 
 class LoginPage extends React.Component{
+    componentDidUpdate () {
+      console.log("Login Page::",this.props);
+    }
+
+
+    openNotificationWithIcon = errors => {
+      notification['error']({
+        message: errors.code,
+        description:errors.message,
+      });
+    };
     
     render(){
       console.log("Current User is ::",auth.currentUser);
+      if(this.props.errors){
+        this.openNotificationWithIcon(this.props.errors);
+      }
+
         return (
           <div className="d-flex justify-content-center align-items-center login-background">
             <Card className="animate__animated animate__backInRight animate__faster p-3">
@@ -21,10 +37,15 @@ class LoginPage extends React.Component{
                 <LoginForm/>
                 <h5 className="create-one">Does not have an account! <Link to ={ROUTE.USERS.REGISTER}>Create one</Link> </h5>
             </Card>
-            
           </div>
           );
 
     }
 }
-export default LoginPage;
+
+const mapStateToProps = state => {
+  return {
+    errors:state.authUser.errors,
+  };
+}
+export default connect(mapStateToProps)(LoginPage);

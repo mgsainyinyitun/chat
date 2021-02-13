@@ -2,8 +2,9 @@ import { USER } from "../actions/Types";
 
 const INITIAL_STATE = {
     user:{
-        data:{},
-    }
+        data:null,
+    },
+    errors:null,
 }
 
 export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
@@ -20,6 +21,11 @@ export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
                 user:{
                     data:action.payload
                 }
+            }
+        case USER.LOGIN_ERROR:
+            return {
+                ...state,
+                errors:action.payload,
             }
         default: return state;
     }
