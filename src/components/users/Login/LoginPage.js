@@ -31,7 +31,7 @@ class LoginPage extends React.Component{
 
         return (
           <div className="d-flex justify-content-center align-items-center login-background">
-            <Card className="animate__animated animate__backInRight animate__faster p-3">
+            <Card className="animate__animated animate__backInRight animate__faster p-3" style={{minWidth:"30%"}}>
                 <h2 className='header mb-5 mr-5 ml-5'>Hello,Friend <span>&#128522;</span>Please Login</h2>
                 <LoginForm/>
                 <h5 className="create-one">Does not have an account! <Link to ={ROUTE.USERS.REGISTER}>Create one</Link> </h5>

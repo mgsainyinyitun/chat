@@ -7,6 +7,7 @@ export const USER = {
     SETPROFILEDATA:'data.of.user',
     DATA_FETCHING_CHANGE:'change.fetching.user.data',
     LOGIN_BTN_LOADING:'login.button.loading',
+    EDIT_PROFILE:'edit.profile.of.user'
 }
 
 export const THEME = {

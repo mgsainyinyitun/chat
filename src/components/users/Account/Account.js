@@ -12,7 +12,7 @@ class Account extends React.Component {
     renderMenu = (SignOut,style) =>{
         return (
             <Menu className={`${style}`}>
-                <Menu.Item>
+                <Menu.Item onClick={this.props.openEditProfile}>
                     <FontAwesomeIcon icon={faUserEdit} style={{marginRight:5}} />
                     Edit Profile
                 </Menu.Item>

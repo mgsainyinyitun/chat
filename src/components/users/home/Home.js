@@ -15,6 +15,7 @@ import AddFriendModal from './Friends/AddFriendModal';
 import NotificationDrawer from './NotificationDrawer/NotificationDrawer';
 import NewGroupModal from '../home/Groups/NewGroupModal';
 import AboutUs from './AboutUs/AboutUs';
+import EditProfileModal from '../Profile/EditProfileModal';
 
 
 class Home extends React.Component{
@@ -25,11 +26,17 @@ class Home extends React.Component{
             newGroupModalVisible:false,
             authUserName:'',
             notiDrawerVisible:false,
+            editProfileModalVisible:false,
         }
     }
     openNotiDrawer = ()=>{
         this.setState({
             notiDrawerVisible:true,
+        })
+    }
+    openEditProfile = () => {
+        this.setState({
+            editProfileModalVisible:true,
         })
     }
     onNotiDrawerClose = () =>{
@@ -53,7 +60,7 @@ class Home extends React.Component{
                 />
                 )
             case PAGE.USERS.PROFILE:
-                return <Profile theme={this.props.theme}/>
+                return <Profile theme={this.props.theme} openEditProfile = {this.openEditProfile}/>
             case PAGE.FRIENDS.GROUPS.MAIN:
                 return <Group theme = {this.props.theme}/>
             case PAGE.FRIENDS.GROUPS.CHAT:
@@ -99,6 +106,7 @@ class Home extends React.Component{
                             userinfo = {this.props.authUser.user}
                             openNotiDrawer={this.openNotiDrawer}
                             theme = {this.props.theme}
+                            openEditProfile = {this.openEditProfile}
                         />
                     </div>
                     <hr style={{margin:0}}/>
@@ -131,6 +139,10 @@ class Home extends React.Component{
                     <NewGroupModal
                         visible={this.state.newGroupModalVisible}
                         onCancel = {()=>this.setState({newGroupModalVisible:false})}
+                    />
+                    <EditProfileModal 
+                        visible = {this.state.editProfileModalVisible}
+                        onCancel = {()=> this.setState({editProfileModalVisible:false})}
                     />
 
                 </div>

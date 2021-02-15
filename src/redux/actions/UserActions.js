@@ -9,47 +9,6 @@ import {
     getUserRelatedGroupsNotRealTime,
 } from "../actions";
 
-//  export const  OnAuthStateChanged = () => {
-//      console.log("Call for onAuthSateChanged")
-//      let authUser;
-//      return async (dispatch) => {
-//             auth.onAuthStateChanged((user) => {
-//             if(user){
-//                  console.log("User is ::",user);
-//                  authUser = user;
-//                  dispatch({
-//                      type:USER.LOGIN,
-//                      payload:{user}
-//                  })
-//                  getUserProfile(user.uid,dispatch);
-//              }else{
-//                 console.log("else else else ...")
-//              }
-//          } )
-         
-//      }
-//      return Promise.resolve();
-//  };
-
-// export const onAuthStateChanged = () => (dispatch) => {
-// 	auth.onAuthStateChanged(async (user) => {
-// 		if (user) {
-// 			console.log("onAuthStateChanged: ", user);
-// 			console.log("Call for onAuthStateChanged");
-
-// 			dispatch({
-// 				type: USER.LOGIN,
-// 				payload: { user },
-// 			});
-
-// 		} else {
-// 			// leave as type: SIGNED_OUT or will get infinite loop
-// 			//dispatch({ type: SIGNED_OUT });
-// 		}
-//     })
-// 	return Promise.resolve();
-// };
-
 export const onAuthStateChanged = ()  =>  dispatch => {
     return  fb.auth().onAuthStateChanged((user) => {
         if(user){
@@ -145,9 +104,6 @@ export const getUserDataWithDocId = (docId) => dispatch =>{
     })
 }
 
-
-
-
 export const getUserProfile = (uid) => dispatch => {
     console.log("UID to get::",uid);
     let user = null;
@@ -221,6 +177,26 @@ export const SignOut = () => {
      }
  }
 
+
+
+export const editUserProfile = (data,user) => dispatch => {
+    const ref = db.collection("users").doc(user.docId);
+    return ref.update(data)
+    .then(()=>{
+        console.log("update successfully");
+        data.uid = user.uid;
+        data.username = user.username;
+        data.docId = user.docId;
+        dispatch(editUserProfileSucdess(data));
+    })
+    .catch(err => {
+        console.log("Error in Updating User Profile:",err);
+    })
+}
+
+
+
+
 export const changeFetchingState = (state) => {
     return {
         type:USER.DATA_FETCHING_CHANGE,
@@ -233,5 +209,12 @@ export const loginButtonLoading = (state) =>{
     return {
         type:USER.LOGIN_BTN_LOADING,
         payload:state,
+    }
+}
+
+export const editUserProfileSucdess = (data) => {
+    return {
+        type:USER.EDIT_PROFILE,
+        payload:data,
     }
 }

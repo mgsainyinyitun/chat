@@ -9,7 +9,7 @@ class RegisterPage extends React.Component{
     render(){
         return(
         <div className="d-flex justify-content-center align-items-center login-background">
-            <Card className="animate__animated animate__backInLeft animate__faster p-3">
+            <Card className="animate__animated animate__backInLeft animate__faster p-3" style={{minWidth:'30%'}}>
                 <h2 className='header mb-5'>Hello,Friend Please Register your accout</h2>
                 <RegisterForm/>
                 <h5 style={{color:"teal"}}>Already have an account! 

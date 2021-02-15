@@ -40,6 +40,13 @@ export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
                 ...state,
                 btnLoading:action.payload,
             }
+        case USER.EDIT_PROFILE:
+            return{
+                ...state,
+                User:{
+                    data:action.payload,
+                }
+            }
         default: return state;
     }
 }

@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Avatar} from 'antd';
+import {Avatar,Button} from 'antd';
 import {Card} from 'react-bootstrap';
 import { UserOutlined } from '@ant-design/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 class Profile extends React.Component {
     
@@ -33,6 +35,14 @@ class Profile extends React.Component {
                                 <span style={{float:"right"}}>{user?user.phone:null}</span>
                             </p>
                             <p>
+                                <span>Birthday</span>
+                                <span style={{float:"right"}}>{user?user.birthday:null}</span>
+                            </p>
+                            <p>
+                                <span>Gender</span>
+                                <span style={{float:"right"}}>{user?user.gender:null}</span>
+                            </p>
+                            <p>
                                 <span>Address</span>
                                 <span style={{float:"right"}}>{user?user.address:null}</span>
                             </p>
@@ -40,6 +50,13 @@ class Profile extends React.Component {
                     </Card.Body>
                     
                 </Card>
+                <div className="w-75 d-flex justify-content-end mt-2">
+                    <Button type='primary' size='large' onClick={this.props.openEditProfile}>
+                        <FontAwesomeIcon icon={faPencilAlt} style={{marginRight:5}}/>
+                        Edit
+                    </Button>
+                </div>
+                
             </div>
         );
     }
