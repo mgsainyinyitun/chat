@@ -29,8 +29,8 @@ class GroupMessagesList extends React.Component {
             gmsg =  this.filterCurrentGroupMsg(group,messages);
         }
         gmsg = this.sortMessagesByTime(gmsg);
-        gmsg = this.sliceLastMessages(gmsg);
-        return gmsg;
+        //gmsg = this.sliceLastMessages(gmsg);
+        return gmsg.reverse();
     }
 
     render(){
@@ -39,7 +39,9 @@ class GroupMessagesList extends React.Component {
             this.props.messages,
         )
         return(
-            <div className="d-flex flex-column align-items-end">
+            <div className="d-flex flex-column-reverse"
+            style={{overflowY:'scroll',height:'65vh'}}
+            >
                 <GroupMessagesItem
                     messages = {msg}
                     theme = {this.props.theme}

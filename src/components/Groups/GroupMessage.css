@@ -17,3 +17,13 @@
 .inner-message{
     padding: 0;
 }
+
+.messages-container{
+    height: 90%;
+}
+
+@media (max-width:700px){
+    .messages-container{
+        height: 88%;
+    }
+}

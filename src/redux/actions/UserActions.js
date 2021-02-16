@@ -155,13 +155,24 @@ export const SignUp = (info) => {
         .then(()=>{
             history.push('/login');
         })
-        
         .catch((error)=>{
             console.log("Register Error::",error);
         })
     }
 }
 
+export const UpdateUserProfile = info =>{
+    var user = fb.auth().currentUser;
+    user.updateProfile({
+    displayName: "Jane Q. User",
+    photoURL: "https://example.com/jane-q-user/profile.jpg"
+    }).then(function() {
+    // Update successful.
+    }).catch(function(error) {
+    // An error happened.
+    });
+
+}
 
 export const SignOut = () => {
      return (dispatch) => {

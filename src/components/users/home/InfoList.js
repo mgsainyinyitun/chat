@@ -1,14 +1,31 @@
 import React from 'react';
 import { List,Avatar } from 'antd';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {CardGroup,Card} from 'react-bootstrap'
 import { faCog,faUser, faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import {setCurrentChatFriend,setCurrentGroup} from '../../../redux/actions';
+import { ROUTE } from '../../../routes/constant';
 
 class InfoList extends React.Component {
-    constructor(props){
-        super(props);
+    onFriendSelect = (friend) =>{
+        this.props.setCurrentChatFriend(friend);
     }
+    
+    onGroupSelect = (group) =>{
+        this.props.setCurrentGroup(group);
+    }
+    onItemSelect = (item,type) =>{
+        switch(type){
+            case 'FRIEND':
+                this.props.setCurrentChatFriend(item);break;
+            case 'GROUP':
+                this.props.setCurrentGroup(item);break;
+            default:break;
+        }
+    }
+
     renderGroupsList = (groups,style) =>{
         return(
         <List
@@ -25,7 +42,13 @@ class InfoList extends React.Component {
                 <List.Item>
                     <List.Item.Meta
                         avatar={<Avatar icon={<FontAwesomeIcon icon={faUserFriends}/>}/>}
-                        title={<span className={style}>{gp.name}</span>}
+                        title={
+                        <Link to={ROUTE.FRIENDS.GROUPS.MAIN}  >
+                            <span 
+                                className={style}>{gp.name}
+                            </span>
+                        </Link>
+                        }
                     />
                     <div><FontAwesomeIcon icon={faCog} style={{fontSize:'1.5em',color:'white'}}/></div>
                 </List.Item>
@@ -35,6 +58,8 @@ class InfoList extends React.Component {
         </List>)
 
     }
+
+   
 
     renderFriendsList = (friends,style) =>{
        return( <List
@@ -47,10 +72,14 @@ class InfoList extends React.Component {
                 pageSizeOptions:[3,5,10]
             }}
             renderItem = { fri => (
-                <List.Item>
+                <List.Item onClick={this.onItemSelect(fri,'FRIEND')}>
                     <List.Item.Meta
                     avatar={<Avatar icon={<FontAwesomeIcon icon={faUser}/>}/>}
-                    title={<span className={style}>{fri.username}</span>}
+                    title={
+                    <Link to={`/friends/chat/${fri.uid}`} >
+                        <span className={style}>{fri.username}</span>
+                    </Link>
+                    }
                     />
                     <div><FontAwesomeIcon icon={faCog} style={{fontSize:'1.5em',color:'white'}}/></div>
                 </List.Item>
@@ -65,10 +94,9 @@ class InfoList extends React.Component {
 
 
     render(){
-        const mainMode = this.props.theme==='dark'?'bg-secondary w-100':'bg-light w-100';
+      //  const mainMode = this.props.theme==='dark'?'bg-secondary w-100':'bg-light w-100';
         const card = this.props.theme ==='dark'?'bg-dark text-white':'text-primary';
         const Lgroups = this.props.groups.groupList;
-        console.log("group list:",Lgroups);
         return(
             <CardGroup className={`mt-2`} style={{maxHeight:'80%',minHeight:'80%'}}>
                 <Card  className={`${card} p-3`}>
@@ -92,4 +120,7 @@ const mapStateToProps = (state) => {
         groups:state.groups,
     };
 }
-export default connect(mapStateToProps)(InfoList);
+export default connect(mapStateToProps,{
+    setCurrentChatFriend,
+    setCurrentGroup,
+})(InfoList);

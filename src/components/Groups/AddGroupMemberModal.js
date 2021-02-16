@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Modal,Button} from 'antd';
 import {addMemberToGroups} from '../../redux/actions';
-import _ from 'lodash';
 
 class AddGroupMemberModal extends React.Component {
 
@@ -11,7 +10,7 @@ class AddGroupMemberModal extends React.Component {
          for(let i = 0;i<friends.length;i++){
              members.map(mem =>{
                  if(mem.uid === friends[i].uid){
-                    tmp.splice(i,1);
+                     tmp.splice(i,1);
                  }
              })
         }

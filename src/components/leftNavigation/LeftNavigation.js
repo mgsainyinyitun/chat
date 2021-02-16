@@ -4,13 +4,14 @@ import { Menu, Switch,Button,Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus, faAddressBook, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
-import { PAGE,ROUTE } from '../../routes/constant';
+import { ROUTE } from '../../routes/constant';
 import {
     changeTheme,
     setCurrentChatFriend,
     setCurrentGroup,
   } from '../../redux/actions';
 
+import './LeftNavigation.css'
 const { SubMenu } = Menu;
 
 class LeftNavigation extends React.Component{
@@ -106,6 +107,7 @@ class LeftNavigation extends React.Component{
      return(
          <>
         <Menu
+          className = 'left-nav'
           theme={this.props.theme?this.props.theme:this.state.theme}
           onClick={this.handleClick}
           style={{ width: 256 ,height: "90vh"}}
@@ -116,9 +118,11 @@ class LeftNavigation extends React.Component{
           <Menu.Item key="home" icon={<FontAwesomeIcon icon = {faHome} style={{marginRight:'10px'}}/>} title="HOME">
             <Link to="/">HOME</Link>
           </Menu.Item>
+
           <Menu.Item key="sub1" icon={<FontAwesomeIcon icon = {faUser} style={{marginRight:'10px'}}/>} title="PROFILE">
           <Link to="/profile">PROFILE</Link>
           </Menu.Item>
+
           <SubMenu key="FRIEND" icon={<FontAwesomeIcon icon = {faUserFriends} style={{marginRight:'10px'}}/>} title="FRIENDS">
             <Menu.Item key="add-friend">
               <Button 
@@ -137,6 +141,7 @@ class LeftNavigation extends React.Component{
             {this.renderGroups(this.props.groups)}
             
           </SubMenu>
+
           <SubMenu key="sub4" icon={<FontAwesomeIcon icon = {faCog} style={{marginRight:'10px'}}/>} title="SETTING">
             <Menu.Item key="settings">
               <span style={{marginRight:10}}>DARK THEME</span>

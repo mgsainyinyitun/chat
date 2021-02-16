@@ -2,6 +2,7 @@ import React from 'react';
 import MessageItem from './MessageItem';
 import {connect} from 'react-redux';
 import _ from 'lodash';
+import './Message.css';
 
 class MessageList extends React.Component{
     sortMessageByTime = (messages) =>{
@@ -10,8 +11,8 @@ class MessageList extends React.Component{
         })
     }
     sliceLastMessages = (messages) => {
-        let temp = messages.reverse().slice(0,10);
-        return temp.reverse();
+        let temp = messages.reverse().slice(0,15);
+        return temp;
     }
 
     renderMessages = (messages,friend) =>{
@@ -32,14 +33,15 @@ class MessageList extends React.Component{
         }
         
         let sorted = this.sortMessageByTime(tempMsg);
-        sorted = this.sliceLastMessages(sorted);
-        return sorted;
+        //sorted = this.sliceLastMessages(sorted);
+        return sorted.reverse();
     }
 
     render(){
         return(
             <div 
-             className="d-flex flex-column align-items-end"
+             className="d-flex flex-column-reverse message-list"
+             
              >
                 <MessageItem 
                     theme = {this.props.theme}

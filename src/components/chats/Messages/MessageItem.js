@@ -1,7 +1,7 @@
 import React from 'react';
 import {Empty} from 'antd';
 import './Message.css';
-import _ from 'lodash';
+
 
 class MessageItem extends React.Component{
 
@@ -19,6 +19,7 @@ class MessageItem extends React.Component{
             }else{
                  align = 'align-self-start';
             }
+            
             //let time = new Date(message.time.seconds).toString() ;
             return(
                 <div className={align} key= {index}>

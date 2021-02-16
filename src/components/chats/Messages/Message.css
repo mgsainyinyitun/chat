@@ -17,3 +17,42 @@
 .inner-message{
     padding: 0;
 }
+
+.messages-container{
+  height: 90%;
+}
+
+.message-list{
+  overflow-y: scroll;
+  height: 65vh;
+}
+
+@media (max-width:700px){
+  .messages-container{
+      height: 88%;
+  }
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+    right: 0;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: blue; 
+    border-radius: 10px;
+  }
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background:teal; 
+}

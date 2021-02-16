@@ -21,9 +21,9 @@ class Main extends React.Component{
                     </Card.Title>
                     <Card.Body>
                         <Button 
+                            className='act-btn'
                             type="primary" 
                             size="large" 
-                            style={{marginRight:10,marginBottom:10}}
                             onClick={this.props.onAddFriend}
                         >
                             <FontAwesomeIcon icon={faPlusCircle} style={{marginRight:10}} />
@@ -31,6 +31,7 @@ class Main extends React.Component{
                         </Button>
 
                         <Button 
+                            className='act-btn'
                             type="primary" 
                             size="large"
                             onClick={this.props.onCreateNewGroup}

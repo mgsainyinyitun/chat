@@ -20,3 +20,16 @@
     padding: 0px;
     margin: 0px;
 }
+.act-btn{
+    margin-right: 00.5rem;
+    margin-bottom: 00.5rem;
+}
+
+@media(max-width:570px){
+    .act-btn{
+        margin-right: 00.5rem;
+        margin-bottom: 00.5rem;
+        width: 100%;
+    }
+
+}

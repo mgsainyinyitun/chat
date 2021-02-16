@@ -1,0 +1,47 @@
+
+
+.img-fluid {
+    border: 1px solid green;
+    border-radius: 5em;
+    padding:2rem;
+}
+
+.info-card {
+    width: 75%;
+}
+
+.edit-modal{
+    min-width: 50%;
+    
+}
+.info-row{
+    display: block;
+    border: 1px solid blue;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+.hr-break{
+    display: none;
+}
+
+@media (max-width:878px){
+    .info-card{
+        width: 100%;
+    }
+    .edit-modal{
+        top: 0;
+    }
+    .info-row{
+        display: flex;
+        flex-direction: column;
+        border: 1px solid blue;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+    }
+    .hr-break{
+        display: block;
+        padding: 0;
+        margin: 0;
+    }
+
+}

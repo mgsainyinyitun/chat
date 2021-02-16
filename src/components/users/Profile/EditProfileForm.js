@@ -30,7 +30,6 @@ class EditProfileForm extends React.Component {
             address:cuser.address,
            // birthday:cuser.birthday,
             gender:cuser.gender,
-            address:cuser.address,
         }:null
         console.log("initial Value::",init);
         this.formRef.current.setFieldsValue(init);

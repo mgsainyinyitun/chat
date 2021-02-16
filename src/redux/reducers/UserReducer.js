@@ -1,4 +1,4 @@
-import { act } from "react-dom/test-utils";
+
 import { USER } from "../actions/Types";
 
 const INITIAL_STATE = {

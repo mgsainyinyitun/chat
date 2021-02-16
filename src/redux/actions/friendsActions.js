@@ -1,4 +1,4 @@
-import {fb,db} from '../../firebase';
+import {db} from '../../firebase';
 import { FRIENDS } from './Types';
 
 

@@ -10,7 +10,7 @@ import Group from '../../Groups/Groups';
 import Account from '../Account/Account';
 import 'animate.css';
 import { Redirect } from 'react-router-dom';
-import { Spin,Drawer } from 'antd';
+import { Spin  } from 'antd';
 import AddFriendModal from './Friends/AddFriendModal';
 import NotificationDrawer from './NotificationDrawer/NotificationDrawer';
 import NewGroupModal from '../home/Groups/NewGroupModal';
@@ -29,6 +29,10 @@ class Home extends React.Component{
             editProfileModalVisible:false,
         }
     }
+    componentDidUpdate(){
+        console.log("EMAIL:VERIFY:::",this.props.authUser)
+    }
+
     openNotiDrawer = ()=>{
         this.setState({
             notiDrawerVisible:true,
@@ -75,6 +79,7 @@ class Home extends React.Component{
     render(){
         const mode = this.props.theme==='dark'?'home-dark':'home-light'
         const mainMode = this.props.theme==='dark'?'main-dark w-100':'main-light w-100';
+        const txt = this.props.theme==='dark'?'text-white':'text-dark';
         let isLogin = false;
         let fetching = true;
         if(this.props.authUser.user){
@@ -102,31 +107,43 @@ class Home extends React.Component{
             return(
                 <div className='h-100'>
                     <div className={`${mode} d-flex flex-row-reverse justify-content-between`}>
+                        {/* Upper Account */}
                         <Account 
                             userinfo = {this.props.authUser.user}
                             openNotiDrawer={this.openNotiDrawer}
                             theme = {this.props.theme}
                             openEditProfile = {this.openEditProfile}
+                            onAddFriend = {()=>this.setState({addFriendModalVisible:true})}
+                            onCreateNewGroup = {()=>this.setState({newGroupModalVisible:true})}
                         />
                     </div>
                     <hr style={{margin:0}}/>
     
-                    <div className='d-flex'>
-                        <LeftNavigation 
-                            onAddFriend = {()=>this.setState({addFriendModalVisible:true})}
-                            onCreateNewGroup = {()=>this.setState({newGroupModalVisible:true})}
-                            friends = {this.props.friend.friends_list}
-                        />
-                    <div className={mainMode}> 
-                        {this.renderBody(this.props.page)}
-                    </div>
+                    {/* Left Navigation and Main Page(Right) */}
+                    <div className='d-flex' style={{minHeight:'90%'}}>
+                            <LeftNavigation 
+                                onAddFriend = {()=>this.setState({addFriendModalVisible:true})}
+                                onCreateNewGroup = {()=>this.setState({newGroupModalVisible:true})}
+                                friends = {this.props.friend.friends_list}
+                            />
+                        <div className={`${mainMode}`}> 
+                                {this.renderBody(this.props.page)}
+                        </div>
                     </div>
                     <hr style={{margin:0}}/>
-                    <div className={`${mode} text-white d-flex justify-content-center`}>
+
+                    {/* FOOTER  */}
+                    <div className={`${mode} ${txt} d-flex justify-content-center`}>
                       <p className="align-self-center mt-1"> Copyright <span>&#169;</span> 2021 
-                        <span className="text-info" style={{marginRight:5,marginLeft:5}}>ChatWithFriends</span>  
+                        <span 
+                            className={this.props.theme==='dark'?'text-info':'text-primary'}
+                            style={{marginRight:5,marginLeft:5}}
+                        >ChatWithFriends</span>  
                       All Rights Reserved.</p>  
                     </div> 
+                    {/* END FOOTER */ }
+
+                    {/* MODALS  %*/ }
                     <NotificationDrawer
                         visible={this.state.notiDrawerVisible}
                         onClose={this.onNotiDrawerClose}
@@ -144,6 +161,7 @@ class Home extends React.Component{
                         visible = {this.state.editProfileModalVisible}
                         onCancel = {()=> this.setState({editProfileModalVisible:false})}
                     />
+                    {/* END MODALS  %*/ }
 
                 </div>
             )

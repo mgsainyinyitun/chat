@@ -1,7 +1,6 @@
 import React from 'react';
 import {Empty,Avatar} from 'antd';
 import './GroupMessage.css';
-import _ from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 

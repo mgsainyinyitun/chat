@@ -2,12 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Card} from 'react-bootstrap';
 import {getUserInfoByUid} from '../../redux/actions';
-import { Dropdown,Menu,Button } from 'antd';
+import { Dropdown,Menu } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MenuOutlined } from '@ant-design/icons';
 import { faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
 import AddGroupMemberModal from './AddGroupMemberModal';
 import GroupMessagesList from './GroupMessagesList';
+import './GroupMessage.css';
 
 
 class GroupChatPlace extends React.Component {
@@ -76,7 +77,7 @@ class GroupChatPlace extends React.Component {
                     <Dropdown
                         overlay={this.renderMenuItems(group)} 
                         trigger={['click']}>
-                        <MenuOutlined style={{color:'white'}}/>
+                        <MenuOutlined style={{color:`${txtColor}`}}/>
                     </Dropdown>
                     
                 </div>
@@ -90,14 +91,11 @@ class GroupChatPlace extends React.Component {
         const txtColor = this.props.state.theme === 'dark'?'white':'teal';
         return(
             <>
-            <Card
-                className={`p-3 ${style}`}
-                style={{height:"90%"}}
-            >
+            <Card className={`p-3 ${style} messages-container`}>
                 <Card.Title>
                    {this.renderHeader(this.props.group,txtColor)}
                 </Card.Title>
-                <Card.Body>
+                <Card.Body style={{padding:0}}>
                     <GroupMessagesList/>
                 </Card.Body>
             </Card>

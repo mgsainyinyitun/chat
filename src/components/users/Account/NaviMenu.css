@@ -1,0 +1,10 @@
+.nav {
+    display: none;
+}
+
+
+@media (max-width:811px){
+    .nav{
+        display: block;
+    }
+}
