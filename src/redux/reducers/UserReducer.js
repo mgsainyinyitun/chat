@@ -2,6 +2,8 @@
 import { USER } from "../actions/Types";
 
 const INITIAL_STATE = {
+    auth:null,
+    isEmailVerified:null,
     user:{
         data:null,
     },
@@ -13,11 +15,17 @@ const INITIAL_STATE = {
 export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
     switch (action.type) {
         case USER.LOGIN:
-            return action.payload;
+            return {
+                ...state,
+                auth:action.payload,
+            };
         case USER.REGISTER:
-            return action.payload;
+            return {
+                ...state,
+                auth:action.payload,
+            };
         case USER.SIGNOUT:
-            return state;
+            return null;
         case USER.SETPROFILEDATA:
             return {
                 ...state,
@@ -46,6 +54,11 @@ export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
                 User:{
                     data:action.payload,
                 }
+            }
+        case USER.EMAIL_VERIFY:
+            return{
+                ...state,
+                isEmailVerified:action.payload,
             }
         default: return state;
     }

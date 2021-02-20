@@ -1,6 +1,7 @@
 
 export const USER = {
     REGISTER:'register.user',
+    EMAIL_VERIFY:'email.verity.of.user',
     LOGIN:'login.user',
     LOGIN_ERROR:'login.error',
     SIGNOUT:'signout.user',

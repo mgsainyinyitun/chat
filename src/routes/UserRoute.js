@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import EmailVerify from '../components/users/EmailVerify/EmailVerity';
 import Home from '../components/users/home/Home';
 import LoginPage from '../components/users/Login/LoginPage';
 import Logout from '../components/users/Logout/Logout';
@@ -41,5 +42,12 @@ export const UserRoute = [
     path = {ROUTE.ABOUT_US}
     exact
     component = {(props ) => <Home {...props} page = {PAGE.ABOUT_US} /> }
-    />
+    />,
+  
+  <Route 
+     key = '7'
+     path = {ROUTE.VERIFY_EMAIL}
+     exact 
+     component = {props => <EmailVerify {...props} /> } 
+  />
 ]

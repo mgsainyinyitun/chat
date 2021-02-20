@@ -2,7 +2,7 @@ import firebase from "firebase";
 import 'firebase/analytics';
 
 const MODES = {
-	DEV: "Dev",
+	DEV: "development",
   PRODUCTION:'production',
 };
 

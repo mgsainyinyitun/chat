@@ -14,6 +14,7 @@ export const ROUTE = {
         }
     },
     ABOUT_US:'/aboutus/',
+    VERIFY_EMAIL:'/email/verify',
 }
 
 export const PAGE = {
@@ -29,5 +30,6 @@ export const PAGE = {
             CHAT:'friends.group.chat.page',
         },
     },
-    ABOUT_US:'about.us.page'
+    ABOUT_US:'about.us.page',
+    VERIFY_EMAIL:'email.verify.page',
 }

@@ -43,8 +43,12 @@ class LoginPage extends React.Component{
 }
 
 const mapStateToProps = state => {
+  let errs  = null;
+  if(state.authUser){
+    errs = state.authUser.errors;
+  }
   return {
-    errors:state.authUser.errors,
+    errors:errs,
   };
 }
 export default connect(mapStateToProps)(LoginPage);

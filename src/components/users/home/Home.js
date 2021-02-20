@@ -29,10 +29,10 @@ class Home extends React.Component{
             editProfileModalVisible:false,
         }
     }
-    componentDidUpdate(){
-        console.log("EMAIL:VERIFY:::",this.props.authUser)
-    }
 
+    onToggleFullScreen = () =>{
+        this.homeRef.requestFullscreen();
+    }
     openNotiDrawer = ()=>{
         this.setState({
             notiDrawerVisible:true,
@@ -82,15 +82,19 @@ class Home extends React.Component{
         const txt = this.props.theme==='dark'?'text-white':'text-dark';
         let isLogin = false;
         let fetching = true;
+        let isEmailVerified = undefined;
+        if(this.props.authUser.auth ){
+            console.log('user information email verify::',this.props.authUser.auth.user.emailVerified)
+            isEmailVerified = this.props.authUser.auth.user.emailVerified;
+        }
         if(this.props.authUser.user){
             isLogin = this.props.authUser.user.data?true:false;
             fetching = this.props.authUser.fetching;
         }
         
-        // if(!isLogin && !fetching){ // not login , not fetching
-        //     return <Redirect to={ROUTE.USERS.LOGIN} />
-        // }
-         if(isLogin && fetching) {
+        
+
+         if(isLogin && fetching) { // Login Success But Fetching Data => Loading
             return (
                 <div 
                     className="d-flex justify-content-center w-100 align-items-center"
@@ -103,11 +107,15 @@ class Home extends React.Component{
                 </div>
             )
         }
+        else if(isLogin && !isEmailVerified){
+            return <Redirect to={ROUTE.VERIFY_EMAIL} />;
+        }
         else if(isLogin && !fetching){ // not fetching
             return(
                 <div className='h-100'>
                     <div className={`${mode} d-flex flex-row-reverse justify-content-between`}>
-                        {/* Upper Account */}
+
+                    {/* Upper Account */}
                         <Account 
                             userinfo = {this.props.authUser.user}
                             openNotiDrawer={this.openNotiDrawer}
@@ -162,8 +170,7 @@ class Home extends React.Component{
                         onCancel = {()=> this.setState({editProfileModalVisible:false})}
                     />
                     {/* END MODALS  %*/ }
-
-                </div>
+                </div>  
             )
         }else{
             return <Redirect to={ROUTE.USERS.LOGIN} />;

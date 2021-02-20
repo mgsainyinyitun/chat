@@ -40,7 +40,7 @@ class AddFriendModal extends React.Component {
                 <Form
                     name="addfriend"
                     onFinish={this.onFinishSearch}
-                    className="d-flex justify-content-between"
+                    className="d-flex justify-content-between "
                 >
                     <Form.Item
                         name="searchEmail"

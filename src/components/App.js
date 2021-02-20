@@ -13,6 +13,7 @@ import {
     getUserSaveTheme,
     getUserRelatedGroupsNotRealTime,
  } from '../redux/actions';
+ import ReactFullScreen from 'react-easyfullscreen';
 
 
 class App extends React.Component{
@@ -20,6 +21,7 @@ class App extends React.Component{
         super(props);
         this.state = {
             reload:true,
+            fullscreen:false,
         }
     }
     
@@ -32,21 +34,23 @@ class App extends React.Component{
 
     render(){
         return(
-            <div className='h-100'>
-                <Switch>
-                    {UserRoute}
-                    {FriendsRoute}
-                </Switch>
-            </div>
-            
+            <>
+                <div className='h-100'>
+                    <Switch>
+                        {UserRoute}
+                        {FriendsRoute}
+                    </Switch>
+                    
+                </div> 
+            </>
         )
     }
 }
 
 const mapStateToProps = state =>{
     let user = {};
-    if(state.authUser.user){
-        user = state.authUser.user.data
+    if(state.authUser){
+        if(state.authUser.user)user = state.authUser.user.data
     }
     return {
         user:user

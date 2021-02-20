@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from 'react-redux';
 import { Menu, Switch,Button,Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus, faAddressBook, faLanguage } from '@fortawesome/free-solid-svg-icons'
+import { faUser,faUserFriends,faCog,faUsers,faHome, faPlus, faAddressBook, faLanguage, faAdjust, faFlag, faDesktop } from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom';
 import { ROUTE } from '../../routes/constant';
 import {
@@ -20,8 +20,15 @@ class LeftNavigation extends React.Component{
    super(props);
    this.state = {
      theme:this.props.theme,
+     fullScreenMode:false,
    }
  }
+
+  fullScreenToggler = () =>{  
+    this.setState({
+      fullScreenMode:!this.state.fullScreenMode,
+    });
+  }
 
   findFriend = (friends,fid) =>{
     return friends.find(friend =>{
@@ -144,7 +151,10 @@ class LeftNavigation extends React.Component{
 
           <SubMenu key="sub4" icon={<FontAwesomeIcon icon = {faCog} style={{marginRight:'10px'}}/>} title="SETTING">
             <Menu.Item key="settings">
-              <span style={{marginRight:10}}>DARK THEME</span>
+              <span style={{marginRight:10}}>
+                <FontAwesomeIcon icon={faAdjust} style = {{marginRight:10}}/>
+                DARK THEME
+              </span>
               <Switch
                     checked={this.props.theme === 'dark'}
                     onChange={this.onThemeChangeTheme}
@@ -152,10 +162,25 @@ class LeftNavigation extends React.Component{
                     unCheckedChildren="Off"
                 />
             </Menu.Item>
-            <Menu.Item key="language" icon={<FontAwesomeIcon icon = {faLanguage} style={{marginRight:'10px'}}/>} title="language">
-              <span>LANGUAGE</span>
-            </Menu.Item>
+
+          <SubMenu key='language' icon={<FontAwesomeIcon icon={faLanguage} style={{marginRight:10}} />} title = 'LANGUAGES'>
+              <Menu.Item key="myan" icon={<FontAwesomeIcon icon = {faFlag} style={{marginRight:'10px'}}/>} title="myanmar">
+                <span>MYANMAR</span>
+              </Menu.Item>
+              <Menu.Item key="eng" icon={<FontAwesomeIcon icon = {faFlag} style={{marginRight:'10px'}}/>} title="english">
+                <span>ENGLISH</span>
+              </Menu.Item>
           </SubMenu>
+
+          <Menu.Item key="full-screen" icon={<FontAwesomeIcon icon = {faDesktop} style={{marginRight:'10px'}}/>} title="FULLSCREEN">
+            <span onClick={this.props.onFullScrren}>
+            FULLSCREEN
+            </span>
+            
+          </Menu.Item>
+
+          </SubMenu>
+
           <Menu.Item key="aboutus" icon={<FontAwesomeIcon icon = {faAddressBook} style={{marginRight:'10px'}}/>} title="ABOUT US">
             <Link to={ROUTE.ABOUT_US}>ABOUT US</Link>
           </Menu.Item>

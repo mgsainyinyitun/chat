@@ -60,6 +60,11 @@ export const loginUser = (info) => {
         auth.signInWithEmailAndPassword(info.email,info.password)
         .then(async (userCredential) => {
             authUser = await userCredential.user; 
+            console.log('auth user is:::",',authUser);
+            dispatch({
+                type:USER.EMAIL_VERIFY,
+                payload:authUser.emailVerified,
+            })
             dispatch({
                 type:USER.LOGIN,
                 payload:authUser,
@@ -206,6 +211,17 @@ export const editUserProfile = (data,user) => dispatch => {
 }
 
 
+export const sendEmailVerificationLink = () =>{
+    let user = fb.auth().currentUser;
+    console.log('current user:',user);
+    user.sendEmailVerification().then(()=>{
+        console.log("successfully send email");
+        SignOut();
+        history.push('/login')
+    }).catch(err =>{
+        console.log("error in send email");
+    })
+}
 
 
 export const changeFetchingState = (state) => {

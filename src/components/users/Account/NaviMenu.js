@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
 import {Dropdown,Menu,Button,Switch,Badge} from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus,faHome,faBook,faUsers,faUser,faUserFriends,faCog,faLanguage,faAddressBook } from '@fortawesome/free-solid-svg-icons';
+import { faPlus,faHome,faFlag,faUsers,faUser,faUserFriends,faCog,faLanguage,faAddressBook, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import { MenuOutlined } from '@ant-design/icons';
 import './NaviMenu.css';
 import { ROUTE } from '../../../routes/constant';
@@ -144,7 +144,10 @@ class NaviMenu extends React.Component {
 
                 >
                     <Menu.Item key="settings">
-                    <span style={{marginRight:10}}>DARK THEME</span>
+                    <span style={{marginRight:10}}>
+                        <FontAwesomeIcon icon={faAdjust} style = {{marginRight:10}}/>
+                        DARK THEME
+                    </span>
                     <Switch
                             checked={this.props.theme === 'dark'}
                             onChange={this.onThemeChangeTheme}
@@ -152,9 +155,17 @@ class NaviMenu extends React.Component {
                             unCheckedChildren="Off"
                         />
                     </Menu.Item>
-                    <Menu.Item key="language" icon={<FontAwesomeIcon icon = {faLanguage} style={{marginRight:'10px'}}/>} title="language">
-                    <span>LANGUAGE</span>
-                    </Menu.Item>
+
+
+                    <SubMenu key='language' icon={<FontAwesomeIcon icon={faLanguage} style={{marginRight:10}} />} title = 'LANGUAGES'>
+                        <Menu.Item key="myan" icon={<FontAwesomeIcon icon = {faFlag} style={{marginRight:'10px'}}/>} title="myanmar">
+                            <span>MYANMAR</span>
+                        </Menu.Item>
+                        <Menu.Item key="eng" icon={<FontAwesomeIcon icon = {faFlag} style={{marginRight:'10px'}}/>} title="english">
+                            <span>ENGLISH</span>
+                        </Menu.Item>
+                    </SubMenu>
+
                 </SubMenu>
 
                 <Menu.Item key="aboutus" icon={<FontAwesomeIcon icon = {faAddressBook} style={{marginRight:'10px'}}/>} title="ABOUT US">
