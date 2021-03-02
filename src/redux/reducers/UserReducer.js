@@ -25,7 +25,7 @@ export const UserAuthReducer = (state = INITIAL_STATE , action ) => {
                 auth:action.payload,
             };
         case USER.SIGNOUT:
-            return null;
+            return {};
         case USER.SETPROFILEDATA:
             return {
                 ...state,

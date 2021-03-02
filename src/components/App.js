@@ -13,8 +13,6 @@ import {
     getUserSaveTheme,
     getUserRelatedGroupsNotRealTime,
  } from '../redux/actions';
- import ReactFullScreen from 'react-easyfullscreen';
-
 
 class App extends React.Component{
     constructor(props){
@@ -30,6 +28,7 @@ class App extends React.Component{
         .then(()=>{
             console.log("on auth state change finish!",this.props.user);
         })
+    
     }
 
     render(){
@@ -40,7 +39,6 @@ class App extends React.Component{
                         {UserRoute}
                         {FriendsRoute}
                     </Switch>
-                    
                 </div> 
             </>
         )

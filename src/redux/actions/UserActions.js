@@ -28,6 +28,11 @@ export const onAuthStateChangedSecond = () => (dispatch) => {
     console.log("Call for on Auth state change:");
     fb.auth().onAuthStateChanged(async (user) => {
         if(user) {
+            console.log("on auth state state user::: verifyed',",user.emailVerified);
+            dispatch({
+                type:USER.EMAIL_VERIFY,
+                payload:user.emailVerified,
+            })
             dispatch({
                 type:USER.LOGIN,
                 payload:{user}
@@ -60,7 +65,7 @@ export const loginUser = (info) => {
         auth.signInWithEmailAndPassword(info.email,info.password)
         .then(async (userCredential) => {
             authUser = await userCredential.user; 
-            console.log('auth user is:::",',authUser);
+            console.log('auth user is email verify state :::",',authUser.emailVerified);
             dispatch({
                 type:USER.EMAIL_VERIFY,
                 payload:authUser.emailVerified,
@@ -142,6 +147,7 @@ export const SignUp = (info) => {
         username:info.username,
         created:new Date(),
         phone:info.phone,
+        theme:'light',
     }
     let createdUser;
     return (dispatch) => {
@@ -150,7 +156,6 @@ export const SignUp = (info) => {
             createdUser = await userCredential.user;
             console.log("Created User uid::",createdUser.uid);
             data.uid = createdUser.uid;
-            console.log("DATA after created :",data);
             dispatch({
                 type:USER.REGISTER,
                 payload:createdUser,
@@ -158,6 +163,7 @@ export const SignUp = (info) => {
         })
         .then(()=> SignUpSetUserProfile(data))
         .then(()=>{
+            window.location.reload();
             history.push('/login');
         })
         .catch((error)=>{
@@ -219,7 +225,7 @@ export const sendEmailVerificationLink = () =>{
         SignOut();
         history.push('/login')
     }).catch(err =>{
-        console.log("error in send email");
+        console.log("error in send email",err);
     })
 }
 

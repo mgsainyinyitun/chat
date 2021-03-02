@@ -16,7 +16,7 @@ import NotificationDrawer from './NotificationDrawer/NotificationDrawer';
 import NewGroupModal from '../home/Groups/NewGroupModal';
 import AboutUs from './AboutUs/AboutUs';
 import EditProfileModal from '../Profile/EditProfileModal';
-
+import {onAuthStateChangedSecond} from '../../../redux/actions';
 
 class Home extends React.Component{
     constructor(props){
@@ -83,15 +83,15 @@ class Home extends React.Component{
         let isLogin = false;
         let fetching = true;
         let isEmailVerified = undefined;
-        if(this.props.authUser.auth ){
-            console.log('user information email verify::',this.props.authUser.auth.user.emailVerified)
-            isEmailVerified = this.props.authUser.auth.user.emailVerified;
+
+        if(this.props.authUser ){
+            isEmailVerified = this.props.authUser.isEmailVerified?this.props.authUser.isEmailVerified:false;
         }
+
         if(this.props.authUser.user){
             isLogin = this.props.authUser.user.data?true:false;
             fetching = this.props.authUser.fetching;
         }
-        
         
 
          if(isLogin && fetching) { // Login Success But Fetching Data => Loading
@@ -181,7 +181,7 @@ const mapStateToProps = (state) => {
     return state;
 }
 export default connect(mapStateToProps,
-    {})(Home);
+    {onAuthStateChangedSecond})(Home);
 
 
 
