@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {UserAuthReducer} from './UserReducer';
+import {LoginLoading, UserAuthReducer} from './UserReducer';
 import {themeReducer} from './GeneralReducer';
 import {friendsReducers} from './friendsReducers';
 import {messageReducers} from './messageReducers';
@@ -12,6 +12,7 @@ const appReducer = combineReducers({
     theme:themeReducer,
     message:messageReducers,
     groups:groupReducers,
+    loading:LoginLoading,
 });
 
 const rootReducer = (state,action) => {

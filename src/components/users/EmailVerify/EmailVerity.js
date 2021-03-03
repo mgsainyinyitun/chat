@@ -14,7 +14,7 @@ class EmailVerify extends React.Component{
         history.push('/login');
     }
 
-    render(){
+render(){
         return(
             <div className='d-flex justify-content-center align-items-center h-100'>
                 <Card className='p-2 m-4'>

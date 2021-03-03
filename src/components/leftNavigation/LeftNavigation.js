@@ -102,7 +102,7 @@ class LeftNavigation extends React.Component{
           icon = {<FontAwesomeIcon icon={faUserFriends} style={{marginRight:10}} />}
           title={group.name}
         >
-          <Link to= {ROUTE.FRIENDS.GROUPS.MAIN} >{group.name}</Link>
+          <Link to= {`${ROUTE.FRIENDS.GROUPS.MAIN}/${group.groupId}`} >{group.name}</Link>
 
         </Menu.Item>
       )

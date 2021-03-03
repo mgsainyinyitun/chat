@@ -17,7 +17,7 @@ class Main extends React.Component{
             <div className={`${mainMode} p-2 h-100`}>
                 <Card className={`${card}  p-3`}>
                     <Card.Title>
-                        <h5 className={`${card}`}>ACTIONS</h5>
+                        <h5 className={`${card}`}>Actions</h5>
                     </Card.Title>
                     <Card.Body>
                         <Button 
@@ -25,6 +25,7 @@ class Main extends React.Component{
                             type="primary" 
                             size="large" 
                             onClick={this.props.onAddFriend}
+                            style={{textAlign:'left'}}
                         >
                             <FontAwesomeIcon icon={faPlusCircle} style={{marginRight:10}} />
                             ADD FRIEND
@@ -35,6 +36,7 @@ class Main extends React.Component{
                             type="primary" 
                             size="large"
                             onClick={this.props.onCreateNewGroup}
+                            style={{textAlign:'left'}}
                         >
                             <FontAwesomeIcon icon={faPlusCircle} style={{marginRight:10}} />
                             CREATE NEW GROUP

@@ -11,14 +11,12 @@ export const changeTheme = (user,theme) => dispatch => {
         theme:theme,
     }).then(()=>{
         console.log("Change theme Theme Success!");
-        
     })
 }
 
 export const getUserSaveTheme = (user) => dispatch => {
     const ref = db.collection("users").doc(user.docId);
     return ref.get().then(doc =>{
-        console.log('Theme::',doc.data());
         dispatch({
             type:THEME.CHANGE,
             theme:doc.data().theme,

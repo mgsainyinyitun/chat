@@ -14,8 +14,6 @@ class LoginPage extends React.Component{
     componentDidUpdate () {
       console.log("Login Page::",this.props);
     }
-
-
     openNotificationWithIcon = errors => {
       notification['error']({
         message: errors.code,
@@ -48,6 +46,7 @@ const mapStateToProps = state => {
     errs = state.authUser.errors;
   }
   return {
+    state,
     errors:errs,
   };
 }

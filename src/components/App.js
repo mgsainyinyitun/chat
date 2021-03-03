@@ -3,16 +3,7 @@ import {connect} from 'react-redux';
 import { Switch } from "react-router-dom";
 import {UserRoute} from '../routes/UserRoute';
 import {FriendsRoute} from '../routes/FriendsRoute';
-import { 
-    onAuthStateChangedSecond,
-    getFriendsList,
-    getFriendsRequestList,
-    getRealTimeReceivedMessage,
-    getRealTimeSentMessage,
-    getRealTimeMessages,
-    getUserSaveTheme,
-    getUserRelatedGroupsNotRealTime,
- } from '../redux/actions';
+import { onAuthStateChanged } from '../redux/actions';
 
 class App extends React.Component{
     constructor(props){
@@ -24,7 +15,7 @@ class App extends React.Component{
     }
     
     componentDidMount = () =>{  
-        this.props.onAuthStateChangedSecond()
+        this.props.onAuthStateChanged()
         .then(()=>{
             console.log("on auth state change finish!",this.props.user);
         })
@@ -33,14 +24,12 @@ class App extends React.Component{
 
     render(){
         return(
-            <>
-                <div className='h-100'>
-                    <Switch>
-                        {UserRoute}
-                        {FriendsRoute}
-                    </Switch>
-                </div> 
-            </>
+            <div className='h-100'>
+                <Switch>
+                    {UserRoute}
+                    {FriendsRoute}
+                </Switch>
+            </div> 
         )
     }
 }
@@ -55,12 +44,5 @@ const mapStateToProps = state =>{
     };
 }
 export default connect(mapStateToProps,{
-    onAuthStateChangedSecond,
-    getFriendsList,
-    getFriendsRequestList,
-    getRealTimeReceivedMessage,
-    getRealTimeSentMessage,
-    getRealTimeMessages,
-    getUserSaveTheme,
-    getUserRelatedGroupsNotRealTime
+    onAuthStateChanged,
 })(App);

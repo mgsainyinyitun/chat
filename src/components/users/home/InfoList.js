@@ -39,11 +39,11 @@ class InfoList extends React.Component {
             }}
             dataSource={groups}
             renderItem = {gp => (
-                <List.Item>
+                <List.Item onClick={()=> this.onItemSelect(gp,'GROUP')}>
                     <List.Item.Meta
                         avatar={<Avatar icon={<FontAwesomeIcon icon={faUserFriends}/>}/>}
                         title={
-                        <Link to={ROUTE.FRIENDS.GROUPS.MAIN}  >
+                        <Link to={`${ROUTE.FRIENDS.GROUPS.MAIN}/${gp.groupId}`}  >
                             <span 
                                 className={style}>{gp.name}
                             </span>
@@ -58,8 +58,6 @@ class InfoList extends React.Component {
         </List>)
 
     }
-
-   
 
     renderFriendsList = (friends,style) =>{
        return( <List

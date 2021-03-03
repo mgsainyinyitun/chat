@@ -12,7 +12,7 @@ export const FriendsRoute =   [
     />,
     <Route 
         key = '2'
-        path = {ROUTE.FRIENDS.GROUPS.MAIN}
+        path = {`${ROUTE.FRIENDS.GROUPS.MAIN}/:gid`}  //MAIN:'/groups/chat/main',
         exact
         component = {(props) => <Home {...props} page = { PAGE.FRIENDS.GROUPS.MAIN} /> }
     />,

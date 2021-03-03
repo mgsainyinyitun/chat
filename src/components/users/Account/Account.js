@@ -21,7 +21,7 @@ class Account extends React.Component {
                     <FontAwesomeIcon icon={faBell} style={{marginRight:5}}/>
                     Notification
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item onClick={this.props.openChangePasswordModal}>
                     <FontAwesomeIcon icon={faBook} style={{marginRight:5}}/>
                     Change Password
                 </Menu.Item>
