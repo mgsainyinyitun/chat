@@ -31,6 +31,10 @@ class Home extends React.Component {
     };
   }
 
+  componentDidUpdate(){
+    console.log("This PropHome:",this.props);
+  }
+
   onToggleFullScreen = () => {
     this.homeRef.requestFullscreen();
   };
@@ -123,9 +127,13 @@ class Home extends React.Component {
           <Spin size="large" tip="Loading ..." />
         </div>
       );
-    } else if (isLogin && !isEmailVerified) {
-      return <Redirect to={ROUTE.VERIFY_EMAIL} />;
-    } else if (isLogin && !fetching) {
+    } 
+      
+    // else if (isLogin && !isEmailVerified) {
+    //   return <Redirect to={ROUTE.VERIFY_EMAIL} />;
+    // }
+    
+    else if (isLogin && !fetching) {
       // not fetching
       return (
         <div className="h-100">

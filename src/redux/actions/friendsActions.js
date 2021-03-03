@@ -1,5 +1,6 @@
 import {db} from '../../firebase';
-import { FRIENDS } from './Types';
+import { deleteAllFriendMessageSuccess } from './messageActions';
+import { FRIENDS, MESSAGE } from './Types';
 
 
 export const fetchUserByEmail = (email) =>{
@@ -40,6 +41,92 @@ export const addFriend = (friend,user,mode) => dispatch => {
         })
 }
 
+
+export const unFriend = (friend,user) => dispatch => {
+    const ref = db.collection("users").doc(user.docId).collection("friends").doc(friend.friDoc);
+    return ref.delete()
+        .then(()=>{
+            console.log("Delete friends data successfully");
+            dispatch({
+                type:FRIENDS.UNFRIEND,
+                payload:friend,
+            })
+            dispatch(unFriendFriendSide(friend,user));
+            // User Side
+            // Need to delete Message To-friend uid
+            // Need to delete Messsage from- friend uid
+            // Friend Side
+            // Need to delete Message To- User uid
+            // Need to delete Message From - User uid
+        })
+        .catch(err => {
+            console.log("error in unfriend:",err);
+        });
+}
+
+export const unFriendFriendSide = (friend,user) => dispatch => {
+    const ref = db.collection("users").doc(friend.docId).collection("friends");
+    return ref.get().then(docs => {
+        docs.forEach(doc => {
+            let temp = doc.data();
+            if(temp.uid === user.uid){
+                doc.ref.delete().then(()=>{
+                    console.log("successfully delete in friends side")
+                });
+            }
+        });
+        dispatch(deleteAllFriendMessage(friend,user));
+    })
+}
+
+export const deleteAllFriendMessage = (friend,user) => dispatch => {
+    const ref = db.collection("users").doc(user.docId).collection("messages");
+    return ref.get().then(docs => {
+        docs.forEach(doc => {
+            let tempMessage = doc.data();
+            if(tempMessage.to === friend.uid || tempMessage.from === friend.uid){
+                doc.ref.delete().then(()=>{
+                    console.log("Deleted!");
+                });
+            }
+        });
+        dispatch(deleteAllFriendMessageSuccess(friend));
+        dispatch(deleteAllUserMessage(friend,user));
+    })
+}
+
+export const deleteAllUserMessage = (friend,user) => dispatch => {
+    const ref = db.collection("users").doc(friend.docId).collection("messages");
+    return ref.get().then(docs => {
+        docs.forEach(doc => {
+            let tempMessage = doc.data();
+            if(tempMessage.to === user.uid || tempMessage.from === user.uid){
+                doc.ref.delete().then(()=>{
+                    console.log("Deleted!");
+                })
+            }
+        });
+        window.location.reload();
+    })
+}
+
+
+
+export const addFriendRequest = (friend,user) => dispatch => {
+    const ref = db.collection("users").doc(friend.docId).collection("friendsReq").doc()
+    user.status = "pending";
+    user.friReqDoc = ref.id;
+    return ref
+        .set(user)
+        .then(()=>{
+            console.log("successfully add friend request list");
+            dispatch(addFriendRequestList(friend));
+        })
+        .catch(err =>{
+            console.log("err in add friReq List",err);
+        })
+}
+
 export const editFriendsData = (user,friend) => dispatch =>{
     const ref = db.collection("users").doc(user.docId)
         .collection("friends");
@@ -63,20 +150,6 @@ export const editFriendsData = (user,friend) => dispatch =>{
     })
 }
 
-export const addFriendRequest = (friend,user) => dispatch => {
-    const ref = db.collection("users").doc(friend.docId).collection("friendsReq").doc()
-    user.status = "pending";
-    user.friReqDoc = ref.id;
-    return ref
-        .set(user)
-        .then(()=>{
-            console.log("successfully add friend request list");
-            dispatch(addFriendRequestList(friend));
-        })
-        .catch(err =>{
-            console.log("err in add friReq List",err);
-        })
-}
 
 export const removeFriendRequest = (friend,user) => dispatch =>{
     return db.collection("users")

@@ -38,6 +38,12 @@ export const messageReducers = (state = INITIAL_STATE,action) => {
                 ...state,
                 chat_friend:action.payload,
             }
+        case MESSAGE.DELETE_ALL_FRIEND_MESSAGE:
+            return{
+                ...state,
+                sent:[...state.sent.filter(obj => obj.to !== action.payload.uid)],
+                receive:[...state.receive.filter(obj => obj.from !== action.payload.uid)]
+            }
         default:return state;
     }
 }

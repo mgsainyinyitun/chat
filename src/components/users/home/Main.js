@@ -42,7 +42,6 @@ class Main extends React.Component{
                             CREATE NEW GROUP
                         </Button>
                       
-
                     </Card.Body>
                     
                 </Card>

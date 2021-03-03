@@ -24,6 +24,7 @@ export const FRIENDS = {
     SEARCH:{
         LIST:'friend.search.list',
     },
+    UNFRIEND:'unfriend.friend',
     ADD:'add.friend',
     SUCCESS_ADD_FRIEND:'add.friend.success',
     SUCCESS_ADD_FRIEND_REQUEST:'add.friend.request.to.list',
@@ -42,6 +43,7 @@ export const MESSAGE = {
     EDIT:'edit.message',
     DELETE:'delete.message',
     SET_CURRENT_CHAT_FRIENT:'set.current.chat.friend',
+    DELETE_ALL_FRIEND_MESSAGE:'delete.all.friend.message',
 }
 
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Spin } from "antd";
+import { Spin,message } from "antd";
 import { Form, Input, Button } from "antd";
 import { connect } from "react-redux";
 import { SignUp } from "../../../redux/actions";
@@ -20,7 +20,7 @@ class RegisterForm extends React.Component {
       this.setState({
         error: "Password does not match",
       });
-      console.log(this.state.error);
+      message.error(this.state.error);
       return false;
     }
     return true;

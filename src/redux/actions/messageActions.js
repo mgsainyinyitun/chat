@@ -154,3 +154,10 @@ export const setCurrentChatFriend = (friend) =>{
         payload:friend,
     }
 }
+
+export const deleteAllFriendMessageSuccess = friend => {
+    return {
+        type:MESSAGE.DELETE_ALL_FRIEND_MESSAGE,
+        payload:friend,
+    }
+}
