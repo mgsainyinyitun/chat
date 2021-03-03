@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button, Checkbox, Spin } from "antd";
 import { connect } from "react-redux";
-import { loginUser, loginButtonLoading } from "../../../redux/actions";
+import { loginUser } from "../../../redux/actions";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -15,7 +15,6 @@ class LoginForm extends React.Component {
   }
 
   onFinish = (values) => {
-    this.props.loginButtonLoading(true);
     this.setState({
       authUser: {
         email: values.email,
@@ -101,6 +100,6 @@ const mapStateToProps = (state) => {
     loading: state.loading,
   };
 };
-export default connect(mapStateToProps, { loginUser, loginButtonLoading })(
+export default connect(mapStateToProps, { loginUser })(
   LoginForm
 );

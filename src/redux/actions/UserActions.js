@@ -250,13 +250,6 @@ export const changeFetchingState = (state) => {
   };
 };
 
-export const loginButtonLoading = (state) => {
-  console.log("SET BTN:LOading:", state);
-  return {
-    type: USER.LOGIN_BTN_LOADING,
-    payload: state,
-  };
-};
 
 export const editUserProfileSucdess = (data) => {
   return {
