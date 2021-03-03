@@ -129,9 +129,9 @@ class Home extends React.Component {
       );
     } 
       
-    // else if (isLogin && !isEmailVerified) {
-    //   return <Redirect to={ROUTE.VERIFY_EMAIL} />;
-    // }
+    else if (isLogin && !isEmailVerified) {
+      return <Redirect to={ROUTE.VERIFY_EMAIL} />;
+    }
     
     else if (isLogin && !fetching) {
       // not fetching
