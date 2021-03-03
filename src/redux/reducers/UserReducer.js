@@ -11,7 +11,10 @@ const INITIAL_STATE = {
   loading: false,
 };
 
-export const LoginLoading = (state = { loginLoading: false }, action) => {
+export const LoadingState = (
+  state = { loginLoading: false, signupLoading: false },
+  action
+) => {
   switch (action.type) {
     case USER.LOGIN_REQUEST:
       return {
@@ -25,7 +28,19 @@ export const LoginLoading = (state = { loginLoading: false }, action) => {
       return {
         loginLoading: false,
       };
-
+    
+    case USER.REGISTER_REQUEST:
+      return{
+        signupLoading:true,
+      }
+    case USER.REGISTER_REQUEST_FAIL:
+      return{
+        signupLoading:false,
+      }
+    case USER.REGISTER:
+      return{
+        signupLoading:false,
+      }
     default:
       return state;
   }
@@ -58,6 +73,12 @@ export const UserAuthReducer = (state = INITIAL_STATE, action) => {
           data: action.payload,
         },
       };
+
+    case USER.REGISTER_REQUEST_FAIL:
+      return{
+        ...state,
+        errors:action.payload,
+      }
     case USER.LOGIN_ERROR:
       return {
         ...state,

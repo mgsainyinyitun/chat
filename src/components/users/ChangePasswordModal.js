@@ -5,11 +5,17 @@ import {changeUserPassword} from '../../redux/actions';
 
 class ChangePasswordModal extends React.Component {
 
+  constructor(props){
+    super(props);
+    this.formRef = React.createRef();
+  }
 
   onFinish = (values) => {
       console.log(values);
       if(values.password === values.confirmPassword){
-        console.log("Same");
+        if(values.password.length<6){
+          return message.error("Password should longer than 6 character");
+        }
         this.props.changeUserPassword(values.password);
         this.props.onCancel();
       }else{
@@ -24,6 +30,7 @@ class ChangePasswordModal extends React.Component {
         visible={this.props.visible}
         onCancel={this.props.onCancel}
         footer={null}
+        ref = {this.formRef}
       >
         <Form name="change-password" onFinish={this.onFinish} layout='vertical'>
           <Form.Item

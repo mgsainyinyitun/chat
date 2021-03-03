@@ -28,14 +28,12 @@ export const addFriend = (friend,user,mode) => dispatch => {
     return ref
         .set(friend)
         .then(()=>{
-            console.log("successfull add friend");
             dispatch(addFriendSuccess(friend));
             if(mode ==='NOT_ACCEPT'){
                 dispatch(addFriendRequest(friend,user));
             }else{
                 console.log('Accept Friends Mode');
             }
-            
         })
         .catch(err =>{
             console.log("error add friend",err);
@@ -66,7 +64,6 @@ export const editFriendsData = (user,friend) => dispatch =>{
 }
 
 export const addFriendRequest = (friend,user) => dispatch => {
-    console.log("ADD TO FRI REQUEST")
     const ref = db.collection("users").doc(friend.docId).collection("friendsReq").doc()
     user.status = "pending";
     user.friReqDoc = ref.id;
@@ -93,7 +90,6 @@ export const removeFriendRequest = (friend,user) => dispatch =>{
 }
 
 export const getFriendsList =  (docId) => dispatch =>{
-    console.log("Getting friends list")
     db.collection("users")
         .doc(docId)
         .collection("friends")
@@ -101,7 +97,6 @@ export const getFriendsList =  (docId) => dispatch =>{
             let friends = [];
             docs.forEach(doc =>{   
                 friends.push(doc.data()); 
-                //dispatch(addFriendSuccess(doc.data()));
             })
             dispatch(getFriendsListSuccess(friends));
         })
@@ -111,7 +106,6 @@ export const getFriendsList =  (docId) => dispatch =>{
 }
 
 export const getFriendsRequestList = (docId) => dispatch => {
-    console.log('Getting friends Request List');
     return db.collection("users")
         .doc(docId)
         .collection("friendsReq")

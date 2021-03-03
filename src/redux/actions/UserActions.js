@@ -8,6 +8,7 @@ import {
   getUserSaveTheme,
   getUserRelatedGroupsNotRealTime,
 } from "../actions";
+import {message} from 'antd'
 
 export const onAuthStateChanged = () => (dispatch) => {
   fb.auth().onAuthStateChanged(async (user) => {
@@ -128,6 +129,10 @@ export const SignUp = (info) => {
   };
   let createdUser;
   return (dispatch) => {
+    dispatch({
+      type:USER.REGISTER_REQUEST
+    });
+
     auth
       .createUserWithEmailAndPassword(info.email, info.password)
       .then(async (userCredential) => {
@@ -146,9 +151,18 @@ export const SignUp = (info) => {
       })
       .catch((error) => {
         console.log("Register Error::", error);
+        dispatch(onRegisterError(error));
       });
   };
 };
+
+export const onRegisterError = (error) => {
+  return {
+    type: USER.REGISTER_REQUEST_FAIL,
+    payload: error,
+  };
+};
+
 
 export const UpdateUserProfile = (info) => {
   var user = fb.auth().currentUser;
@@ -215,11 +229,11 @@ export const sendEmailVerificationLink = () => {
 
 export const changeUserPassword = (password) => (dispatch) => {
   var user = fb.auth().currentUser;
-  console.log("Current User Is:", user);
   return user
     .updatePassword(password)
     .then(() => {
       console.log("Successfully Update Password");
+      message.success('Password changed successfully');
     })
     .catch((err) => {
       SignOut();

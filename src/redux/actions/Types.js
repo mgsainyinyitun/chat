@@ -1,13 +1,14 @@
 
 export const USER = {
     REGISTER:'register.user',
+    REGISTER_REQUEST:'request.register',
+    REGISTER_REQUEST_FAIL:'request.register.fail',
     EMAIL_VERIFY:'email.verity.of.user',
     LOGIN:'login.user',
     LOGIN_ERROR:'login.error',
     SIGNOUT:'signout.user',
     SETPROFILEDATA:'data.of.user',
     DATA_FETCHING_CHANGE:'change.fetching.user.data',
-    LOGIN_BTN_LOADING:'login.button.loading',
     EDIT_PROFILE:'edit.profile.of.user',
     LOGIN_REQUEST:'login.request.user',
     LOGIN_REQUEST_SUCCESS:'login.request.success',

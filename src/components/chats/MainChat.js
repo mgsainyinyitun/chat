@@ -13,7 +13,6 @@ class MainChat extends React.Component {
     }
 
     render () {
-        console.log("Theme is::::",this.props.theme);
         const style = this.props.theme === 'dark'?'bg-secondary':'bg-light';
         return (
             <div className={`p-2 h-100 ${style}`}>

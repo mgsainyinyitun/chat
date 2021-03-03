@@ -8,12 +8,9 @@ import LoginForm from './LoginForm';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../../routes/constant';
-import {auth} from '../../../firebase';
 
 class LoginPage extends React.Component{
-    componentDidUpdate () {
-      console.log("Login Page::",this.props);
-    }
+
     openNotificationWithIcon = errors => {
       notification['error']({
         message: errors.code,
@@ -22,7 +19,6 @@ class LoginPage extends React.Component{
     };
     
     render(){
-      console.log("Current User is ::",auth.currentUser);
       if(this.props.errors){
         this.openNotificationWithIcon(this.props.errors);
       }

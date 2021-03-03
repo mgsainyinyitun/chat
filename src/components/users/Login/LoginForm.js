@@ -31,12 +31,7 @@ class LoginForm extends React.Component {
   };
 
   render = () => {
-    console.log(this.props);
-    //const loading = this.props.state?true:false;
-    console.log("btn loading:", this.props);
     const loading = this.props.loading.loginLoading;
-    console.log("BTNNNNNN:", loading);
-
     return (
       <Form
         name="basic"
