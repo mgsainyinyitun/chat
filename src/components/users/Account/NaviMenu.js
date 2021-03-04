@@ -54,6 +54,7 @@ class NaviMenu extends React.Component {
             case 'GROUP':
                 let group = this.findGroup(this.props.groups,e.key);
                 this.props.setCurrentGroup(group);
+                break;
             default:break;
         }
     }

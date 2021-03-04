@@ -6,18 +6,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardGroup, Card } from "react-bootstrap";
 import {
   faCog,
+  faOutdent,
+  faTrash,
   faUser,
   faUserFriends,
   faUserSlash,
 } from "@fortawesome/free-solid-svg-icons";
-import { setCurrentChatFriend, setCurrentGroup, unFriend,deleteAllFriendMessage} from "../../../redux/actions";
+import {
+  setCurrentChatFriend,
+  setCurrentGroup,
+  unFriend,
+  deleteGroup,
+  removeMemberFromGroup
+} from "../../../redux/actions";
 import { ROUTE } from "../../../routes/constant";
 
 class InfoList extends React.Component {
-
-    componentDidUpdate(){
-        console.log("list of main",this.props);
-    }
+  componentDidUpdate() {
+    console.log("list of main", this.props);
+  }
 
   onFriendSelect = (friend) => {
     this.props.setCurrentChatFriend(friend);
@@ -62,32 +69,72 @@ class InfoList extends React.Component {
                 </Link>
               }
             />
-            <div>
+            <Dropdown
+              overlay={this.groupMenu(gp)}
+              placement="bottomLeft"
+              arrow
+              trigger={["click"]}
+            >
               <FontAwesomeIcon
                 icon={faCog}
                 style={{ fontSize: "1.5em", color: "white" }}
               />
-            </div>
+            </Dropdown>
           </List.Item>
         )}
       ></List>
     );
   };
 
-  unFriend = friend => {
-      this.props.unFriend(friend,this.props.user);
-     // this.props.deleteAllFriendMessage(friend,this.props.user);
+  unFriend = (friend) => {
+    this.props.unFriend(friend, this.props.user);
+  };
+
+  onDeleteGroup = (group) => {
+    this.props.deleteGroup(group);
   }
+
+  onExitFromGroup = (group,user) => {
+    let member = {
+      email:user.email,
+      uid:user.uid,
+      username:user.username,
+    }
+    this.props.removeMemberFromGroup(group,member);
+  }
+
+  groupMenu = (group) => {
+    return (
+      <Menu>
+        <Menu.Item onClick={()=> this.onExitFromGroup(group,this.props.user)}>
+          <FontAwesomeIcon
+            style={{ marginRight: 10, color: "red" }}
+            icon={faOutdent}
+          />
+          Leave Group
+        </Menu.Item>
+        {group.createdBy.uid === this.props.user.uid ? (
+          <Menu.Item onClick = {()=> this.onDeleteGroup(group)}>
+            <FontAwesomeIcon
+              style={{ marginRight: 10, color: "red" }}
+              icon={faTrash}
+            />
+            Delete Group
+          </Menu.Item>
+        ) : null}
+      </Menu>
+    );
+  };
 
   friendMenu = (friend) => {
     return (
       <Menu>
-        <Menu.Item onClick={()=> this.unFriend(friend)}>
-            <FontAwesomeIcon 
-                style={{marginRight:10,color:'red'}}
-                icon={faUserSlash} 
-            />
-            Unfriend
+        <Menu.Item onClick={() => this.unFriend(friend)}>
+          <FontAwesomeIcon
+            style={{ marginRight: 10, color: "red" }}
+            icon={faUserSlash}
+          />
+          Unfriend
         </Menu.Item>
       </Menu>
     );
@@ -162,7 +209,7 @@ class InfoList extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user : state.authUser.user.data,
+    user: state.authUser.user.data,
     theme: state.theme,
     friends: state.friend.friends_list,
     groups: state.groups,
@@ -172,5 +219,6 @@ export default connect(mapStateToProps, {
   setCurrentChatFriend,
   setCurrentGroup,
   unFriend,
-  deleteAllFriendMessage,
+  deleteGroup,
+  removeMemberFromGroup
 })(InfoList);

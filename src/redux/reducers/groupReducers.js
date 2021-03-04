@@ -50,6 +50,13 @@ export const groupReducers = (state = INITIAL_STATE,action) => {
                 ...state,
                 groupMessages:[...state.groupMessages,action.payload]
             }
+        case GROUP.DELETE:
+            let gpL = [...state.groupList.filter(gp => gp.groupId !== action.payload.groupId)];
+            console.log("New Group List ::",gpL);
+            return{
+                ...state,
+                groupList:[...state.groupList.filter(gp => gp.groupId !== action.payload.groupId)]
+            }
         default:return state;
     }
 }

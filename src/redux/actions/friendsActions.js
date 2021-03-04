@@ -1,6 +1,6 @@
 import {db} from '../../firebase';
 import { deleteAllFriendMessageSuccess } from './messageActions';
-import { FRIENDS, MESSAGE } from './Types';
+import { FRIENDS } from './Types';
 
 
 export const fetchUserByEmail = (email) =>{

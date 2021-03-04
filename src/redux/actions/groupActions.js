@@ -18,6 +18,21 @@ export const createNewGroup = (data) => dispatch => {
     })
 }
 
+export const deleteGroup = (group) => dispatch => {
+    const ref = db.collection("groups").doc(group.groupId);
+    return ref.delete().then(()=> {
+        dispatch({
+            type:GROUP.DELETE,
+            payload:group,
+        });
+        console.log("Successfully Delete Group!");
+    })
+    .catch(err => {
+        console.log("Error in Delete Group:",err);
+    })
+}
+
+
 export const addMemberToGroups = (group,member) => dispatch =>{
     const ref = db.collection("groups").doc(group.groupId);
     return ref.update({
@@ -27,6 +42,22 @@ export const addMemberToGroups = (group,member) => dispatch =>{
         dispatch(updateGroupMember(group));
     }).catch((err) => {
         console.log("ERRRRR:",err);
+    })
+}
+
+
+export const removeMemberFromGroup = (group,member) => dispatch => {
+    const ref = db.collection("groups").doc(group.groupId);
+    return ref.update({
+        members:fv.arrayRemove(member)
+    }).then(()=>{
+        console.log("Success removed ");
+        dispatch({
+            type:GROUP.DELETE,
+            payload:group,
+        })
+    }).catch(err => {
+        console.log("Error in Remove Group:",err);
     })
 }
 
