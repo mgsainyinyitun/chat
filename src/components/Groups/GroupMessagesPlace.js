@@ -53,7 +53,7 @@ class GroupMessagesPlace extends React.Component{
     render(){
         const style = this.props.state.theme === 'dark'?'bg-dark':'bg-light';
         return(
-            <Card className={`mt-2 p-3 ${style}`}>
+            <Card className={`mt-2 p-2 ${style}`}>
                 {this.state.emoji?
                 <span style={{position:"absolute",zIndex:1,top:-250,right:10,borderRadius:10}} className="bg-white p-1">
                     <p>

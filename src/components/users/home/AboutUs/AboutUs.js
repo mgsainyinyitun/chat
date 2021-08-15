@@ -16,7 +16,10 @@ class AboutUs extends React.Component {
                 <Card className={`p-3 m-2 ${style}`} style={{height:"98%"}}>
                     <Tabs defaultActiveKey="1" className={`${style}`}>
                         <TabPane tab={<h6 className="text-primary">ABOUT</h6>} key="1">
-                                Hi My name is Mg Sai Nyi Nyi Tun.
+                        Hello, my name is Mg Sai Nyi Nyi Tun. I created this web application. It will be an 
+                        open source of me. I warmly welcome any one to participate in this project. 
+
+                           
                         </TabPane>
                         <TabPane tab={<h6 className="text-primary">CONTACT</h6>} key="2">
                                 <p>Phone : +959 440096573</p>

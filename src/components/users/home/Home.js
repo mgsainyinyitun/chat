@@ -32,7 +32,7 @@ class Home extends React.Component {
   }
 
   componentDidUpdate(){
-    console.log("This PropHome:",this.props);
+   // console.log("This PropHome:",this.props);
   }
 
   onToggleFullScreen = () => {
@@ -156,7 +156,7 @@ class Home extends React.Component {
           <hr style={{ margin: 0 }} />
 
           {/* Left Navigation and Main Page(Right) */}
-          <div className="d-flex" style={{ minHeight: "90%" }}>
+          <div className="d-flex" style={{ minHeight: "80%" }}>
             <LeftNavigation
               onAddFriend={() => this.setState({ addFriendModalVisible: true })}
               onCreateNewGroup={() =>
@@ -164,6 +164,7 @@ class Home extends React.Component {
               }
               friends={this.props.friend.friends_list}
             />
+
             <div className={`${mainMode}`}>
               {this.renderBody(this.props.page)}
             </div>

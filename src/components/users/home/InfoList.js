@@ -21,7 +21,14 @@ import {
 } from "../../../redux/actions";
 import { ROUTE } from "../../../routes/constant";
 
+
 class InfoList extends React.Component {
+
+  constructor(props){
+    super(props);
+    //console.log(props);
+  }
+
   componentDidUpdate() {
     console.log("list of main", this.props);
   }
@@ -185,11 +192,11 @@ class InfoList extends React.Component {
     return (
       <CardGroup
         className={`mt-2`}
-        style={{ maxHeight: "80%", minHeight: "80%" }}
+        style={{ maxHeight: "75%", minHeight: "75%" }}
       >
         <Card className={`${card} p-3`}>
           <Card.Title>
-            <h5 className={`${card}`}>FRIENDS LIST</h5>
+            <h5 className={`${card}`}>{this.props.label.friend_list}</h5>
           </Card.Title>
           <Card.Body>
             {this.renderFriendsList(this.props.friends, card)}
@@ -198,7 +205,7 @@ class InfoList extends React.Component {
         <div style={{ width: 8 }}></div>
         <Card className={`${card} p-3`}>
           <Card.Title>
-            <h5 className={`${card}`}>GROUPS LIST</h5>
+            <h5 className={`${card}`}>{this.props.label.group_list}</h5>
           </Card.Title>
           <Card.Body>{this.renderGroupsList(Lgroups, card)}</Card.Body>
         </Card>

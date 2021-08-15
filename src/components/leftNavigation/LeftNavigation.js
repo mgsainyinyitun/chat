@@ -15,6 +15,49 @@ import {
 import './LeftNavigation.css'
 const { SubMenu } = Menu;
 
+
+const LABEL_ENGLISH = {
+  'home':'HOME',
+  'profile':'PROFILE',
+  'friends':'FRIENDS',
+  'groups':'GROUPS',
+  'about_us':'ABOUT US',
+  'setting':'SETTING',
+
+  'add_friend':'ADD FRIEND',
+  'create_group:':'CREATE GROUP',
+
+  'dark_theme':'DARK THEME',
+  'language':'LANGUAGE',
+
+  'myanmar':'MYANMAR',
+  'english':'ENGLISH',
+
+  'on':'ON',
+  'off':'OFF',
+}
+
+const LABEL_MYANMAR = {
+  'home':'မူလ နေရာ',
+  'profile':'ပရိုဖိုင်',
+  'friends':'သူငယ်ချင်းများ',
+  'groups':'အဖွဲ့များ',
+  'about_us':'ကျွန်တော်တို့ အကြောင်း',
+  'setting':'ဆက်တင်များ',
+
+  'add_friend':'သူငယ်ချင်း ဖွဲ့မယ်',
+  'create_group':'အဖွဲ့ ဖွဲ့မယ်',
+
+  'dark_theme':'အနက် ပုံစံ ',
+  'language':'ဘာသာစကား',
+
+  'myanmar':'မြန်မာ',
+  'english':'အင်္ဂလိပ်',
+
+  'on':'ဖွင့်',
+  'off':'ပိတ်',
+}
+
 class LeftNavigation extends React.Component{
 
  constructor (props){
@@ -22,8 +65,11 @@ class LeftNavigation extends React.Component{
    this.state = {
      theme:this.props.theme,
      fullScreenMode:false,
-     language:'english',
+     language:this.props.language || 'english',
    }
+ }
+ componentDidMount = () => {
+  console.log('Language is:',this.state.language);
  }
 
   fullScreenToggler = () =>{  
@@ -123,6 +169,12 @@ class LeftNavigation extends React.Component{
 
 
  render(){
+   var label = null;
+   if(this.state.language == 'english'){
+      label = LABEL_ENGLISH;
+   }else{
+      label = LABEL_MYANMAR;
+   }
      return(
          <>
         <Menu
@@ -135,70 +187,70 @@ class LeftNavigation extends React.Component{
           mode="inline"
         >
           <Menu.Item key="home" icon={<FontAwesomeIcon icon = {faHome} style={{marginRight:'10px'}}/>} title="HOME">
-            <Link to="/">HOME</Link>
+            <Link to="/">{label.home}</Link>
           </Menu.Item>
 
           <Menu.Item key="sub1" icon={<FontAwesomeIcon icon = {faUser} style={{marginRight:'10px'}}/>} title="PROFILE">
-          <Link to="/profile">PROFILE</Link>
+          <Link to="/profile">{label.profile}</Link>
           </Menu.Item>
 
-          <SubMenu key="FRIEND" icon={<FontAwesomeIcon icon = {faUserFriends} style={{marginRight:'10px'}}/>} title="FRIENDS">
+          <SubMenu key="FRIEND" icon={<FontAwesomeIcon icon = {faUserFriends} style={{marginRight:'10px'}}/>} title={label.friends}>
             <Menu.Item key="add-friend">
               <Button 
                 onClick={this.props.onAddFriend}
-              ><FontAwesomeIcon icon={faPlus} style={{marginRight:10}}/> ADD FRIENDS</Button>
+              ><FontAwesomeIcon icon={faPlus} style={{marginRight:10}}/> {label.add_friend}</Button>
             </Menu.Item>
             {this.renderFriends(this.props.friends)}
 
           </SubMenu>
-          <SubMenu key="GROUP" icon={<FontAwesomeIcon icon = {faUsers} style={{marginRight:'10px'}}/>} title="GROUPS">
+          <SubMenu key="GROUP" icon={<FontAwesomeIcon icon = {faUsers} style={{marginRight:'10px'}}/>} title={label.groups}>
             <Menu.Item key="add-friend">
               <Button 
                 onClick={this.props.onCreateNewGroup}
-              ><FontAwesomeIcon icon={faPlus} style={{marginRight:10}}/>Create Group</Button>
+              ><FontAwesomeIcon icon={faPlus} style={{marginRight:10}}/>{label.create_group}</Button>
             </Menu.Item>
             {this.renderGroups(this.props.groups)}
             
           </SubMenu>
 
-          <SubMenu key="sub4" icon={<FontAwesomeIcon icon = {faCog} style={{marginRight:'10px'}}/>} title="SETTING">
+          <SubMenu key="sub4" icon={<FontAwesomeIcon icon = {faCog} style={{marginRight:'10px'}}/>} title={label.setting}>
             <Menu.Item key="settings">
               <span style={{marginRight:10}}>
                 <FontAwesomeIcon icon={faAdjust} style = {{marginRight:10}}/>
-                DARK THEME
+                {label.dark_theme}
               </span>
               <Switch
                     checked={this.props.theme === 'dark'}
                     onChange={this.onThemeChangeTheme}
-                    checkedChildren="On"
-                    unCheckedChildren="Off"
+                    checkedChildren={label.on}
+                    unCheckedChildren={label.off}
                 />
             </Menu.Item>
 
-          <SubMenu key='language' icon={<FontAwesomeIcon icon={faLanguage} style={{marginRight:10}} />} title = 'LANGUAGES'>
+          <SubMenu key='language' icon={<FontAwesomeIcon icon={faLanguage} style={{marginRight:10}} />} title = {label.language}>
               <Menu.Item key="myan" icon={<FontAwesomeIcon icon = {faFlag} style={{marginRight:'10px'}}/>} title="myanmar">
                 <span onClick={()=> this.onLanguageChange('myanmar')}>
-                  MYANMAR
+                  {label.myanmar}
                 </span>
               </Menu.Item>
               <Menu.Item key="eng" icon={<FontAwesomeIcon icon = {faFlag} style={{marginRight:'10px'}}/>} title="english">
                 <span onClick={()=> this.onLanguageChange('english')}>
-                  ENGLISH
+                  {label.english}
                 </span>
               </Menu.Item>
           </SubMenu>
 
-          <Menu.Item key="full-screen" icon={<FontAwesomeIcon icon = {faDesktop} style={{marginRight:'10px'}}/>} title="FULLSCREEN">
+         {/* <Menu.Item key="full-screen" icon={<FontAwesomeIcon icon = {faDesktop} style={{marginRight:'10px'}}/>} title="FULLSCREEN">
             <span onClick={this.props.onFullScrren}>
             FULLSCREEN
             </span>
             
-          </Menu.Item>
+     </Menu.Item> */}
 
           </SubMenu>
 
           <Menu.Item key="aboutus" icon={<FontAwesomeIcon icon = {faAddressBook} style={{marginRight:'10px'}}/>} title="ABOUT US">
-            <Link to={ROUTE.ABOUT_US}>ABOUT US</Link>
+            <Link to={ROUTE.ABOUT_US}>{label.about_us}</Link>
           </Menu.Item>
         </Menu>
          </>
@@ -210,6 +262,7 @@ const mapStateToProps = (state) => {
       state,
       authUser:state.authUser.user.data,
       theme:state.theme,
+      language:state.language,
       groups:state.groups.groupList,
   };
 }
