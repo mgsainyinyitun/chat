@@ -7,6 +7,7 @@ import {
   getRealTimeMessages,
   getUserSaveTheme,
   getUserRelatedGroupsNotRealTime,
+  getSavedLanguage,
 } from "../actions";
 import {message} from 'antd'
 
@@ -35,6 +36,7 @@ export const getUserMetaData = (user) => (dispatch) => {
     username: user.username,
     email: user.email,
   };
+  dispatch(getSavedLanguage(user));
   dispatch(getUserSaveTheme(user));
   dispatch(getFriendsRequestList(user.docId));
   dispatch(getFriendsList(user.docId));

@@ -20,6 +20,13 @@ export const THEME = {
     DARK:'dark.theme',
 }
 
+export const LANGUAGES = {
+    CHANGE:'language.change',
+    GET:'language.get',
+    ENG:'language.english',
+    MYAN:'language.myanmar',
+}
+
 export const FRIENDS = {
     SEARCH:{
         LIST:'friend.search.list',

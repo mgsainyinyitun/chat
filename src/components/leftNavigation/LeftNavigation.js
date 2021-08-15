@@ -9,6 +9,7 @@ import {
     changeTheme,
     setCurrentChatFriend,
     setCurrentGroup,
+    changeLanguage,
   } from '../../redux/actions';
 
 import './LeftNavigation.css'
@@ -21,6 +22,7 @@ class LeftNavigation extends React.Component{
    this.state = {
      theme:this.props.theme,
      fullScreenMode:false,
+     language:'english',
    }
  }
 
@@ -54,6 +56,16 @@ class LeftNavigation extends React.Component{
       })
     }
   }
+
+  onLanguageChange = language =>{
+    this.props.changeLanguage(this.props.authUser,language);
+    this.setState({
+      language:language,
+    })
+    console.log('Language Change to:',language);
+  }
+
+
   handleClick = e => {
     console.log("Key Path::",e.keyPath[1]);
     switch (e.keyPath[1]) {
@@ -67,8 +79,7 @@ class LeftNavigation extends React.Component{
         break;
       default:
         break;
-    }
-    
+    } 
   };
 
   renderFriends = (friends) =>{
@@ -108,6 +119,7 @@ class LeftNavigation extends React.Component{
       )
     })
   }
+
 
 
  render(){
@@ -165,10 +177,14 @@ class LeftNavigation extends React.Component{
 
           <SubMenu key='language' icon={<FontAwesomeIcon icon={faLanguage} style={{marginRight:10}} />} title = 'LANGUAGES'>
               <Menu.Item key="myan" icon={<FontAwesomeIcon icon = {faFlag} style={{marginRight:'10px'}}/>} title="myanmar">
-                <span>MYANMAR</span>
+                <span onClick={()=> this.onLanguageChange('myanmar')}>
+                  MYANMAR
+                </span>
               </Menu.Item>
               <Menu.Item key="eng" icon={<FontAwesomeIcon icon = {faFlag} style={{marginRight:'10px'}}/>} title="english">
-                <span>ENGLISH</span>
+                <span onClick={()=> this.onLanguageChange('english')}>
+                  ENGLISH
+                </span>
               </Menu.Item>
           </SubMenu>
 
@@ -201,4 +217,5 @@ export default connect(mapStateToProps,{
   setCurrentChatFriend,
   changeTheme,
   setCurrentGroup,
+  changeLanguage,
 })(LeftNavigation);
